@@ -1,0 +1,21 @@
+package it.powerservice.managermag;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api")
+public class DatiAziendaController {
+    @Autowired
+    DatiAziendaService datiAziendaService;
+
+    @GetMapping("/getDatiAzienda")
+    public void getDatiAzienda() {
+        var res = datiAziendaService.getDatiAzienda();
+        for (DatiAzienda da: res) {
+            System.out.println(da);
+        }
+    }
+}

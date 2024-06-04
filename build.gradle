@@ -1,0 +1,90 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '3.3.0'
+    id 'io.spring.dependency-management' version '1.1.5'
+}
+
+group = 'it.powerservice.managermag'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://repo1.maven.org/maven2/"
+    }
+    maven {
+        url "https://mavensync.zkoss.org/maven2/"
+    }
+    maven {
+        url "https://maven.d4science.org/nexus/content/repositories/dnet-deps/"
+    }
+
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/controller", "src/main/repository",  "src/main/java", "src/main/services", "src/main/domain", "src/main/viewmodels", "src/main/webapp"]
+        }
+    }
+}
+
+configurations {
+    all*.exclude group: "org.slf4j", module: "log4j-over-slf4j"
+    all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'com.mysql', name: 'mysql-connector-j', version: '8.4.0'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.3.0';
+
+    String zkVersion = "8.6.0.1"
+
+    implementation "org.zkoss.common:zcommon:${zkVersion}"
+    implementation "org.zkoss.common:zel:${zkVersion}"
+    implementation "org.zkoss.common:zweb:${zkVersion}"
+    implementation "org.zkoss.theme:breeze:${zkVersion}"
+    implementation "org.zkoss.theme:zktheme:${zkVersion}"
+    implementation "org.zkoss.zk:zhtml:${zkVersion}"
+    implementation "org.zkoss.zk:zk:${zkVersion}"
+    implementation "org.zkoss.zk:zkbind:${zkVersion}"
+    implementation "org.zkoss.zk:zkplus:${zkVersion}"
+    implementation "org.zkoss.zk:zkwebfragment:${zkVersion}"
+    implementation "org.zkoss.zk:zul:${zkVersion}"
+    implementation 'org.zkoss:zml:3.6.4'
+    implementation 'org.zkoss.zk:zkmax:3.6.3'
+    //implementation 'org.zkoss.zk:zuti:8.0.2.2'
+    implementation 'org.zkoss:zsoup:1.8.2.5'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
