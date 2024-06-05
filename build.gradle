@@ -84,7 +84,9 @@ dependencies {
 
 
 
-    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
+    providedRuntime "org.apache.tomcat:tomcat-jdbc"
+    providedRuntime "org.apache.tomcat:tomcat-juli"
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
