@@ -28,7 +28,4 @@ public class DizionariIva {
     BigDecimal percDetraibilita;
     @Column(name = "eliminato", precision = 1, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean eliminato;
-
-
-
 }
