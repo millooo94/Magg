@@ -25,7 +25,7 @@ repositories {
 sourceSets {
     main {
         java {
-            srcDirs = ["src/main/controller", "src/main/repository",  "src/main/java", "src/main/services", "src/main/domain", "src/main/viewmodels", "src/main/webapp"]
+            srcDirs = ["src/main/controller", "src/main/repository",  "src/main/java", "src/main/services", "src/main/domain", "src/main/viewmodels"]
         }
     }
 }

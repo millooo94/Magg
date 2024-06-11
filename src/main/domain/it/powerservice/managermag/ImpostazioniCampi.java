@@ -31,7 +31,7 @@ public class ImpostazioniCampi {
     @Column(name = "Notes", columnDefinition = "MEDIUMTEXT")
     String Notes;
     @Column(name = "invisibile", precision = 1, columnDefinition = "TINYINT(1) DEFAULT '0'")
-    Short invisibile;
+    Boolean invisibile;
     @Column(name = "selectcustom", columnDefinition = "MEDIUMTEXT")
     String selectCustom;
 

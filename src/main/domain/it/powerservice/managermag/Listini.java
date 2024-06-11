@@ -7,25 +7,14 @@ import jakarta.persistence.*;
 public class Listini {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", precision = 11, nullable = false, columnDefinition = "BIGINT NOT NULL AUTO_INCREMENT")
+    @Column(name = "id", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL AUTO_INCREMENT")
     Long id;
     @Column(name = "nome", length = 50, nullable = false, columnDefinition = "VARCHAR(50) NOT NULL")
     String nome;
-    @Column(name = "predefinito", nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSE")
+    @Column(name = "predefinito", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean predefinito;
-    @Column(name = "modificabile", nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT TRUE")
+    @Column(name = "modificabile", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '1'")
     Boolean modificabile;
-    @Column(name = "eliminato", nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSE")
+    @Column(name = "eliminato", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean eliminato;
-
-    @Override
-    public String toString() {
-        return "Listini{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", predefinito=" + predefinito +
-                ", modificabile=" + modificabile +
-                ", eliminato=" + eliminato +
-                '}';
-    }
 }

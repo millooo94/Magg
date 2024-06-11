@@ -14,15 +14,12 @@ public class Anagrafiche {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", precision = 11, nullable = false, columnDefinition = "BIGINT NOT NULL AUTO_INCREMENT")
     Long Id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idtrasportatore", referencedColumnName = "id")
-    Anagrafiche idTrasportatore;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idlistino", referencedColumnName = "id")
-    Listini idListino;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idtipologiapagamento", referencedColumnName = "id")
-    Listini idTipologiaPagamento;
+    @Column(name = "idtrasportatore", precision = 11, columnDefinition = "INT(11) NULL DEFAULT NULL")
+    Long idTrasportatore;
+    @Column(name = "idlistino", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL DEFAULT '0'")
+    Long idListino;
+    @Column(name = "idtipologiapagamento", precision = 11, columnDefinition = "INT(11) NULL DEFAULT NULL")
+    Long idTipologiaPagamento;
     @Column(name = "codice", length = 20, nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
     String codice;
     @Column(name = "tipo", length = 20, nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
@@ -68,9 +65,9 @@ public class Anagrafiche {
     @Column(name = "fasciaappartenenza", length = 10, columnDefinition = "VARCHAR(10) NULL DEFAULT NULL")
     String fasciaAppartenenza;
     @Column(name = "certificazionealimentare", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short certificazioneAlimentare;
+    Boolean certificazioneAlimentare;
     @Column(name = "assicurazione", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short assicurazione;
+    Boolean assicurazione;
     @Column(name = "dataassicurazione", columnDefinition = "DATE NULL DEFAULT NULL")
     LocalDate dataAssicurazione;
     @Column(name = "ggchiusura", length = 50, columnDefinition = "VARCHAR(50) NULL DEFUALT NULL")
@@ -87,16 +84,16 @@ public class Anagrafiche {
     @Column(name = "enasarco", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     String enasarco;
     @Column(name = "newsletter", precision = 1, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short newsLetter;
+    Boolean newsLetter;
     @Column(name = "testoinviomail", columnDefinition = "MEDIUMTEXT NULL DEFAULT NULL")
     String testoInvioMail;
     @Column(name = "revcharge", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short revCharge;
+    Boolean revCharge;
     @Column(name = "splitpayment", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAUlT '0'")
-    Short splitPayment;
+    Boolean splitPayment;
     @Column(name = "ceeextracee", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAUlT '0'")
     @Comment("0=cee 1=extraCee")
-    Short ceeExtraCee;
+    Boolean ceeExtraCee;
     @Column(name = "colore", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     String colore;
     @Column(name = "tipodocumentoidentita", length = 10, columnDefinition = "VARCHAR(10) NULL DEFAULT NULL")
@@ -118,5 +115,5 @@ public class Anagrafiche {
     @Column(name = "dataupd", columnDefinition = "DATETIME NULL DEFAULT NULL")
     LocalDateTime dataUpd;
     @Column(name = "eliminato", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short eliminato;
+    Boolean eliminato;
 }

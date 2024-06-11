@@ -12,22 +12,21 @@ public class TipologiePagamenti {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL AUTO_INCREMENT")
     Long id;
-    @ManyToOne
-    @JoinColumn(name = "idbanca", columnDefinition = "BIGINT NULL DEFAULT NULL")
-    Banche banca;
+    @Column(name = "idbanca", columnDefinition = "INT(11) NULL DEFAULT NULL")
+    Long idBanca;
     @Column(name = "codice", length = 50, nullable = false, columnDefinition = "VARCHAR(50) NOT NULL")
     String codice;
     @Column(name = "descrizione", length = 150, nullable = false, columnDefinition = "VARCHAR(150) NOT NULL")
     String descrizione;
     @Column(name = "tipo", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL")
     @Comment("0=Azienda - 1=Cli/For - 2=Nessuno dei due")
-    Short tipo;
+    Boolean tipo;
     @Column(name = "riba", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short riba;
+    Boolean riba;
     @Column(name = "regolaauto", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short regolaAuto;
+    Boolean regolaAuto;
     @Column(name = "avvisi", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short avvisi;
+    Boolean avvisi;
     @Column(name = "modpagfattpa", length = 255, columnDefinition = "VARCHAR(255) NULL DEFAULT NULL")
     String modPagFattPA;
     @Column(name = "condpagfattpa", length = 255, columnDefinition = "VARCHAR(255) NULL DEFAULT NULL")
@@ -37,7 +36,7 @@ public class TipologiePagamenti {
     @Column(name = "speseincasso", precision = 12, scale = 2, columnDefinition = "DECIMAL(13, 2) NULL DEFAULT NULL")
     BigDecimal speseIncasso;
     @Column(name = "nonmodificabile", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short nonModificabile;
+    Boolean nonModificabile;
     @Column(name = "eliminato", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short eliminato;
+    Boolean eliminato;
 }

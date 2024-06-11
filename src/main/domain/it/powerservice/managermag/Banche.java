@@ -12,6 +12,8 @@ public class Banche {
     @Id
     @Column(name = "id", precision = 11, nullable = false, columnDefinition = "BIGINT NOT NULL AUTO_INCREMENT")
     Long id;
+    @Column(name = "idAnagrafica", precision = 11, columnDefinition = "INT(11) NULL DEFAULT NULL")
+    Long idAnagrafica;
     @Column(name = "agenzia", length = 100, nullable = false, columnDefinition = "VARCHAR(100) NOT NULL" )
     @Comment("Se nullo è banca aziendale")
     String agenzia;
@@ -35,8 +37,8 @@ public class Banche {
     String codSIA;
     @Column(name = "predefinito", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     @Comment("per ogni anag si crea se è la 1° per quella anag, quella predefinita")
-    Short predefinito;
+    Boolean predefinito;
     @Column(name = "eliminato", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Short eliminato;
+    Boolean eliminato;
 
 }

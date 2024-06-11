@@ -19,6 +19,6 @@ public class DizionariCategorie {
     @Comment("C=Codice D=Descrizione")
     ColonnaRestituita colonnaRestituita;
     @Column(name = "mostracodice", nullable = false, columnDefinition = "TINYINT NOT NULL DEFAULT '1'")
-    Short mostraCodice;
+    Boolean mostraCodice;
 
 }
