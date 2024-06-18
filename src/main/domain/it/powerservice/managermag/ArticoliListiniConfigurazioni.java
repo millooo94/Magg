@@ -2,7 +2,6 @@ package it.powerservice.managermag;
 
 import it.powerservice.managermag.keys.ArticoliListiniConfigurazioniPKId;
 import jakarta.persistence.*;
-import org.zkoss.zhtml.Big;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -53,4 +52,5 @@ public class ArticoliListiniConfigurazioni {
     BigDecimal ricaricoMinimo;
     @Column(name = "nondisponibile", precision = 1, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean nonDisponibile;
+
 }

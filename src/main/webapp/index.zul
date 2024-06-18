@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
-    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
-    <window
-            viewModel="@id('vm') @init('com.powerservice.managermag.TestViewModel')"
-            apply="org.zkoss.bind.BindComposer"
-            width="900px" title="test" height="100%" sizable="false">
-        <textbox value="Ciao"/>
-    </window>
+<?import com.powerservice.managermag.MyViewModel?>
+<zk>
+    <div viewModel="@id('vm') @init('MyViewModel')" validationMessages="@id('vmsgs')">
+        Your Name: <textbox id="name" value="@bind(vm.name)"
+                            onOK="@command(MyViewModel.SUBMIT_COMMAND)"/>
+        <button id="submit" label="submit"
+                onClick='@command(MyViewModel.SUBMIT_COMMAND)'/>
+        <separator/>
+        <label id="response" value="@load(vm.response)"/>
+    </div>
 </zk>

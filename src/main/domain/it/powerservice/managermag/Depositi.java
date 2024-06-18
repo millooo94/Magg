@@ -15,10 +15,12 @@ public class Depositi {
     String codice;
     @Column(name = "nome", length = 100, nullable = false, columnDefinition = "VARCHAR(100) NOT NULL")
     String nome;
-    @Column(name = "nonmodificabile", nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSE")
+    @Column(name = "nonmodificabile", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean nonModificabile;
     @Column(name = "datanoninuso", nullable = false, columnDefinition = "DATE NULL DEFAULT NULL")
     LocalDate dataNonInUso;
-    @Column(name = "esterno", nullable = false, columnDefinition = "BOOLEAN NOT NULL DEFAULT FALSE")
+    @Column(name = "esterno", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
+    Boolean esterno;
+    @Column(name = "merceindisponibile", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean merceIndisponibile;
 }
