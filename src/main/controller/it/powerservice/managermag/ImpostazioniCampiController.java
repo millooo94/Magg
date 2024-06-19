@@ -18,6 +18,7 @@ public class ImpostazioniCampiController {
         var res = this.impostazioniCampiService.getImpostazioniCampi();
         for (ImpostazioniCampi ic: res) {
             System.out.println(ic);
+            System.out.println("Vaffanculooooooooooooooo");
         }
     }
 }

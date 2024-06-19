@@ -39,12 +39,9 @@ ext {
 
 dependencies {
 
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.3.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.0'
-    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation 'com.mysql:mysql-connector-j:8.4.0'
-
-
 
     implementation ("org.zkoss.zkspringboot:zkspringboot-starter:${zkspringbootVersion}")
     testImplementation "org.zkoss.zats:zats-mimic-ext96:${zatsVersion}"
