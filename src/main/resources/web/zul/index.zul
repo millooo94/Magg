@@ -1,0 +1,41 @@
+<zk xmlns="http://www.zkoss.org/2005/zul"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:h="http://www.w3.org/1999/xhtml"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window closable="false"
+            apply="org.zkoss.bind.BindComposer"
+            width="100%" height="100%"
+            viewModel="@id('vm') @init('com.powerservice.managermag.IndexViewModel')">
+
+        <borderlayout>
+            <north height="100px">
+                <hlayout sclass="intestazione" hflex="3">
+                    <hlayout sclass="logoApplicazione" >
+                        <vlayout>
+                            <label sclass="titoloApplicazione" value="ManagerMag"/>
+                            <label sclass="descrizioneApplicazione" value="Gestione Magazzino"/>
+                        </vlayout>
+                    </hlayout>
+                    <vlayout hflex="3" sclass="intestazioneDx">
+                        <hlayout hflex="3" sclass="intestazioneDx">
+                            <button
+                                    image="images/managermag/32x32/impostazioni.png"
+                                    label="Impostazioni"
+                                    onClick="@command('apriParametriPopup')"
+                            />
+                        </hlayout>
+                    </vlayout>
+                </hlayout>
+            </north>
+
+            <center id="container" >
+                <include src="@load(vm.zulSezione)" />
+            </center>
+
+            <south style="text-align: center">
+                <label value="@load(vm.versioneApplicazione)" />
+            </south>
+        </borderlayout>
+    </window>
+</zk>
