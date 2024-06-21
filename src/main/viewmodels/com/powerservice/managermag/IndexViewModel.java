@@ -1,46 +1,77 @@
 package com.powerservice.managermag;
 
-import org.apache.commons.io.LineIterator;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.ContextParam;
-import org.zkoss.bind.annotation.ContextType;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.zk.ui.Executions;
+import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
-import org.zkoss.zul.Window;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @VariableResolver(DelegatingVariableResolver.class)
 public class IndexViewModel {
-    public String zulSezione = "";
-    public String versioneApplicazione ="V1.0.0";
+    NavigationPage currentPage;
+    private Map<String, Map<String, NavigationPage>> pageMap;
 
     @Init
-    void init(@ContextParam(ContextType.COMPONENT) Window w) {
-
-    }
-
-    public String getZulSezione() {
-        return zulSezione;
-    }
-
-    public void setZulSezione(String zulSezione) {
-        this.zulSezione = zulSezione;
-    }
-
-    public String getVersioneApplicazione() {
-        return versioneApplicazione;
-    }
-
-    public void setVersioneApplicazione(String versioneApplicazione) {
-        this.versioneApplicazione = versioneApplicazione;
+    public void init() {
+        initPageMap();
+        currentPage = pageMap.get("ZK's Pizza").get("About Us");
     }
 
     @Command
-    public static Window apriParametriPopup() {
-        Window w = (Window) Executions.createComponents("/sezioni/parametri.zul", null, null);
-        //Window w = (Window) Executions.createComponents("sezioni/parametri.zul", null, null);
-        w.doModal();
-        return w;
+    public void navigatePage(@BindingParam("target") NavigationPage targetPage) {
+        BindUtils.postNotifyChange(null, null, currentPage, "selected");
+        currentPage = targetPage;
+        BindUtils.postNotifyChange(null, null, this, "currentPage");
+    }
+
+    public NavigationPage getCurrentPage() {
+        return currentPage;
+    }
+
+    public Map<String, Map<String, NavigationPage>> getPageMap() {
+        return pageMap;
+    }
+
+    private void initPageMap() {
+        pageMap = new LinkedHashMap<String, Map<String, NavigationPage>>();
+
+        addPage("ZK's Pizza", "About Us", "/home/about_us.zul");
+        addPage("ZK's Pizza", "Menu", "/home/menu.zul");
+        addPage("ZK's Pizza", "FAQ", "/home/faq.zul");
+        addPage("ZK's Pizza", "Press", "/home/press.zul");
+
+        addPage("Customers", "Active Members", "/customers/customers.zul", "active");
+        addPage("Customers", "Inactive Members", "/customers/customers.zul", "inactive");
+
+        addPage("Orders", "In Preparation", "/orders/orders.zul", "in-preparation");
+        addPage("Orders", "Ready for Shipping", "/orders/orders.zul", "ready");
+        addPage("Orders", "Shipping", "/orders/orders.zul", "shipping");
+        addPage("Orders", "Specified for Later", "/orders/orders.zul", "later");
+
+        addPage("Fan Service", "Events", "/fan_service/events.zul");
+        addPage("Fan Service", "Promotion", "/fan_service/promotion.zul");
+    }
+
+    private void addPage(String title, String subTitle, String includeUri) {
+        addPage(title, subTitle, includeUri, null);
+    }
+
+    private void addPage(String title, String subTitle, String includeUri, String data) {
+        String folder = "/widgets/menu/navbar/pages";
+        Map<String, NavigationPage> subPageMap = pageMap.get(title);
+        if(subPageMap == null) {
+            subPageMap = new LinkedHashMap<String, NavigationPage>();
+            pageMap.put(title, subPageMap);
+        }
+        NavigationPage navigationPage = new NavigationPage(title, subTitle,
+                folder + includeUri + "?random=" + Math.random(), data) {
+            @Override
+            public boolean isSelected() {
+                return currentPage == this;
+            }
+        };
+        subPageMap.put(subTitle, navigationPage);
     }
 }

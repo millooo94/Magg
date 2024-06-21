@@ -1,41 +1,705 @@
-<zk xmlns="http://www.zkoss.org/2005/zul"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:h="http://www.w3.org/1999/xhtml"
+<?link rel="stylesheet" type="text/css" href="C:/Users/CamilloZK/Desktop/Magg/src/main/resources/web/zul/css/power.css" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <html><![CDATA[
+            <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    ]]></html>
+
+    <script defer="true">
+        const mainContainer = document.querySelector('.main-container');
+        const rightSidebarButton = document.querySelector('.settings-button');
+        const overlay = document.querySelector(".overlay");
+        const rightSidebar = document.querySelector(".right-sidebar");
+        const rightSidebarNavSection = document.querySelector(".right-sidebar .nav-section");
+        const rightSidebarCloseButton = document.querySelector(".right-sidebar .right-sidebar-header > .close");
+        const rightSidebarHeader = document.querySelector(".right-sidebar .right-sidebar-header");
+        const rightSidebarHeaderTitle = document.querySelector(".right-sidebar .right-sidebar-header-left-block-title");
+        const rightSidebarcloseButton = document.querySelector(".close");
+
+        const menuButton = document.querySelector(".menu-button");
+        const leftSidebarNavSection = document.querySelector(".left-sidebar .nav-section");
+        const logo = document.querySelector(".left-sidebar .logo");
+
+
+        const rightSidebarElements = [
+        mainContainer,
+        rightSidebarNavSection,
+        rightSidebarCloseButton,
+        rightSidebarHeader,
+        rightSidebarHeaderTitle,
+        rightSidebar,
+        overlay,
+        rightSidebarButton
+        ];
+        const leftSidebarElements = [
+        mainContainer,
+        leftSidebarNavSection,
+        logo
+        ];
+
+        const toggleRightSidebarClasses = (action) => {
+        rightSidebarElements.forEach(element => element.classList[action]('right-sidebar-collapsed'));
+        }
+
+        const toggleLeftSidebarClasses = (action) => {
+        leftSidebarElements.forEach(element => element.classList[action]('left-sidebar-collapsed'));
+        }
+
+        rightSidebarButton.addEventListener('click', function() {
+        toggleRightSidebarClasses('add');
+        });
+
+        rightSidebarcloseButton.addEventListener('click', function() {
+        toggleRightSidebarClasses('remove');
+        });
+
+        overlay.addEventListener('click', function() {
+        toggleRightSidebarClasses('remove');
+        });
+
+
+
+
+        menuButton.addEventListener('click', function() {
+        toggleLeftSidebarClasses('toggle')
+        })
+    </script>
+
+    <style>
+
+        .z-window-content {
+        padding: 0;
+        }
+
+        .z-window {
+        padding: 0;
+        border: 0;
+        }
+
+        body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        height: 100vh;
+
+        overflow: hidden;
+
+        font-size: 13px;
+
+
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400; /* Peso del carattere normale */
+        font-style: normal;
+        font-variation-settings:
+        "slnt" 0; /* Nessuna inclinazione */
+
+        }
+
+
+        .main-container {
+        display: grid;
+        grid-template-areas:
+        "left-sidebar header right-sidebar"
+        "left-sidebar content right-sidebar"
+        "left-sidebar footer right-sidebar";
+
+        height: 100%;
+        grid-template-columns: 280px auto 65px;
+        grid-template-rows: 65px 1fr 65px;
+
+        transition: grid-template-columns 0.3s ease; /* Transizione fluida per le dimensioni delle colonne */
+
+        }
+
+        .header {
+        grid-area: header;
+        background-color: #fff;
+        border-bottom: 1px solid rgb(226, 232, 240);
+
+        }
+        .left-sidebar {
+        grid-area: left-sidebar;
+        background-color: #0F172A;
+        }
+        .content {
+        grid-area: content;
+        background-color: #fff;
+        }
+        .right-sidebar {
+        grid-area: right-sidebar;
+        background-color: #fff;
+        border-left: 1px solid rgb(226, 232, 240);
+        }
+        .footer {
+        grid-area: footer;
+        background-color: #fff;
+        border-top: 1px solid rgb(226, 232, 240);
+        }
+
+
+
+
+
+
+
+
+
+        /************** COMMON RIGHT-LEFT SIDEBAR STYLE *****************************/
+
+        .left-sidebar .container, .right-sidebar .container {
+        display: flex;
+        flex-direction: column;
+        }
+
+        .left-sidebar .container::-webkit-scrollbar, .right-sidebar .container::-webkit-scrollbar {
+        width: 8px; /* Larghezza della scrollbar per Chrome/Safari/Edge */
+        }
+
+        .left-sidebar .container::-webkit-scrollbar-track, .right-sidebar .container::-webkit-scrollbar-track {
+        background-color: #0F172A;
+        }
+
+        .left-sidebar .container::-webkit-scrollbar-thumb, .right-sidebar .container::-webkit-scrollbar-track {
+        background-color: #000; /* Colore del thumb (parte scorrevole della scrollbar) */
+        border-radius: 10px; /* Bordi arrotondati */
+        border-left: 1px solid #dddddd;
+        }
+
+        .left-sidebar .nav-section, .right-sidebar .nav-section {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        }
+
+        .left-sidebar .nav-item, .right-sidebar .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        padding: 6px;
+        padding-left: 10px;
+
+        border-radius: 6px;
+        cursor: pointer;
+        }
+
+        /************** COMMON RIGHT-LEFT SIDEBAR STYLE *****************************/
+
+
+
+
+
+
+
+
+        /************** LEFT SIDEBAR STYLE *******************************************/
+
+        .left-sidebar .container {
+        padding: 25px 15px;
+        gap: 50px;
+        }
+
+
+        .left-sidebar .logo {
+        font-size: 24px;
+        color: #fff;
+        font-weight: bold;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+
+        }
+
+        .left-sidebar .nav-section .title {
+        color: rgb(129, 140, 248);
+        font-size: 12px;
+        padding-left: 10px;
+        margin-bottom: 10px;
+        user-select: none;
+        }
+
+        .left-sidebar .nav-item:hover {
+        background-color: rgb(40, 51, 69);
+        }
+
+        .left-sidebar .nav-item .name {
+        color: #ddd;
+        user-select: none;
+        }
+
+        /************** LEFT SIDEBAR STYLE *******************************************/
+
+
+
+
+
+
+
+
+
+        /************** RIGHT SIDEBAR STYLE *******************************************/
+
+        .right-sidebar .container {
+        gap: 10px;
+        }
+
+        .right-sidebar .nav-section {
+        padding: 15px 15px;
+
+        opacity: 0;
+        height: 0;
+        transition: opacity 0.3s ease, height 0.3s ease;
+        }
+
+
+        .right-sidebar .right-sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+        height: 65px;
+        border-bottom: 1px solid #ddd;
+        padding-left: 12px;
+        padding-right: 12px;
+        }
+
+        .right-sidebar-header-left-block {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        }
+
+        .right-sidebar-header-left-block-title {
+        font-size: 14px;
+        font-weight: bold;
+
+        display: none;
+        }
+
+        .right-sidebar .nav-item:hover {
+        background-color: #bbb
+        }
+
+        .right-sidebar .right-sidebar-header > .close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        display: none;
+        }
+
+        .right-sidebar .right-sidebar-header > .close:hover {
+        background-color: #eee;
+        transition: background-color 0.3s ease;
+        }
+
+        .settings-button {
+        cursor: pointer;
+        }
+        /************** RIGHT SIDEBAR STYLE *******************************************/
+
+
+
+
+        .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 25px;
+        }
+
+        .footer .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        }
+        .controls {
+        display: flex;
+        align-items: center;
+        gap: 15px
+        }
+
+        .header .container > span, .controls > span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        cursor: pointer;
+        }
+
+        .header .container > span:hover,
+        .controls > span:hover {
+        background-color: #eee;
+        transition: background-color 0.3s ease;
+        }
+
+        .content .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        }
+
+
+        .overlay {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        }
+
+
+
+
+
+
+
+        /* RIGHT SIDEBAR ACTIONS */
+
+
+        .right-sidebar.right-sidebar-collapsed {
+        position: relative;
+        z-index: 10000;
+        }
+
+        .main-container.right-sidebar-collapsed {
+        grid-template-columns: 280px auto 280px;
+        }
+        .right-sidebar .nav-section.right-sidebar-collapsed {
+        opacity: 1;
+        height: auto;
+        }
+
+        .right-sidebar .right-sidebar-header.right-sidebar-collapsed {
+        justify-content: space-between;
+        }
+
+        .right-sidebar .right-sidebar-header-left-block-title.right-sidebar-collapsed {
+        display: block;
+        }
+
+        .right-sidebar .right-sidebar-header-left-block-title.right-sidebar-collapsed {
+        display: block;
+        }
+
+        .right-sidebar .right-sidebar-header > .close.right-sidebar-collapsed {
+        display: flex;
+        }
+
+        .settings-button.right-sidebar-collapsed {
+        cursor: auto;
+        }
+
+        .overlay.right-sidebar-collapsed {
+        display: block;
+        }
+
+
+
+        /* LEFT SIDEBAR ACTIONS */
+
+        .main-container.left-sidebar-collapsed {
+        grid-template-columns: 65px auto 65px;
+        }
+
+        .left-sidebar .nav-section.left-sidebar-collapsed {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        }
+        .left-sidebar .logo.left-sidebar-collapsed {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        }
+
+    </style>
 
     <window closable="false"
             apply="org.zkoss.bind.BindComposer"
             width="100%" height="100%"
             viewModel="@id('vm') @init('com.powerservice.managermag.IndexViewModel')">
 
-        <borderlayout>
-            <north height="100px">
-                <hlayout sclass="intestazione" hflex="3">
-                    <hlayout sclass="logoApplicazione" >
-                        <vlayout>
-                            <label sclass="titoloApplicazione" value="ManagerMag"/>
-                            <label sclass="descrizioneApplicazione" value="Gestione Magazzino"/>
-                        </vlayout>
-                    </hlayout>
-                    <vlayout hflex="3" sclass="intestazioneDx">
-                        <hlayout hflex="3" sclass="intestazioneDx">
-                            <button
-                                    image="images/managermag/32x32/impostazioni.png"
-                                    label="Impostazioni"
-                                    onClick="@command('apriParametriPopup')"
-                            />
-                        </hlayout>
-                    </vlayout>
-                </hlayout>
-            </north>
+        <div class="main-container">
+            <div class="overlay"></div>
+            <div class="header">
+                <div class="container">
+                    <h:span class="menu-icon menu-button" style="color:rgb(30, 41, 59); font-size: 20px;">
+                        <h:i class="fa-solid fa-bars"></h:i>
+                    </h:span>
+                    <div class="controls">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                            <h:i class="fa-solid fa-globe"></h:i>
+                        </h:span>
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                            <h:i class="fa-solid fa-magnifying-glass"></h:i>
+                        </h:span>
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                            <h:i class="fa-solid fa-comment"></h:i>
+                        </h:span>
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                            <h:i class="fa-solid fa-download"></h:i>
+                        </h:span>
+                    </div>
+                </div>
+            </div>
+            <div class="left-sidebar">
+                <div class="container">
+                    <div class="logo">LOGO</div>
+                    <div class="nav-section">
+                        <div class="nav-section-block">
+                            <div class="label">
+                                <h:h4 class="title">DASHBOARDS</h:h4>
+                            </div>
+                            <h:nav>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-bars-progress"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 1</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-cloud"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 2</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-circle-user"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 3</div>
+                                </div>
+                                <h:div class="nav-item">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Opzione 4</div>
+                                </h:div>
+                            </h:nav>
+                        </div>
 
-            <center id="container" >
-                <include src="@load(vm.zulSezione)" />
-            </center>
+                        <div class="nav-section-block">
+                            <div class="label">
+                                <h:h4 class="title">APPLICATIONS</h:h4>
+                            </div>
+                            <h:nav>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-bars-progress"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 1</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-cloud"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 2</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-circle-user"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 3</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 4</div>
+                                </div>
+                            </h:nav>
+                        </div>
 
-            <south style="text-align: center">
-                <label value="@load(vm.versioneApplicazione)" />
-            </south>
-        </borderlayout>
+                        <div class="nav-section-block">
+                            <div class="label">
+                                <h:h4 class="title">PAGES</h:h4>
+                            </div>
+                            <h:nav>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-bars-progress"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 1</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-cloud"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 2</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-circle-user"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 3</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 4</div>
+                                </div>
+                            </h:nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content">
+                <div class="container">
+                    MAIN CONTENT
+                </div>
+            </div>
+            <div class="right-sidebar" >
+                <div class="container">
+                    <div class="right-sidebar-header">
+                        <div class="right-sidebar-header-left-block">
+                            <h:span style="color: #000; font-size: 20px;">
+                                <h:i class="settings-button fa-solid fa-gear"></h:i>
+                            </h:span>
+                            <div class="right-sidebar-header-left-block-title">SETTINGS</div>
+                        </div>
+                        <h:span class="close" style="color: #000; font-size: 20px;">
+                            <h:i class="fa-solid fa-xmark"></h:i>
+                        </h:span>
+                    </div>
+                    <div class="nav-section">
+                        <div class="nav-section-block">
+                            <div class="label">
+                                <h:h4 class="title">DASHBOARDS</h:h4>
+                            </div>
+                            <h:nav>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-bars-progress"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 1</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-cloud"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 2</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-circle-user"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 3</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 4</div>
+                                </div>
+                            </h:nav>
+                        </div>
+
+                        <div class="nav-section-block">
+                            <div class="label">
+                                <h:h4 class="title">APPLICATIONS</h:h4>
+                            </div>
+                            <h:nav>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-bars-progress"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 1</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-cloud"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 2</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-circle-user"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 3</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 4</div>
+                                </div>
+                            </h:nav>
+                        </div>
+
+                        <div class="nav-section-block">
+                            <div class="label">
+                                <h:h4 class="title">PAGES</h:h4>
+                            </div>
+                            <h:nav>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-bars-progress"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 1</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-cloud"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 2</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-circle-user"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 3</div>
+                                </div>
+                                <div class="nav-item">
+                                    <h:span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </h:span>
+                                    <div class="name">Opzione 4</div>
+                                </div>
+                            </h:nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="container">
+                    ManagerMag Plus V.1.0.0
+                </div>
+            </div>
+        </div>
     </window>
 </zk>
+

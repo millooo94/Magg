@@ -1,0 +1,362 @@
+   .z-window-content {
+        padding: 0;
+        }
+
+        .z-window {
+        padding: 0;
+        border: 0;
+        }
+
+        body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+        height: 100vh;
+
+        overflow: hidden;
+
+        font-size: 13px;
+
+
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400; /* Peso del carattere normale */
+        font-style: normal;
+        font-variation-settings:
+        "slnt" 0; /* Nessuna inclinazione */
+
+        }
+
+
+        .main-container {
+        display: grid;
+        grid-template-areas:
+        "left-sidebar header right-sidebar"
+        "left-sidebar content right-sidebar"
+        "left-sidebar footer right-sidebar";
+
+        height: 100%;
+        grid-template-columns: 280px auto 65px;
+        grid-template-rows: 65px 1fr 65px;
+
+        transition: grid-template-columns 0.3s ease; /* Transizione fluida per le dimensioni delle colonne */
+
+        }
+
+        .header {
+        grid-area: header;
+        background-color: #fff;
+        border-bottom: 1px solid rgb(226, 232, 240);
+
+        }
+        .left-sidebar {
+        grid-area: left-sidebar;
+        background-color: #0F172A;
+        }
+        .content {
+        grid-area: content;
+        background-color: #fff;
+        }
+        .right-sidebar {
+        grid-area: right-sidebar;
+        background-color: #fff;
+        border-left: 1px solid rgb(226, 232, 240);
+        }
+        .footer {
+        grid-area: footer;
+        background-color: #fff;
+        border-top: 1px solid rgb(226, 232, 240);
+        }
+
+
+
+
+
+
+
+
+
+        /************** COMMON RIGHT-LEFT SIDEBAR STYLE *****************************/
+
+        .left-sidebar .container, .right-sidebar .container {
+        display: flex;
+        flex-direction: column;
+        }
+
+        .left-sidebar .container::-webkit-scrollbar, .right-sidebar .container::-webkit-scrollbar {
+        width: 8px; /* Larghezza della scrollbar per Chrome/Safari/Edge */
+        }
+
+        .left-sidebar .container::-webkit-scrollbar-track, .right-sidebar .container::-webkit-scrollbar-track {
+        background-color: #0F172A;
+        }
+
+        .left-sidebar .container::-webkit-scrollbar-thumb, .right-sidebar .container::-webkit-scrollbar-track {
+        background-color: #000; /* Colore del thumb (parte scorrevole della scrollbar) */
+        border-radius: 10px; /* Bordi arrotondati */
+        border-left: 1px solid #dddddd;
+        }
+
+        .left-sidebar .nav-section, .right-sidebar .nav-section {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+        }
+
+        .left-sidebar .nav-item, .right-sidebar .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        padding: 6px;
+        padding-left: 10px;
+
+        border-radius: 6px;
+        cursor: pointer;
+        }
+
+        /************** COMMON RIGHT-LEFT SIDEBAR STYLE *****************************/
+
+
+
+
+
+
+
+
+        /************** LEFT SIDEBAR STYLE *******************************************/
+
+        .left-sidebar .container {
+        padding: 25px 15px;
+        gap: 50px;
+        }
+
+
+        .left-sidebar .logo {
+        font-size: 24px;
+        color: #fff;
+        font-weight: bold;
+        opacity: 1;
+        transition: opacity 0.3s ease;
+
+        }
+
+        .left-sidebar .nav-section .title {
+        color: rgb(129, 140, 248);
+        font-size: 12px;
+        padding-left: 10px;
+        margin-bottom: 10px;
+        user-select: none;
+        }
+
+        .left-sidebar .nav-item:hover {
+        background-color: rgb(40, 51, 69);
+        }
+
+        .left-sidebar .nav-item .name {
+        color: #ddd;
+        user-select: none;
+        }
+
+        /************** LEFT SIDEBAR STYLE *******************************************/
+
+
+
+
+
+
+
+
+
+        /************** RIGHT SIDEBAR STYLE *******************************************/
+
+        .right-sidebar .container {
+        gap: 10px;
+        }
+
+        .right-sidebar .nav-section {
+        padding: 15px 15px;
+
+        opacity: 0;
+        height: 0;
+        transition: opacity 0.3s ease, height 0.3s ease;
+        }
+
+
+        .right-sidebar .right-sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+        height: 65px;
+        border-bottom: 1px solid #ddd;
+        padding-left: 12px;
+        padding-right: 12px;
+        }
+
+        .right-sidebar-header-left-block {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        }
+
+        .right-sidebar-header-left-block-title {
+        font-size: 14px;
+        font-weight: bold;
+
+        display: none;
+        }
+
+        .right-sidebar .nav-item:hover {
+        background-color: #bbb
+        }
+
+        .right-sidebar .right-sidebar-header > .close {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        cursor: pointer;
+
+        display: none;
+        }
+
+        .right-sidebar .right-sidebar-header > .close:hover {
+        background-color: #eee;
+        transition: background-color 0.3s ease;
+        }
+
+        .settings-button {
+        cursor: pointer;
+        }
+        /************** RIGHT SIDEBAR STYLE *******************************************/
+
+
+
+
+        .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100%;
+        padding: 0 25px;
+        }
+
+        .footer .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+
+        }
+        .controls {
+        display: flex;
+        align-items: center;
+        gap: 15px
+        }
+
+        .header .container > span, .controls > span {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        cursor: pointer;
+        }
+
+        .header .container > span:hover,
+        .controls > span:hover {
+        background-color: #eee;
+        transition: background-color 0.3s ease;
+        }
+
+        .content .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        }
+
+
+        .overlay {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        }
+
+
+
+
+
+
+
+        /* RIGHT SIDEBAR ACTIONS */
+
+
+        .right-sidebar.right-sidebar-collapsed {
+        position: relative;
+        z-index: 10000;
+        }
+
+        .main-container.right-sidebar-collapsed {
+        grid-template-columns: 280px auto 280px;
+        }
+        .right-sidebar .nav-section.right-sidebar-collapsed {
+        opacity: 1;
+        height: auto;
+        }
+
+        .right-sidebar .right-sidebar-header.right-sidebar-collapsed {
+        justify-content: space-between;
+        }
+
+        .right-sidebar .right-sidebar-header-left-block-title.right-sidebar-collapsed {
+        display: block;
+        }
+
+        .right-sidebar .right-sidebar-header-left-block-title.right-sidebar-collapsed {
+        display: block;
+        }
+
+        .right-sidebar .right-sidebar-header > .close.right-sidebar-collapsed {
+        display: flex;
+        }
+
+        .settings-button.right-sidebar-collapsed {
+        cursor: auto;
+        }
+
+        .overlay.right-sidebar-collapsed {
+        display: block;
+        }
+
+
+
+        /* LEFT SIDEBAR ACTIONS */
+
+        .main-container.left-sidebar-collapsed {
+        grid-template-columns: 65px auto 65px;
+        }
+
+        .left-sidebar .nav-section.left-sidebar-collapsed {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        }
+        .left-sidebar .logo.left-sidebar-collapsed {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        }
