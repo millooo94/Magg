@@ -1,5 +1,6 @@
 package it.powerservice.managermag;
 
+import it.powerservice.managermag.customClass.CustomImpostazioniRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ImpostazioniCampiService {
+public class ImpostazioniGridService {
     @Autowired
     DataSource dataSource;
 
-    public List<ImpostazioniCampi> getImpostazioniCampi() throws SQLException {
-        List<ImpostazioniCampi> impostazioniCampi = new ArrayList<>();
+    public List<CustomImpostazioniRow> getImpostazioniRows() throws SQLException {
+        List<CustomImpostazioniRow> customImpostazioniRows = new ArrayList<CustomImpostazioniRow>();
 
-        String sql = "SELECT codice, impostazionicampi.EtichettaCampo, Categoria, aspettocampo, valorestringa, valoreclob, valorenumero " +
+        String sql = "SELECT codice, impostazionicampi.EtichettaCampo, Categoria, aspettocampo, valorestringa, valoreclob, valorenumero, tipoCampo " +
                 "FROM impostazionicampi " +
                 "LEFT JOIN impostazionioggetto ON (impostazionicampi.Codice = impostazionioggetto.CodiceImpostazione AND tipoOggetto = 'GEN') " +
                 "WHERE impostazionicampi.Categoria LIKE '%'";
@@ -34,16 +35,27 @@ public class ImpostazioniCampiService {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                Long codice = rs.getLong("codice");
+                String codice = rs.getString("codice");
                 String etichettaCampo = rs.getString("EtichettaCampo");
                 String categoria = rs.getString("Categoria");
                 String aspettoCampo = rs.getString("aspettocampo");
                 String valoreStringa = rs.getString("valorestringa");
                 String valoreClob = rs.getString("valoreclob");
-                Long valoreNumero = rs.getLong("valorenumero");
+                Double valoreNumero = rs.getDouble("valorenumero");
+                String tipoCampo = rs.getString("tipoCampo");
 
-                ImpostazioniCampi impostazioneCampo = new ImpostazioniCampi(codice, categoria, etichettaCampo, tipoCampo, aspettoCampo, valoreStringa, valoreClob, valoreNumero);
-                impostazioniCampi.add(impostazioneCampo);
+                //1. ti chiami questo metodo di questo service
+                //2. fai una griglia template sulla lista ritornata
+                //3. fai vedere una riga fatta così:
+                //      EtichettaCampo | campo con aspetto = aspettocampo con contenuto valoreStringa o valoreClob o valoreNumero in base al tipoCampo
+
+                //4. in basso alla griglia devi mostrare il tasto salva.
+                //5. cosa fa il salva? cerca con il service relativo nella impostazioniOggetto per quel dodice con GEN e iDOGGETTO=0 e tira giù la riga della domani
+                //   per fare salva (insert o update)
+
+                CustomImpostazioniRow c = new CustomImpostazioniRow(codice, tipoCampo, etichettaCampo, categoria, aspettoCampo,  valoreStringa,  valoreClob,  valoreNumero);
+
+                customImpostazioniRows.add(c);
             }
         } finally {
             if (rs != null) try { rs.close(); } catch (SQLException ignore) {}
@@ -51,7 +63,6 @@ public class ImpostazioniCampiService {
             DataSourceUtils.releaseConnection(conn, dataSource);
         }
 
-        return impostazioniCampi;
-    }
+        return customImpostazioniRows;
     }
 }

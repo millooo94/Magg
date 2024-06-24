@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ImpostazioniCampiController {
 
     @Autowired
-    ImpostazioniCampiService impostazioniCampiService;
+    ImpostazioniGridService impostazioniCampiService;
 
-    @GetMapping(value = "/getImpostazioniCampi")
+    /*@GetMapping(value = "/getImpostazioniCampi")
     public void getImpostazioniCampi() {
         var res = this.impostazioniCampiService.getImpostazioniCampi();
         for (ImpostazioniCampi ic: res) {
             System.out.println(ic);
             System.out.println("Vaffanculooooooooooooooo");
         }
-    }
+    }*/
 }

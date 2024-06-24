@@ -7,9 +7,10 @@ public class CustomImpostazioniRow {
     String aspettoCampo;
     String valorestringa;
     String valoreclob;
-    String valorenumero;
+    Double valorenumero;
+    String tipoCampo;
 
-    public CustomImpostazioniRow(String codice, String etichettaCampo, String categoria, String aspettoCampo, String valorestringa, String valoreclob, String valorenumero) {
+    public CustomImpostazioniRow(String codice, String tipoCampo, String etichettaCampo, String categoria, String aspettoCampo, String valorestringa, String valoreclob, Double valorenumero) {
         this.codice = codice;
         this.etichettaCampo = etichettaCampo;
         Categoria = categoria;
@@ -17,5 +18,6 @@ public class CustomImpostazioniRow {
         this.valorestringa = valorestringa;
         this.valoreclob = valoreclob;
         this.valorenumero = valorenumero;
+        this.tipoCampo = tipoCampo;
     }
 }
