@@ -1,0 +1,17 @@
+        .z-window-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding 10px;
+
+            background: white
+        }
+
+        .z-window-header button {
+            display: flex;
+            align-items: center;
+        }
+
+        .ciao {
+            background: red;
+        }

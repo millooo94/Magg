@@ -35,6 +35,18 @@ public class ImpostazioniCampi {
     @Column(name = "selectcustom", columnDefinition = "MEDIUMTEXT")
     String selectCustom;
 
+    public ImpostazioniCampi(String codice, String categoria, String etichettaCampo, String tipoCampo, Integer aspettoCampo, String formatoNumero, String formatoData, String notes, Boolean invisibile, String selectCustom) {
+        Codice = codice;
+        Categoria = categoria;
+        EtichettaCampo = etichettaCampo;
+        TipoCampo = tipoCampo;
+        AspettoCampo = aspettoCampo;
+        this.formatoNumero = formatoNumero;
+        this.formatoData = formatoData;
+        Notes = notes;
+        this.invisibile = invisibile;
+        this.selectCustom = selectCustom;
+    }
 
     @Override
     public String toString() {

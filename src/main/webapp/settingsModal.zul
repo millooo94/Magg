@@ -1,0 +1,83 @@
+<?link rel="stylesheet" type="text/css" href="/css/settings-modal.css" ?>
+
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <html><![CDATA[
+            <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    ]]></html>
+
+
+
+    <window id="modalDialog" mode="popup" title="Impostazioni" border="normal" width="1300px" height="800px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.SettingsModalViewModel')"
+    >
+
+        <div class="ciao">Ciaooooo</div>
+        <div class="settings-modal-grid-container">
+            <h:main class="settings-modal-main-content">
+                <div class="main-item">
+                    <div class="left-block">
+                        <div class="categoria">
+                            <h:label for="categoria-input">Categoria: </h:label>
+                            <h:input class="categoria-input" id="categoria-input" type="text"/>
+                        </div>
+                        <div class="parametro">
+                            <h:label for="parametro-input">Parametro:</h:label>
+                            <h:input class="parametro-input" id="parametro-input" type="text"/>
+                        </div>
+                    </div>
+                    <div class="tipo-radio-buttons">
+                        <div class="generale">
+                            <h:input type="radio" id="generale" name="tipo"/>
+                            <h:label for="generale">Generale</h:label>
+                        </div>
+                        <div class="utente">
+                            <h:input type="radio" id="utente" name="tipo"/>
+                            <h:label for="generale">Utente</h:label>
+                        </div>
+                        <div class="documento">
+                            <h:input type="radio" id="documento" name="tipo"/>
+                            <h:label for="generale">Documento</h:label>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">Impostazione</div>
+                <div class="item">Valore</div>
+                <div class="item">Riga 3 sinistra</div>
+                <div class="item">Riga 3 destra</div>
+                <div class="item">Riga 4 sinistra</div>
+                <div class="item">Riga 4 destra</div>
+                <div class="item">Riga 5 sinistra</div>
+                <div class="item">Riga 5 destra</div>
+                <div class="item">Riga 6 sinistra</div>
+                <div class="item">Riga 6 destra</div>
+                <div class="item">Riga 7 sinistra</div>
+                <div class="item">Riga 7 destra</div>
+                <div class="item">Riga 8 sinistra</div>
+                <div class="item">Riga 8 destra</div>
+                <div class="item">Riga 9 sinistra</div>
+                <div class="item">Riga 9 destra</div>
+                <div class="item">Riga 10 sinistra</div>
+                <div class="item">Riga 10 destra</div>
+            </h:main>
+            <h:footer class="settings-modal-footer">
+                <h:button class="save-button">Salva</h:button>
+            </h:footer>
+        </div>
+    </window>
+</zk>

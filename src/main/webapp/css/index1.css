@@ -29,6 +29,7 @@
         }
 
 
+
         .main-container {
         display: grid;
         grid-template-areas:
@@ -360,3 +361,121 @@
         opacity: 0;
         transition: opacity 0.3s ease;
         }
+
+
+
+
+
+
+
+    .z-window-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px !important;
+
+        background: #eee;
+        border-bottom: #ddd
+    }
+
+    .z-window-header button {
+        display: flex;
+        align-items: center;
+    }
+
+ .settings-modal-grid-container {
+     display: grid;
+     grid-template-rows: 1fr auto;
+     height: 100%;
+     width: 100%;
+ }
+
+ .settings-modal-main-content {
+     padding: 20px;
+ }
+
+ .settings-modal-footer {
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+
+     background-color: #eee;
+     color: white;
+     text-align: center;
+     padding: 10px;
+     border-top: 1px solid #ddd;
+ }
+
+ .save-button {
+     padding: 8px 35px;
+     border-radius: 4px;
+     background: green;
+     color: #fff;
+     font-weight: bold;
+ }
+
+ .settings-modal-main-content {
+     display: grid;
+     grid-template-columns: auto 70%;
+     grid-template-rows: 100px;
+
+     padding: 0;
+     overflow-y: auto;
+ }
+
+.main-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    grid-column: 1 / span 2;
+    color: black;
+
+    padding: 10px;
+}
+
+.main-item .left-block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+label {
+    font-size: 16px;
+}
+input {
+    font-size: 16px;
+}
+input[type="text"] {
+    height: 20px
+}
+
+.categoria, .parametro {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tipo-radio-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.generale, .utente, .documento {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+
+ .item {
+     display: flex;
+     justify-content: flex-start;
+     align-items: center;
+     border: 1px solid #023047;
+     font-size: 1.5em;
+     padding: 10px;
+ }
