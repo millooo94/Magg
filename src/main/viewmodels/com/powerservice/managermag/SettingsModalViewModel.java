@@ -44,19 +44,17 @@ public class SettingsModalViewModel {
 
     public List<ImpostazioniValori> getFilteredImpostazioniValori(CustomImpostazioniRow row) {
 
-        return impostazioniValori.stream()
+        /*return impostazioniValori.stream()
                 .filter(valore -> valore.getCodiceImpostazione().equals(row.getCodice()))
-                .collect(Collectors.toList());
-    }
+                .collect(Collectors.toList());*/
 
-    public int getIndex() {
-        return index;
+        return impostazioniValoriService.getImpostazioniValori(row.getCodice());
     }
 
     @Init
     public void init(@ContextParam(ContextType.COMPONENT) Window w) throws Exception {
         impostazioniRows = impostazioniGridService.getImpostazioniRows();
-        impostazioniValori = impostazioniValoriService.getImpostazioniValori();
+        //impostazioniValori = impostazioniValoriService.getImpostazioniValori();
     }
 
     @Command

@@ -13,4 +13,8 @@ public class ImpostazioniValoriService {
     public List<ImpostazioniValori> getImpostazioniValori() {
         return this.impostazioniValoriRepository.getImpostazioniValori();
     }
+
+    public List<ImpostazioniValori> getImpostazioniValori(String codiceImpostazione) {
+        return this.impostazioniValoriRepository.getImpostazioniValori(codiceImpostazione);
+    }
 }

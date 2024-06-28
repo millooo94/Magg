@@ -9,7 +9,7 @@ import org.hibernate.annotations.Comment;
 public class ImpostazioniValori {
     @Id
     @Column(name = "codiceimpostazione", nullable = false, columnDefinition = "VARCHAR(100) NOT NULL")
-    String CodiceImpostazione;
+    String codiceImpostazione;
     @Column(name = "valoremostrato", length = 100, columnDefinition = "VARCHAR(100) DEFAULT NULL")
     @Comment("Serve principalmente per le tendine) Se pieno viene mostrato questo al posto del relativo valore stringa / numero / clob")
     String ValoreMostrato;
@@ -23,7 +23,7 @@ public class ImpostazioniValori {
     @Override
     public String toString() {
         return "ImpostazioniValori{" +
-                "CodiceImpostazione='" + CodiceImpostazione + '\'' +
+                "CodiceImpostazione='" + codiceImpostazione + '\'' +
                 ", ValoreMostrato='" + ValoreMostrato + '\'' +
                 ", valoreStringa='" + valoreStringa + '\'' +
                 ", valoreNumero=" + valoreNumero +
@@ -32,11 +32,11 @@ public class ImpostazioniValori {
     }
 
     public String getCodiceImpostazione() {
-        return CodiceImpostazione;
+        return codiceImpostazione;
     }
 
     public void setCodiceImpostazione(String codiceImpostazione) {
-        CodiceImpostazione = codiceImpostazione;
+        this.codiceImpostazione = codiceImpostazione;
     }
 
     public String getValoreMostrato() {
