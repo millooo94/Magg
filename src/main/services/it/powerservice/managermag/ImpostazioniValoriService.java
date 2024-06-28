@@ -11,6 +11,6 @@ public class ImpostazioniValoriService {
     ImpostazioniValoriRepository impostazioniValoriRepository;
 
     public List<ImpostazioniValori> getImpostazioniValori() {
-        return  this.impostazioniValoriRepository.getImpostazioniValori();
+        return this.impostazioniValoriRepository.getImpostazioniValori();
     }
 }

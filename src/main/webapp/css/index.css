@@ -364,18 +364,27 @@
 
 
 
-
-
-
+    .z-window-modal {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-variation-settings:
+        "slnt" 0;
+    }
 
     .z-window-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px !important;
+        padding: 10px !important;
 
-        background: #eee;
-        border-bottom: #ddd
+        border-bottom: #ddd;
+
+        font-family: "Inter", sans-serif;
+
+        background: #0F172A;
+        color: #fff;
     }
 
     .z-window-header button {
@@ -386,14 +395,10 @@
  .settings-modal-grid-container {
      display: grid;
      grid-template-rows: 1fr auto;
+     grid-template-rows: 1fr auto;
      height: 100%;
      width: 100%;
  }
-
- .settings-modal-main-content {
-     padding: 20px;
- }
-
  .settings-modal-footer {
      display: flex;
      justify-content: flex-end;
@@ -414,68 +419,135 @@
      font-weight: bold;
  }
 
- .settings-modal-main-content {
-     display: grid;
-     grid-template-columns: auto 70%;
-     grid-template-rows: 100px;
-
-     padding: 0;
-     overflow-y: auto;
- }
-
-.main-item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-    grid-column: 1 / span 2;
-    color: black;
-
-    padding: 10px;
-}
-
-.main-item .left-block {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-label {
-    font-size: 16px;
-}
-input {
-    font-size: 16px;
-}
-input[type="text"] {
-    height: 20px
-}
-
-.categoria, .parametro {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.tipo-radio-buttons {
+  .settings-modal-main-content {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-}
+  }
 
-.generale, .utente, .documento {
+  .settings-modal-main-content-header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px 30px;
+
+    background-color: #fff;
+  }
+
+    .settings-modal-main-content-header label {
+      font-size: 14px
+    }
+
+
+  .settings-modal-main-content-header .left-block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .settings-modal-main-content-header .radio-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .categoria, .parametro {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .z-radio-content {
+        font-family: "Inter", sans-serif;
+  }
+
+  .generale, .utente, .documento {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 15px;
 }
 
+.row-labels {
+    display: flex;
+    gap: 160px;
+    height: 100%;
+    background-color: #eee;
+}
 
- .item {
-     display: flex;
-     justify-content: flex-start;
-     align-items: center;
-     border: 1px solid #023047;
-     font-size: 1.5em;
-     padding: 10px;
- }
+.rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.textbox-clob {
+    height: 70px;
+}
+
+.z-label, .z-textbox {
+      font-family: "Inter", sans-serif;
+      font-size: 14px;
+}
+
+.z-listitem:nth-child(4) .z-label {
+    align-self: baseline;
+}
+
+.z-textbox, .z-selectbox {
+    height: 30px;
+    width: 213px
+}
+
+.textbox-clob {
+    height: 90px;
+}
+
+.z-listcell-content {
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 30px;
+}
+
+
+.z-listitem .z-listcell {
+    border: none
+}
+
+.z-listbox {
+    border: none;
+}
+
+.z-checkbox {
+}
+
+.z-modal-mask {
+    background: black;
+}
+
+.z-window-icon {
+    color: white;
+}
+.z-window-icon:hover {
+    color: white;
+}
+
+.z-tabs {
+    min-height: 0;
+    height: 40px;
+}
+
+.z-tabs-content {
+    min-height: 0;
+    height: 100%
+}
+
+.z-tab-text {
+   font-family: "Inter", sans-serif;
+   font-size: 14px;
+}
+
+.z-tabpanel {
+    padding: 0;
+    border-top: none;
+}

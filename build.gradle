@@ -57,6 +57,10 @@ dependencies {
     implementation "org.zkoss.zk:zkwebfragment:${zkVersion}"
     implementation "org.zkoss.zk:zul:${zkVersion}"
 
+    implementation 'org.zkoss.zk:zk:9.6.0-jakarta'
+    implementation 'org.zkoss.zk:zkplus:9.6.0-jakarta'
+
+
     runtimeOnly "org.slf4j:slf4j-jdk14:1.7.28"
 }
 

@@ -30,4 +30,45 @@ public class ImpostazioniValori {
                 ", valoreClob='" + valoreClob + '\'' +
                 '}';
     }
+
+    public String getCodiceImpostazione() {
+        return CodiceImpostazione;
+    }
+
+    public void setCodiceImpostazione(String codiceImpostazione) {
+        CodiceImpostazione = codiceImpostazione;
+    }
+
+    public String getValoreMostrato() {
+        return ValoreMostrato;
+    }
+
+    public void setValoreMostrato(String valoreMostrato) {
+        ValoreMostrato = valoreMostrato;
+    }
+
+    public String getValoreStringa() {
+        return valoreStringa;
+    }
+
+    public void setValoreStringa(String valoreStringa) {
+        this.valoreStringa = valoreStringa;
+    }
+
+    public Double getValoreNumero() {
+        return valoreNumero;
+    }
+
+    public void setValoreNumero(Double valoreNumero) {
+        this.valoreNumero = valoreNumero;
+    }
+
+    public String getValoreClob() {
+        return valoreClob;
+    }
+
+    public void setValoreClob(String valoreClob) {
+        this.valoreClob = valoreClob;
+    }
+
 }

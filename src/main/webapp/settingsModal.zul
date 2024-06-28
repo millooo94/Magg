@@ -4,79 +4,100 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <html><![CDATA[
-            <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-    ]]></html>
 
 
-
-    <window id="modalDialog" mode="popup" title="Impostazioni" border="normal" width="1300px" height="800px"
+    <window id="modalDialog" mode="popup" title="Impostazioni" border="normal" width="1300px" height="850px"
             apply="org.zkoss.bind.BindComposer"
             position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.SettingsModalViewModel')"
     >
 
-        <div class="ciao">Ciaooooo</div>
         <div class="settings-modal-grid-container">
             <h:main class="settings-modal-main-content">
-                <div class="main-item">
+                <div class="settings-modal-main-content-header">
                     <div class="left-block">
                         <div class="categoria">
-                            <h:label for="categoria-input">Categoria: </h:label>
-                            <h:input class="categoria-input" id="categoria-input" type="text"/>
+                            <h:label>Categoria: </h:label>
+                            <textbox/>
                         </div>
                         <div class="parametro">
-                            <h:label for="parametro-input">Parametro:</h:label>
-                            <h:input class="parametro-input" id="parametro-input" type="text"/>
+                            <h:label>Parametro:</h:label>
+                            <textbox/>
                         </div>
                     </div>
-                    <div class="tipo-radio-buttons">
-                        <div class="generale">
-                            <h:input type="radio" id="generale" name="tipo"/>
-                            <h:label for="generale">Generale</h:label>
-                        </div>
-                        <div class="utente">
-                            <h:input type="radio" id="utente" name="tipo"/>
-                            <h:label for="generale">Utente</h:label>
-                        </div>
-                        <div class="documento">
-                            <h:input type="radio" id="documento" name="tipo"/>
-                            <h:label for="generale">Documento</h:label>
-                        </div>
+                    <div class="radio-buttons">
+                        <radiogroup id="radio-buttons"/>
+                        <radio id="generale" label="Generale" radiogroup="radio-buttons" selected="true" onCheck="@command('getImpostazioniGenerale')"/>
+                        <radio id="utente" label="Utente" radiogroup="radio-buttons" onCheck="@command('getImpostazioniUtente')"/>
+                        <radio id="documento" label="Documento" radiogroup="radio-buttons" onCheck="@command('getImpostazioniDocumento')"/>
                     </div>
                 </div>
-                <div class="item">Impostazione</div>
-                <div class="item">Valore</div>
-                <div class="item">Riga 3 sinistra</div>
-                <div class="item">Riga 3 destra</div>
-                <div class="item">Riga 4 sinistra</div>
-                <div class="item">Riga 4 destra</div>
-                <div class="item">Riga 5 sinistra</div>
-                <div class="item">Riga 5 destra</div>
-                <div class="item">Riga 6 sinistra</div>
-                <div class="item">Riga 6 destra</div>
-                <div class="item">Riga 7 sinistra</div>
-                <div class="item">Riga 7 destra</div>
-                <div class="item">Riga 8 sinistra</div>
-                <div class="item">Riga 8 destra</div>
-                <div class="item">Riga 9 sinistra</div>
-                <div class="item">Riga 9 destra</div>
-                <div class="item">Riga 10 sinistra</div>
-                <div class="item">Riga 10 destra</div>
+                <div class="row-labels">
+                    <tabbox>
+                        <tabs id="tabs" height="20px">
+                            <tab label="Generale" onSelect=""/>
+                        </tabs>
+                        <tabpanels>
+                            <tabpanel>
+                                <tabbox>
+                                    <tabs id="sub-tabs" height="20px">
+                                        <tab label="Sub-Tab-1" onSelect=""/>
+                                        <tab label="Sub-Tab-2" onSelect=""/>
+                                        <tab label="Sub-Tab-3" onSelect=""/>
+                                    </tabs>
+                                    <tabpanels>
+                                        <tabpanel>
+                                            <listbox model="@bind(vm.impostazioniRows)" class="rows">
+                                                <template name="model" var="each">
+                                                    <listitem>
+                                                        <listcell class="cell-container">
+                                                            <label value="@load(each.etichettaCampo)"/>
+                                                            <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                                                            <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                                                            <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                                                            <checkbox visible="@load(each.isCheckboxVisible)"
+                                                                      checked="@load(each.isCheckboxChecked)"
+                                                                      onCheck="@command('onCheck', row=each, checked=event.checked)"
+                                                            />
+                                                            <combobox visible="@load(each.isStringSelectBoxVisible)" model="@load(vm.getFilteredImpostazioniValori(each))">
+                                                                <template name="model" var="item">${item.valoreMostrato}</template>
+                                                            </combobox>
+                                                        </listcell>
+                                                    </listitem>
+                                                </template>
+                                            </listbox>
+                                        </tabpanel>
+                                        <tabpanel>
+                                            <listbox model="@bind(vm.impostazioniRows)" class="rows">
+                                                <template name="model" var="each">
+                                                    <listitem>
+                                                        <listcell class="cell-container">
+                                                            <label value="@load(each.etichettaCampo)"/>
+                                                            <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                                                            <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                                                            <textbox class="textbox-clob" multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                                                            <checkbox visible="@load(each.isCheckboxVisible)"
+                                                                      checked="@load(each.isCheckboxChecked)"
+                                                                      onCheck="@command('onCheck', row=each, checked=event.checked)"
+                                                            />
+                                                            <selectbox visible="@load(each.isStringSelectBoxVisible)" model="@load(vm.getFilteredImpostazioniValori(each))">
+                                                                <template name="model" var="item">${item.valoreMostrato}</template>
+                                                            </selectbox>
+                                                        </listcell>
+                                                    </listitem>
+                                                </template>
+                                            </listbox>
+                                        </tabpanel>
+                                        <tabpanel>
+                                        </tabpanel>
+                                    </tabpanels>
+                                </tabbox>
+                            </tabpanel>
+                        </tabpanels>
+                    </tabbox>
+                </div>
             </h:main>
             <h:footer class="settings-modal-footer">
-                <h:button class="save-button">Salva</h:button>
+                <h:button class="save-button" onClick="@command('onSave')">Salva</h:button>
             </h:footer>
         </div>
     </window>
