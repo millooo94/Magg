@@ -11,10 +11,10 @@ public class ImpostazioniValoriService {
     ImpostazioniValoriRepository impostazioniValoriRepository;
 
     public List<ImpostazioniValori> getImpostazioniValori() {
-        return this.impostazioniValoriRepository.getImpostazioniValori();
+        return impostazioniValoriRepository.getImpostazioniValori();
     }
 
     public List<ImpostazioniValori> getImpostazioniValori(String codiceImpostazione) {
-        return this.impostazioniValoriRepository.getImpostazioniValori(codiceImpostazione);
+        return impostazioniValoriRepository.getImpostazioniValori(codiceImpostazione);
     }
 }

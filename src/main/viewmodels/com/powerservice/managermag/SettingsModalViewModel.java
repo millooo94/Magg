@@ -66,6 +66,10 @@ public class SettingsModalViewModel {
         //impostazioniValori = impostazioniValoriService.getImpostazioniValori();
     }
 
+    /*public void scriviValoreDropdown(@BindingParam("row") CustomImpostazioniRow row,@BindingParam("valoreScelto") String valoreScelto) {
+        row.setValoreStringa(valoreScelto);
+    }*/
+
     @Command
     public void onSave() {
         try {
