@@ -59,7 +59,9 @@
                                                                       onCheck="@command('onCheck', row=each, checked=event.checked)"
                                                             />
                                                             <combobox selectedItem="@bind(each.valoreStringa)" visible="@load(each.isStringSelectBoxVisible)" model="@load(vm.getFilteredImpostazioniValori(each))">
-                                                                <template name="model" var="item">${item.valoreMostrato}</template>
+                                                                <template name="model" var="item">
+                                                                    <comboitem label="@load(each.valoreStringa)" value="@load(each)"/>
+                                                                </template>
                                                             </combobox>
                                                         </listcell>
                                                     </listitem>

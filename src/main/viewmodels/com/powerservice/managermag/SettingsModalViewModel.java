@@ -44,11 +44,20 @@ public class SettingsModalViewModel {
 
     public List<ImpostazioniValori> getFilteredImpostazioniValori(CustomImpostazioniRow row) {
 
+
+        var list = impostazioniValoriService.getImpostazioniValori(row.getCodice());
+        System.out.println(row.getCodice());
+
+
         /*return impostazioniValori.stream()
                 .filter(valore -> valore.getCodiceImpostazione().equals(row.getCodice()))
                 .collect(Collectors.toList());*/
+      for (ImpostazioniValori iv: list) {
+            System.out.println(iv.getValoreStringa());
+        }
 
         return impostazioniValoriService.getImpostazioniValori(row.getCodice());
+
     }
 
     @Init
