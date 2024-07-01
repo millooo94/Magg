@@ -18,6 +18,17 @@ public class ImpostazioniValori {
 
     String valoreClob;
 
+    public ImpostazioniValori() {
+    }
+
+    public ImpostazioniValori(String codiceImpostazione, String valoreMostrato, String valoreStringa, Double valoreNumero, String valoreClob) {
+        this.codiceImpostazione = codiceImpostazione;
+        ValoreMostrato = valoreMostrato;
+        this.valoreStringa = valoreStringa;
+        this.valoreNumero = valoreNumero;
+        this.valoreClob = valoreClob;
+    }
+
     @Override
     public String toString() {
         return "ImpostazioniValori{" +

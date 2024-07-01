@@ -1,5 +1,6 @@
 package it.powerservice.managermag.customClass;
 
+import it.powerservice.managermag.ImpostazioniValori;
 import org.zkoss.zhtml.Small;
 
 public class CustomImpostazioniRow {
@@ -11,6 +12,7 @@ public class CustomImpostazioniRow {
     String valoreClob;
     Double valoreNumero;
     String tipoCampo;
+    ImpostazioniValori selectedItem;
     Short isNew;
     Boolean isCheckboxVisible;
     Boolean isCheckboxChecked;
@@ -29,6 +31,7 @@ public class CustomImpostazioniRow {
         this.valoreStringa = valoreStringa;
         this.valoreClob = valoreClob;
         this.valoreNumero = valoreNumero;
+        this.selectedItem = aspettoCampo.equals("1") ? new ImpostazioniValori(codice, valoreStringa, valoreStringa, null, null) : null;
         this.tipoCampo = tipoCampo;
         this.isNew = isnew;
     }
@@ -126,6 +129,13 @@ public class CustomImpostazioniRow {
         return aspettoCampo.equals("1") && tipoCampo.equals("S");
     }
 
+    public ImpostazioniValori getSelectedItem() {
+        return selectedItem;
+    }
+
+    public void setSelectedItem(ImpostazioniValori selectedItem) {
+        this.selectedItem = selectedItem;
+    }
 
     @Override
     public String toString() {
@@ -138,6 +148,7 @@ public class CustomImpostazioniRow {
                 ", valoreClob='" + valoreClob + '\'' +
                 ", valoreNumero=" + valoreNumero +
                 ", tipoCampo='" + tipoCampo + '\'' +
+                ", selectedItem='" + selectedItem + '\'' +
                 ", isNew='" + isNew + '\'' +
                 ", isCheckboxVisible=" + isCheckboxVisible +
                 ", isCheckboxChecked=" + isCheckboxChecked +
