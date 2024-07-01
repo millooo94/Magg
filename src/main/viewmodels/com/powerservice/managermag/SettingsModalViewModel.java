@@ -62,8 +62,8 @@ public class SettingsModalViewModel {
 
     @Init
     public void init(@ContextParam(ContextType.COMPONENT) Window w) throws Exception {
-        impostazioniRows = impostazioniGridService.getImpostazioniRows();
-        //impostazioniValori = impostazioniValoriService.getImpostazioniValori();
+        //impostazioniRows = impostazioniGridService.getImpostazioniRows();
+        impostazioniValori = impostazioniValoriService.getImpostazioniValori("MET_PAG");
     }
 
     /*public void scriviValoreDropdown(@BindingParam("row") CustomImpostazioniRow row,@BindingParam("valoreScelto") String valoreScelto) {
