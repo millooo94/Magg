@@ -60,8 +60,11 @@ dependencies {
     implementation 'org.zkoss.zk:zk:9.6.0-jakarta'
     implementation 'org.zkoss.zk:zkplus:9.6.0-jakarta'
 
+    implementation 'org.zkoss.zk:zuti:8.0.5-Eval'
 
     runtimeOnly "org.slf4j:slf4j-jdk14:1.7.28"
+
+    compileOnly 'org.projectlombok:lombok:1.18.34'
 }
 
 tasks.named('test') {

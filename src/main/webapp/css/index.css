@@ -482,18 +482,21 @@
     height: 70px;
 }
 
-.z-label, .z-textbox {
+.settings-modal-grid-container .z-label, .z-textbox {
       font-family: "Inter", sans-serif;
-      font-size: 14px;
+      font-size: 13px;
 }
 
 .z-listitem:nth-child(4) .z-label {
     align-self: baseline;
 }
 
-.z-textbox, .z-selectbox {
+.z-textbox, .z-combobox {
     height: 30px;
-    width: 213px
+}
+
+.z-combobox-input, .z-comboitem {
+    font-size: 14px;
 }
 
 .textbox-clob {
@@ -551,3 +554,13 @@
     padding: 0;
     border-top: none;
 }
+
+.option-label {
+    font-size: 13px;
+}
+
+
+
+
+
+
