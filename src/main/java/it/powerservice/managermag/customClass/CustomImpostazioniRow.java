@@ -1,7 +1,6 @@
 package it.powerservice.managermag.customClass;
 
-import it.powerservice.managermag.ImpostazioniValori;
-import org.zkoss.zhtml.Small;
+import it.powerservice.managermag.enums.TipoImpostazioni;
 
 public class CustomImpostazioniRow {
     String codice;
@@ -12,7 +11,6 @@ public class CustomImpostazioniRow {
     String valoreClob;
     Double valoreNumero;
     String tipoCampo;
-    ImpostazioniValori selectedItem;
     Short isNew;
     Boolean isCheckboxVisible;
     Boolean isCheckboxChecked;
@@ -20,6 +18,15 @@ public class CustomImpostazioniRow {
     Boolean isNumberBoxVisible;
     Boolean isClobBoxVisible;
     Boolean isStringSelectBoxVisible;
+    Boolean isSenzaNomeCategory;
+    Boolean isModelliAggiuntiviCategory;
+    Boolean isAltreImpostazioniCategory;
+    Boolean isAltreImpostazioniPrimaColonna = false;
+    Boolean isAltreImpostazioniSecondaColonna = false;
+    private String highlightedEtichettaCampo;
+    private Integer occurrenceNumber = 0;
+    private Boolean isCurrentOccurrence = false;
+    private Integer tab;
 
 
 
@@ -31,9 +38,9 @@ public class CustomImpostazioniRow {
         this.valoreStringa = valoreStringa;
         this.valoreClob = valoreClob;
         this.valoreNumero = valoreNumero;
-        this.selectedItem = aspettoCampo.equals("1") ? new ImpostazioniValori(codice, valoreStringa, valoreStringa, null, null) : null;
         this.tipoCampo = tipoCampo;
         this.isNew = isnew;
+        setTab();
     }
 
     public String getCodice() {
@@ -128,14 +135,73 @@ public class CustomImpostazioniRow {
     public Boolean getIsStringSelectBoxVisible() {
         return aspettoCampo.equals("1") && tipoCampo.equals("S");
     }
-
-    public ImpostazioniValori getSelectedItem() {
-        return selectedItem;
+    public Boolean getIsSenzaNomeCategory() {
+        return categoria.equals("SENZA NOME");
+    }
+    public Boolean getIsModelliAggiuntiviCategory() {
+        return categoria.equals("MODELLI AGGIUNTIVI");
+    }
+    public Boolean getIsAltreImpostazioniCategory() {
+        return categoria.equals("ALTRE IMPOSTAZIONI");
     }
 
-    public void setSelectedItem(ImpostazioniValori selectedItem) {
-        this.selectedItem = selectedItem;
+    public String getHighlightedEtichettaCampo() {
+        return highlightedEtichettaCampo;
     }
+
+    public Boolean getIsAltreImpostazioniPrimaColonna() {
+        return isAltreImpostazioniPrimaColonna;
+    }
+
+    public void setIsAltreImpostazioniPrimaColonna(Boolean altreImpostazioniPrimaColonna) {
+        isAltreImpostazioniPrimaColonna = altreImpostazioniPrimaColonna;
+    }
+
+    public Boolean getIsAltreImpostazioniSecondaColonna() {
+        return isAltreImpostazioniSecondaColonna;
+    }
+
+    public void setIsAltreImpostazioniSecondaColonna(Boolean altreImpostazioniSecondaColonna) {
+        isAltreImpostazioniSecondaColonna = altreImpostazioniSecondaColonna;
+    }
+    public void setHighlightedEtichettaCampo(String highlightedEtichettaCampo) {
+        this.highlightedEtichettaCampo = highlightedEtichettaCampo;
+    }
+    public Integer getOccurrenceNumber() {
+        return occurrenceNumber;
+    }
+    public void setOccurrenceNumber(Integer occurrenceNumber) {
+        this.occurrenceNumber = occurrenceNumber;
+    }
+
+    public Boolean getCurrentOccurrence() {
+        return isCurrentOccurrence;
+    }
+
+    public void setCurrentOccurrence(Boolean currentOccurrence) {
+        isCurrentOccurrence = currentOccurrence;
+    }
+
+    public Integer getTab() {
+        return tab;
+    }
+
+    public void setTab() {
+        switch (categoria) {
+            case "SENZA NOME":
+                tab = 0;
+                break;
+            case "MODELLI AGGIUNTIVI":
+                tab = 1;
+                break;
+            case "ALTRE IMPOSTAZIONI":
+                tab = 2;
+                break;
+            default:
+                break;
+        }
+    }
+
 
     @Override
     public String toString() {
@@ -148,10 +214,11 @@ public class CustomImpostazioniRow {
                 ", valoreClob='" + valoreClob + '\'' +
                 ", valoreNumero=" + valoreNumero +
                 ", tipoCampo='" + tipoCampo + '\'' +
-                ", selectedItem='" + selectedItem + '\'' +
                 ", isNew='" + isNew + '\'' +
                 ", isCheckboxVisible=" + isCheckboxVisible +
                 ", isCheckboxChecked=" + isCheckboxChecked +
+                ", highlightedEtichettaCampo=" + highlightedEtichettaCampo +
+                ", occurrenceNumber=" + occurrenceNumber +
                 '}';
     }
 }

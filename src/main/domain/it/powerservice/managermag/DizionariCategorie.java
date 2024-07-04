@@ -1,6 +1,6 @@
 package it.powerservice.managermag;
 
-import it.powerservice.managermag.enums.ColonnaRestituita;
+import it.powerservice.managermag.enums.TipoImpostazioni;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,7 +17,7 @@ public class DizionariCategorie {
     String descrizione;
     @Column(name = "colonnarestituita", length = 1, nullable = false, columnDefinition = "VARCHAR(1) NOT NULL")
     @Comment("C=Codice D=Descrizione")
-    ColonnaRestituita colonnaRestituita;
+    TipoImpostazioni colonnaRestituita;
     @Column(name = "mostracodice", nullable = false, columnDefinition = "TINYINT NOT NULL DEFAULT '1'")
     Boolean mostraCodice;
 

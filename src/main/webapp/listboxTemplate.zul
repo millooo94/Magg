@@ -1,0 +1,28 @@
+<?link rel="stylesheet" type="text/css" href="/css/settings-modal.css" ?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+    <window viewModel="@id('vm') @init('com.powerservice.managermag.SettingsModalViewModel')">
+        <listbox class="rows">
+            <template name="model" var="each">
+                <listitem>
+                    <listcell class="cell-container">
+                        <label value="@load(each.etichettaCampo)"/>
+                        <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                        <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                        <textbox class="textbox-clob" style="resize: none" multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                        <checkbox visible="@load(each.isCheckboxVisible)"
+                                  checked="@load(each.isCheckboxChecked)"
+                                  onCheck="@command('onCheck', row=each, checked=event.checked)"
+                        />
+                        <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                            <template name="model" var="item">
+                                <comboitem label="@load(item)" value="@load(item)"/>
+                            </template>
+                        </combobox>
+                    </listcell>
+                </listitem>
+            </template>
+        </listbox>
+    </window>
+</zk>

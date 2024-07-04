@@ -25,7 +25,15 @@ public class ImpostazioniGridService {
                 "if( isnull(impostazionioggetto.CodiceImpostazione), 1, 0) as isNew " +
                 "FROM impostazionicampi " +
                 "LEFT JOIN impostazionioggetto ON (impostazionicampi.Codice = impostazionioggetto.CodiceImpostazione AND tipoOggetto = 'GEN') " +
-                "WHERE impostazionicampi.Categoria LIKE '%'";
+                "WHERE impostazionicampi.Categoria LIKE '%'" +
+                "ORDER BY " +
+                "CASE " +
+                "    WHEN Categoria = 'SENZA NOME' THEN 1 " +
+                "    WHEN Categoria = 'MODELLI AGGIUNTIVI' THEN 2 " +
+                "    WHEN Categoria = 'ALTRE IMPOSTAZIONI' THEN 3 " +
+                "    ELSE 4 " +
+                "END, " +
+                "Categoria";
 
 
         Connection conn = DataSourceUtils.getConnection(dataSource);

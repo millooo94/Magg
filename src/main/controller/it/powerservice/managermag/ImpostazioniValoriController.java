@@ -9,14 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ImpostazioniValoriController {
 
-    @Autowired
-    ImpostazioniValoriService impostazioniValoriService;
-
-    @GetMapping("getImpostazioniValori")
-    public void getImpostazioniValori() {
-        var res = this.impostazioniValoriService.getImpostazioniValori();
-        for (ImpostazioniValori iv: res) {
-            System.out.println(iv);
-        }
-    }
 }

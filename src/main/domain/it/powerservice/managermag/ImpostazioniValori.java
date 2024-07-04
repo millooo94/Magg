@@ -8,8 +8,6 @@ import org.hibernate.annotations.Comment;
 public class ImpostazioniValori {
 
     String codiceImpostazione;
-
-    @Comment("Serve principalmente per le tendine) Se pieno viene mostrato questo al posto del relativo valore stringa / numero / clob")
     String ValoreMostrato;
 
     String valoreStringa;

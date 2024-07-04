@@ -1,4 +1,6 @@
 <?link rel="stylesheet" type="text/css" href="/css/index.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/settings-modal.css" ?>
+
 <?script type="text/javascript" src="/js/index.js"?>
 
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"

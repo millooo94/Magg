@@ -1,131 +1,160 @@
-<?link rel="stylesheet" type="text/css" href="/css/settings-modal.css" ?>
-
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-
-
     <window id="modalDialog" mode="popup" title="Impostazioni" border="normal" width="1300px" height="850px"
             apply="org.zkoss.bind.BindComposer"
-            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.SettingsModalViewModel')"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.NewSettingsViewModel')"
     >
 
         <div class="settings-modal-grid-container">
             <h:main class="settings-modal-main-content">
                 <div class="settings-modal-main-content-header">
                     <div class="left-block">
-                        <div class="categoria">
-                            <h:label>Categoria: </h:label>
-                            <textbox/>
-                        </div>
-                        <div class="parametro">
-                            <h:label>Parametro:</h:label>
-                            <textbox/>
-                        </div>
-                    </div>
-                    <div class="radio-buttons">
-                        <radiogroup id="radio-buttons"/>
-                        <radio id="generale" label="Generale" radiogroup="radio-buttons" selected="true" onCheck="@command('getImpostazioniGenerale')"/>
-                        <radio id="utente" label="Utente" radiogroup="radio-buttons" onCheck="@command('getImpostazioniUtente')"/>
-                        <radio id="documento" label="Documento" radiogroup="radio-buttons" onCheck="@command('getImpostazioniDocumento')"/>
-                    </div>
-                </div>
-                <div class="row-labels">
-                    <tabbox>
-                        <tabs id="tabs" height="20px">
-                            <tab label="Generale" onSelect=""/>
-                        </tabs>
-                        <tabpanels>
-                            <tabpanel>
-                                <tabbox>
-                                    <tabs id="sub-tabs" height="20px">
-                                        <tab label="Senza Nome" onSelect=""/>
-                                        <tab label="Modelli Aggiuntivi" onSelect=""/>
-                                        <tab label="Altre Impostazioni" onSelect=""/>
-                                    </tabs>
-                                    <tabpanels>
-                                        <tabpanel>
-                                            <listbox model="@bind(vm.senzaNomeImpostazioni)" class="rows">
-                                                <template name="model" var="each">
-                                                    <listitem>
-                                                        <listcell class="cell-container">
-                                                            <label value="@load(each.etichettaCampo)"/>
-                                                            <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
-                                                            <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
-                                                            <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
-                                                            <checkbox visible="@load(each.isCheckboxVisible)"
-                                                                      checked="@load(each.isCheckboxChecked)"
-                                                                      onCheck="@command('onCheck', row=each, checked=event.checked)"
-                                                            />
-                                                            <combobox visible="@load(each.isStringSelectBoxVisible)" selectedItem="@bind(vm.getSelectedItem(each))" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each)))" onSelect="@command('getValue')">
-                                                                <template name="model" var="item">
-                                                                    <comboitem label="@load(item.valoreStringa)" value="@load(item.valoreStringa)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </listcell>
-                                                    </listitem>
-                                                </template>
-                                            </listbox>
-                                        </tabpanel>
-                                        <tabpanel>
-                                            <listbox model="@bind(vm.modelliAggiuntiviImpostazioni)" class="rows">
-                                                <template name="model" var="each">
-                                                    <listitem>
-                                                        <listcell class="cell-container">
-                                                            <label value="@load(each.etichettaCampo)"/>
-                                                            <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
-                                                            <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
-                                                            <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
-                                                            <checkbox visible="@load(each.isCheckboxVisible)"
-                                                                      checked="@load(each.isCheckboxChecked)"
-                                                                      onCheck="@command('onCheck', row=each, checked=event.checked)"
-                                                            />
-                                                            <combobox visible="@load(each.isStringSelectBoxVisible)" selectedItem="@bind(vm.getSelectedItem(each))" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each)))" onSelect="@command('getValue')">
-                                                                <template name="model" var="item">
-                                                                    <comboitem label="@load(item.valoreStringa)" value="@load(item.valoreStringa)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </listcell>
-                                                    </listitem>
-                                                </template>
-                                            </listbox>
-                                        </tabpanel>
-                                        <tabpanel>
-                                            <listbox model="@bind(vm.altreImpostazioni)" class="rows">
-                                                <template name="model" var="each">
-                                                    <listitem>
-                                                        <listcell class="cell-container">
-                                                            <label value="@load(each.etichettaCampo)"/>
-                                                            <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
-                                                            <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
-                                                            <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
-                                                            <checkbox visible="@load(each.isCheckboxVisible)"
-                                                                      checked="@load(each.isCheckboxChecked)"
-                                                                      onCheck="@command('onCheck', row=each, checked=event.checked)"
-                                                            />
-                                                            <combobox
-                                                                      visible="@load(each.isStringSelectBoxVisible)"
-                                                                      model="@load(vm.getFilteredImpostazioniValori(each))">
-                                                                <template name="model" var="item">
-                                                                    <comboitem label="@load(item.valoreStringa)" value="@load(item)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </listcell>
-                                                    </listitem>
-                                                </template>
-                                            </listbox>
-                                        </tabpanel>
-                                    </tabpanels>
-                                </tabbox>
-                            </tabpanel>
-                        </tabpanels>
-                    </tabbox>
-                </div>
-            </h:main>
-            <h:footer class="settings-modal-footer">
-                <h:button class="save-button" onClick="@command('onSave')">Salva</h:button>
-            </h:footer>
-        </div>
-    </window>
-</zk>
+                        <div class="search">
+                            <div class="parametro">
+                                <h:label>Parametro:</h:label>
+                                <textbox value="@bind(vm.parametro)" onChanging="@command('setParametro')"/>
+                            </div>
+                            <button disabled="@bind(vm.searchDisabled)" class="search-button" onClick="@command('onParametroSearch')">Cerca</button>
+                             <div style="display: flex; align-items: center; gap: 15px">
+                                   <div>
+                                       <label visible="@load(vm.totalOccurrences.size() > 1)" value="@load(vm.currentOccurrence)"/>
+                                       <label visible="@load(vm.totalOccurrences.size() > 1)" value="/"/>
+                                       <label visible="@load(vm.totalOccurrences.size() > 1)" value="@load(vm.totalOccurrences.size())"/>
+                                   </div>
+                                    <div style="display: flex; align-items: center; gap: 15px">
+                                       <button disabled="@bind(vm.prevDisabled)"  visible="@load(vm.totalOccurrences.size() > 1)" class="search-button" onClick="@command('onPrevSearchOccurrence')">Prev</button>
+                                       <button disabled="@bind(vm.nextDisabled)" visible="@load(vm.totalOccurrences.size() > 1)" class="search-button" onClick="@command('onNextSearchOccurrence')">Next</button>
+                                   </div>
+                               </div>
+                            </div>
+                       </div>
+                       <div class="radio-buttons">
+                           <radiogroup id="radio-buttons"/>
+                           <radio id="generale" label="Generale" radiogroup="radio-buttons" selected="true" onCheck="@command('getImpostazioniGenerale')"/>
+                           <radio id="utente" label="Utente" radiogroup="radio-buttons" onCheck="@command('getImpostazioniUtente')"/>
+                           <radio id="documento" label="Documento" radiogroup="radio-buttons" onCheck="@command('getImpostazioniDocumento')"/>
+                       </div>
+                   </div>
+                   <div class="row-labels">
+                       <tabbox>
+                           <tabs id="tabs" height="20px">
+                               <tab label="Generale" onSelect=""/>
+                           </tabs>
+                           <tabpanels>
+                               <tabpanel>
+                                   <tabbox selectedIndex="@bind(vm.selectedTab)">
+                                       <tabs id="sub-tabs" height="20px">
+                                           <tab label="Senza Nome" onSelect=""/>
+                                           <tab label="Modelli Aggiuntivi" onSelect=""/>
+                                           <tab label="Altre Impostazioni" onSelect=""/>
+                                       </tabs>
+                                       <tabpanels>
+                                           <tabpanel>
+                                               <listbox model="@bind(vm.impostazioni)" class="rows">
+                                                   <template name="model" var="each">
+                                                       <listitem visible="@load(each.isSenzaNomeCategory)">
+                                                           <listcell class="cell-container">
+                                                               <html style="font-size: 14px" content="@load(each.highlightedEtichettaCampo)"/>
+                                                               <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                                                               <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                                                               <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                                                               <checkbox visible="@load(each.isCheckboxVisible)"
+                                                                         checked="@load(each.isCheckboxChecked)"
+                                                                         onCheck="@command('onCheck', row=each, checked=event.checked)"
+                                                               />
+                                                              <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                   <template name="model" var="item">
+                                                                       <comboitem label="@load(item)" value="@load(item)"/>
+                                                                   </template>
+                                                              </combobox>
+                                                           </listcell>
+                                                       </listitem>
+                                                   </template>
+                                               </listbox>
+                                           </tabpanel>
+                                           <tabpanel>
+                                               <listbox model="@bind(vm.impostazioni)" class="rows">
+                                                   <template name="model" var="each">
+                                                       <listitem visible="@load(each.isModelliAggiuntiviCategory)">
+                                                           <listcell class="cell-container">
+                                                               <html style="font-size: 14px" content="@load(each.highlightedEtichettaCampo)"/>
+                                                               <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                                                               <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                                                               <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                                                               <checkbox visible="@load(each.isCheckboxVisible)"
+                                                                         checked="@load(each.isCheckboxChecked)"
+                                                                         onCheck="@command('onCheck', row=each, checked=event.checked)"
+                                                               />
+                                                               <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                   <template name="model" var="item">
+                                                                       <comboitem label="@load(item)" value="@load(item)"/>
+                                                                   </template>
+                                                               </combobox>
+                                                           </listcell>
+                                                       </listitem>
+                                                   </template>
+                                               </listbox>
+                                           </tabpanel>
+                                           <tabpanel>
+                                               <div class="listbox-container">
+                                                   <listbox model="@bind(vm.impostazioni)" class="altre-impostazioni rows">
+                                                       <template name="model" var="each">
+                                                           <listitem visible="@load(each.isAltreImpostazioniPrimaColonna)">
+                                                               <listcell class="cell-container">
+                                                                   <html style="font-size: 14px" content="@load(each.highlightedEtichettaCampo)"/>
+                                                                   <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                                                                   <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                                                                   <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                                                                   <checkbox visible="@load(each.isCheckboxVisible)"
+                                                                             checked="@load(each.isCheckboxChecked)"
+                                                                             onCheck="@command('onCheck', row=each, checked=event.checked)"
+                                                                   />
+                                                                   <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                       <template name="model" var="item">
+                                                                           <comboitem label="@load(item)" value="@load(item)"/>
+                                                                       </template>
+                                                                   </combobox>
+                                                               </listcell>
+                                                           </listitem>
+                                                       </template>
+                                                   </listbox>
+                                                   <listbox model="@bind(vm.impostazioni)" class="altre-impostazioni rows">
+                                                       <template name="model" var="each">
+                                                           <listitem visible="@load(each.isAltreImpostazioniSecondaColonna)">
+                                                               <listcell class="cell-container">
+                                                                   <html style="font-size: 14px" content="@load(each.highlightedEtichettaCampo)"/>
+                                                                   <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
+                                                                   <textbox visible="@load(each.isNumberBoxVisible)" value="@bind(each.valoreNumero)"/>
+                                                                   <textbox class="textbox-clob" style="resize: none"  multiline="true" rows="5" visible="@load(each.isClobBoxVisible)" value="@bind(each.valoreClob)"/>
+                                                                   <checkbox visible="@load(each.isCheckboxVisible)"
+                                                                             checked="@load(each.isCheckboxChecked)"
+                                                                             onCheck="@command('onCheck', row=each, checked=event.checked)"
+                                                                   />
+                                                                   <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                       <template name="model" var="item">
+                                                                           <comboitem label="@load(item)" value="@load(item)"/>
+                                                                       </template>
+                                                                   </combobox>
+                                                               </listcell>
+                                                           </listitem>
+                                                       </template>
+                                                   </listbox>
+                                               </div>
+                                           </tabpanel>
+                                       </tabpanels>
+                                   </tabbox>
+                               </tabpanel>
+                           </tabpanels>
+                       </tabbox>
+                   </div>
+               </h:main>
+               <h:footer class="settings-modal-footer">
+                   <h:button class="save-button" onClick="@command('onSave')">Salva</h:button>
+               </h:footer>
+           </div>
+
+       </window>
+
+   </zk>

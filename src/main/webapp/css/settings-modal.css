@@ -1,13 +1,228 @@
-        .z-window-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding 10px;
+.z-window-modal {
+        font-family: "Inter", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-variation-settings:
+        "slnt" 0;
+    }
 
-            background: white
-        }
+    .z-window-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px !important;
 
-        .z-window-header button {
-            display: flex;
-            align-items: center;
-        }
+        border-bottom: #ddd;
+
+        font-family: "Inter", sans-serif;
+
+        background: #0F172A;
+        color: #fff;
+    }
+
+    .z-window-header button {
+        display: flex;
+        align-items: center;
+    }
+
+ .settings-modal-grid-container {
+     display: grid;
+     grid-template-rows: 1fr auto;
+     grid-template-rows: 1fr auto;
+     height: 100%;
+     width: 100%;
+ }
+ .settings-modal-footer {
+     display: flex;
+     justify-content: flex-end;
+     align-items: center;
+
+     background-color: #eee;
+     color: white;
+     text-align: center;
+     padding: 10px;
+     border-top: 1px solid #ddd;
+ }
+
+ .save-button {
+     padding: 8px 35px;
+     border-radius: 4px;
+     background: green;
+     color: #fff;
+     font-weight: bold;
+ }
+
+  .settings-modal-main-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .settings-modal-main-content-header {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 10px 30px;
+
+    background-color: #fff;
+  }
+
+    .settings-modal-main-content-header label {
+      font-size: 14px
+    }
+
+
+  .settings-modal-main-content-header .left-block {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .settings-modal-main-content-header .radio-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+.search {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end; /* Allinea gli elementi in basso */
+}
+
+.search-button {
+  width: 70px;
+  height: 30px;
+  align-self: flex-end; /* Allinea il bottone in basso */
+}
+
+.parametro {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-grow: 1; /* Occupare solo lo spazio necessario */
+}
+
+
+  .z-radio-content {
+        font-family: "Inter", sans-serif;
+  }
+
+  .generale, .utente, .documento {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+
+.row-labels {
+    display: flex;
+    gap: 160px;
+    height: 100%;
+    background-color: #eee;
+}
+
+.rows {
+    display: flex;
+    flex-direction: column;
+}
+
+.textbox-clob {
+    height: 70px;
+}
+
+.settings-modal-grid-container .z-label, .z-textbox {
+      font-family: "Inter", sans-serif;
+      font-size: 13px;
+}
+
+.z-listitem:nth-child(4) .z-label {
+    align-self: baseline;
+}
+
+.z-textbox, .z-combobox {
+    height: 30px;
+}
+
+.z-combobox-input, .z-comboitem {
+    font-size: 14px;
+}
+
+.textbox-clob {
+    height: 90px;
+}
+
+.z-listcell-content {
+    width: 35%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 30px;
+}
+
+
+.z-listitem .z-listcell {
+    border: none
+}
+
+.z-listbox {
+    border: none;
+}
+
+.z-checkbox {
+}
+
+.z-modal-mask {
+    background: black;
+}
+
+.z-window-icon {
+    color: white;
+}
+.z-window-icon:hover {
+    color: white;
+}
+
+.z-tabs {
+    min-height: 0;
+    height: 40px;
+}
+
+.z-tabs-content {
+    min-height: 0;
+    height: 100%
+}
+
+.z-tab-text {
+   font-family: "Inter", sans-serif;
+   font-size: 14px;
+}
+
+.z-tabpanel {
+    padding: 0;
+    border-top: none;
+}
+
+.z-tabbox {
+    border: none;
+}
+
+.option-label {
+    font-size: 13px;
+}
+
+.listbox-container {
+    display: grid;
+    grid-template-columns: 30% 30%;
+}
+
+.altre-impostazioni .z-listcell-content {
+    width: 100%;
+}
+
+.z-button {
+    display: flex;
+    align-items: center;
+
+    font-size: 14px;
+}

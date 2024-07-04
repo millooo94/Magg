@@ -1,6 +1,5 @@
 package it.powerservice.managermag;
 
-import it.powerservice.managermag.customClass.CustomImpostazioniRow;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Service;
@@ -10,58 +9,108 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ImpostazioniValoriService {
+
     @Autowired
     DataSource dataSource;
-    public List<ImpostazioniValori> getImpostazioniValori() throws SQLException {
-        return getImpostazioniValori("%");
-    }
 
-    public List<ImpostazioniValori> getImpostazioniValori(String codiceImpostazione) throws SQLException  {
-        //todo qui devo fare la query
-        //CodiceImpostazione
-        List<ImpostazioniValori> impostazioniValoris = new ArrayList<ImpostazioniValori>();
+    public List<ImpostazioniValori> getImpostazioniValori() throws SQLException {
+        List<ImpostazioniValori> impostazioniValoriList = new ArrayList<>();
 
         Connection conn = DataSourceUtils.getConnection(dataSource);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
-        StringBuffer sql = new StringBuffer("");
+        String sql = "SELECT codiceImpostazione, valoreMostrato, valoreStringa, valoreNumero, valoreClob " +
+                "FROM impostazionivalori";
 
-        sql.append("SELECT valoreMostrato,valoreStringa,valoreNumero,valoreClob ");
-        sql.append("FROM impostazionivalori ");
+        try {
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String codiceImpostazione = rs.getString("codiceImpostazione");
+                String valoreMostrato = rs.getString("valoreMostrato");
+                String valoreStringa = rs.getString("valoreStringa");
+                Double valoreNumero = rs.getDouble("valoreNumero");
+                String valoreClob = rs.getString("valoreClob");
+
+                ImpostazioniValori impostazioniValori = new ImpostazioniValori(codiceImpostazione, valoreMostrato, valoreStringa, valoreNumero, valoreClob);
+                impostazioniValoriList.add(impostazioniValori);
+            }
+
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            DataSourceUtils.releaseConnection(conn, dataSource);
+        }
+
+        return impostazioniValoriList;
+    }
+
+    public List<ImpostazioniValori> getImpostazioniValori(String codiceImpostazione) throws SQLException {
+        List<ImpostazioniValori> impostazioniValoriList = new ArrayList<>();
+
+        Connection conn = DataSourceUtils.getConnection(dataSource);
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
+        String sql = "SELECT valoreMostrato, valoreStringa, valoreNumero, valoreClob " +
+                "FROM impostazionivalori ";
+
         if (!codiceImpostazione.equals("%")) {
-            sql.append("where CodiceImpostazione=?");
+            sql += "WHERE CodiceImpostazione = ?";
         }
 
         try {
-            PreparedStatement ps = null;
-            ResultSet rs = null;
-
-            ps = conn.prepareStatement(sql.toString());
+            ps = conn.prepareStatement(sql);
 
             if (!codiceImpostazione.equals("%")) {
-                //todo 1 passare parametri in ?
+                ps.setString(1, codiceImpostazione);
             }
 
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                String valoreMostrato = rs.getString("ValoreMostrato");
-                String valoreStringa = rs.getString("EtichettaCampo") + ":";
-                String valoreNumero = rs.getString("Categoria");
-                String valoreClob = rs.getString("aspettocampo");
+                String valoreMostrato = rs.getString("valoreMostrato");
+                String valoreStringa = rs.getString("valoreStringa");
+                Double valoreNumero = rs.getDouble("valoreNumero");
+                String valoreClob = rs.getString("valoreClob");
 
-                //todo 2 fare fpr e creare la classe piena riempiendo la impostazioniValoris
+                ImpostazioniValori impostazioniValori = new ImpostazioniValori(codiceImpostazione, valoreMostrato, valoreStringa, valoreNumero, valoreClob);
+                impostazioniValoriList.add(impostazioniValori);
             }
+
         } finally {
-            if (rs != null) try { rs.close(); } catch (SQLException ignore) {}
-            if (ps != null) try { ps.close(); } catch (SQLException ignore) {}
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ignore) {
+                }
+            }
+            if (ps != null) {
+                try {
+                    ps.close();
+                } catch (SQLException ignore) {
+                }
+            }
             DataSourceUtils.releaseConnection(conn, dataSource);
         }
 
-
-        return  impostazioniValoris;
+        return impostazioniValoriList;
     }
 }

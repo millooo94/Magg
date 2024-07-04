@@ -362,7 +362,7 @@
         transition: opacity 0.3s ease;
         }
 
-
+/*
 
     .z-window-modal {
         font-family: "Inter", sans-serif;
@@ -555,12 +555,23 @@
     border-top: none;
 }
 
+.z-tabbox {
+    border: none;
+}
+
 .option-label {
     font-size: 13px;
 }
 
+.listbox-container {
+    display: grid;
+    grid-template-columns: 30% 30%;
+}
 
-
+.altre-impostazioni .z-listcell-content {
+    width: 100%;
+}
+*/
 
 
 
