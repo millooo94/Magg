@@ -174,7 +174,7 @@ public class CustomImpostazioniRow {
         this.occurrenceNumber = occurrenceNumber;
     }
 
-    public Boolean getCurrentOccurrence() {
+    public Boolean getIsCurrentOccurrence() {
         return isCurrentOccurrence;
     }
 
@@ -218,6 +218,7 @@ public class CustomImpostazioniRow {
                 ", isCheckboxVisible=" + isCheckboxVisible +
                 ", isCheckboxChecked=" + isCheckboxChecked +
                 ", highlightedEtichettaCampo=" + highlightedEtichettaCampo +
+                ", isCurrentOccurrence=" + isCurrentOccurrence +
                 ", occurrenceNumber=" + occurrenceNumber +
                 '}';
     }

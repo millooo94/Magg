@@ -14,7 +14,7 @@
                         <div class="search">
                             <div class="parametro">
                                 <h:label>Parametro:</h:label>
-                                <textbox value="@bind(vm.parametro)" onChanging="@command('setParametro')"/>
+                                <textbox value="@bind(vm.parametro)" onChanging="@command('setParametro')" instant="true"/>
                             </div>
                             <button disabled="@bind(vm.searchDisabled)" class="search-button" onClick="@command('onParametroSearch')">Cerca</button>
                              <div style="display: flex; align-items: center; gap: 15px">

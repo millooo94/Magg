@@ -30,19 +30,17 @@ public class SettingsModalViewModel {
     Boolean searchDisabled = true;
     Boolean prevDisabled = false;
     Boolean nextDisabled = false;
-
     String parametro;
-    public Integer currentOccurrence = 1;
-    public List<CustomImpostazioniRow> totalOccurrences = new ArrayList<>();
+    public Integer currentSarchedOccurrence = 1;
+    public List<CustomImpostazioniRow> totalSearchedOccurrences = new ArrayList<>();
     private Integer selectedTab = 0;
-
 
     @Init
     public void init(@ContextParam(ContextType.COMPONENT) Window w) throws Exception {
         initImpostazioni();
         impostazioniValori = impostazioniValoriService.getImpostazioniValori();
-
     }
+
 
     @Command
     public void onSave() {
@@ -62,68 +60,73 @@ public class SettingsModalViewModel {
         }
     }
     @Command
-    @NotifyChange({"searchDisabled"})
+    @NotifyChange("searchDisabled")
     public void setParametro(String parametro) {
         this.parametro = parametro;
         searchDisabled = parametro == null || parametro.length() <= 2;
     }
     @Command
-    @NotifyChange({"impostazioni", "searchDisabled", "totalOccurrences", "nextDisabled", "prevDisabled"})
+    @NotifyChange({"impostazioni", "searchDisabled", "totalOccurrences", "nextDisabled", "prevDisabled", "selectedTab"})
     public void onParametroSearch() {
-        totalOccurrences.clear();
+        totalSearchedOccurrences.clear();
         if (parametro != null && !parametro.isEmpty() && parametro.length() > 2) {
             highlightParametroInList(impostazioni, parametro);
         } else {
             resetHighlightedParametroInList(impostazioni);
         }
-        if (!totalOccurrences.isEmpty()) {
+        if (!totalSearchedOccurrences.isEmpty()) {
             nextDisabled = false;
             prevDisabled = true;
+            selectedTab = totalSearchedOccurrences.get(0).getTab();
         }
     }
-
     @Command
     @NotifyChange({"currentOccurrence", "nextDisabled", "prevDisabled", "impostazioni", "selectedTab"})
     public void onNextSearchOccurrence() {
-        if (currentOccurrence < totalOccurrences.size()) {
-            currentOccurrence++;
+        if (currentSarchedOccurrence < totalSearchedOccurrences.size()) {
+            currentSarchedOccurrence++;
             currentOccurrenceHighlight();
         }
-        nextDisabled = currentOccurrence >= totalOccurrences.size();
-        prevDisabled = currentOccurrence <= 1;
-        System.out.println(currentOccurrence + " " + totalOccurrences.size());
+        nextDisabled = currentSarchedOccurrence >= totalSearchedOccurrences.size();
+        prevDisabled = currentSarchedOccurrence <= 1;
     }
     @Command
     @NotifyChange({"currentOccurrence", "nextDisabled", "prevDisabled", "impostazioni", "selectedTab"})
     public void onPrevSearchOccurrence() {
-        if (currentOccurrence > 1) {
-            currentOccurrence--;
+        if (currentSarchedOccurrence > 1) {
+            currentSarchedOccurrence--;
             currentOccurrenceHighlight();
         }
         nextDisabled = false;
-        prevDisabled = currentOccurrence <= 1;
+        prevDisabled = currentSarchedOccurrence <= 1;
     }
+
+
     private void highlightParametroInList(List<CustomImpostazioniRow> lista, String parametro) {
         int occurrenceCounter = 0;
-
         for (CustomImpostazioniRow row : lista) {
             String etichetta = row.getEtichettaCampo();
             if (etichetta.toLowerCase().contains(parametro.toLowerCase())) {
                 occurrenceCounter++;
                 row.setOccurrenceNumber(occurrenceCounter);
-                totalOccurrences.add(row);
-                if (row.getOccurrenceNumber() == 1) {
-                    row.setCurrentOccurrence(true);
-                }
-                String highlighted = !row.getCurrentOccurrence() ? getHighlightedText(etichetta, parametro, "yellow") : getHighlightedText(etichetta, parametro, "orange");
-                row.setHighlightedEtichettaCampo(highlighted);
+                totalSearchedOccurrences.add(row);
             } else {
                 row.setHighlightedEtichettaCampo(etichetta);
                 row.setOccurrenceNumber(0);
                 row.setCurrentOccurrence(false);
             }
         }
-        System.out.println(totalOccurrences.size());
+        for (CustomImpostazioniRow row : totalSearchedOccurrences) {
+            String etichetta = row.getEtichettaCampo();
+            if (totalSearchedOccurrences.size() == 1) {
+                row.setCurrentOccurrence(false);
+                row.setHighlightedEtichettaCampo(getHighlightedText(etichetta, parametro, "yellow"));
+            } else {
+                row.setCurrentOccurrence(row.getOccurrenceNumber() == 1);
+                String highlighted = row.getIsCurrentOccurrence() ? getHighlightedText(etichetta, parametro, "orange") : getHighlightedText(etichetta, parametro, "yellow");
+                row.setHighlightedEtichettaCampo(highlighted);
+            }
+        }
     }
     private void resetHighlightedParametroInList(List<CustomImpostazioniRow> lista) {
         for (CustomImpostazioniRow row : lista) {
@@ -135,63 +138,6 @@ public class SettingsModalViewModel {
         Matcher matcher = pattern.matcher(text);
         return matcher.replaceAll("<span style='background-color: " + color + ";'>$1</span>");
     }
-
-
-    public List<String> getFilteredImpostazioniValori(CustomImpostazioniRow each) {
-        String codiceImpostazione = each.getCodice();
-        return impostazioniValori.stream()
-                .filter(valore -> valore.getCodiceImpostazione().equals(codiceImpostazione))
-                .map(ImpostazioniValori::getValoreStringa)
-                .collect(Collectors.toList());
-    }
-
-    public String getParametro() {
-        return parametro;
-    }
-
-    public List<CustomImpostazioniRow> getImpostazioni() {
-        return impostazioni;
-    }
-
-    public Boolean getSearchDisabled() {
-        return searchDisabled;
-    }
-
-    public Boolean getPrevDisabled() {
-        return prevDisabled;
-    }
-
-    public Boolean getNextDisabled() {
-        return nextDisabled;
-    }
-
-    public Integer getCurrentOccurrence() {
-        return currentOccurrence;
-    }
-    public void setCurrentOccurrence(Integer currentOccurrence) {
-        this.currentOccurrence = currentOccurrence;
-    }
-
-    public void setImpostazioni(List<CustomImpostazioniRow> impostazioni) {
-        this.impostazioni = impostazioni;
-    }
-
-    public List<CustomImpostazioniRow> getTotalOccurrences() {
-        return totalOccurrences;
-    }
-    public Integer getSelectedTab() {
-        return selectedTab;
-    }
-
-    public void setSelectedTab(Integer selectedTab) {
-        this.selectedTab = selectedTab;
-    }
-
-
-    public void setTotalOccurrences(List<CustomImpostazioniRow> totalOccurrences) {
-        this.totalOccurrences = totalOccurrences;
-    }
-
     public void initImpostazioni() throws SQLException {
         impostazioni = impostazioniGridService.getImpostazioniRows();
         int altreImpostazioniCount = 0;
@@ -208,11 +154,10 @@ public class SettingsModalViewModel {
             }
         }
     }
-
     public void currentOccurrenceHighlight() {
         for (CustomImpostazioniRow row: impostazioni) {
             String etichetta = row.getEtichettaCampo();
-            if (row.getOccurrenceNumber().equals(currentOccurrence)) {
+            if (row.getOccurrenceNumber().equals(currentSarchedOccurrence)) {
                 String highlighted = getHighlightedText(etichetta, parametro, "orange");
                 row.setHighlightedEtichettaCampo(highlighted);
                 selectedTab = row.getTab();
@@ -221,6 +166,50 @@ public class SettingsModalViewModel {
                 row.setHighlightedEtichettaCampo(highlighted);
             }
         }
-        System.out.println(currentOccurrence);
+    }
+    public List<String> getFilteredImpostazioniValori(CustomImpostazioniRow each) {
+        String codiceImpostazione = each.getCodice();
+        return impostazioniValori.stream()
+                .filter(valore -> valore.getCodiceImpostazione().equals(codiceImpostazione))
+                .map(ImpostazioniValori::getValoreStringa)
+                .collect(Collectors.toList());
+    }
+
+
+    public String getParametro() {
+        return parametro;
+    }
+    public List<CustomImpostazioniRow> getImpostazioni() {
+        return impostazioni;
+    }
+    public Boolean getSearchDisabled() {
+        return searchDisabled;
+    }
+    public Boolean getPrevDisabled() {
+        return prevDisabled;
+    }
+    public Boolean getNextDisabled() {
+        return nextDisabled;
+    }
+    public Integer getCurrentOccurrence() {
+        return currentSarchedOccurrence;
+    }
+    public void setCurrentOccurrence(Integer currentOccurrence) {
+        this.currentSarchedOccurrence = currentOccurrence;
+    }
+    public void setImpostazioni(List<CustomImpostazioniRow> impostazioni) {
+        this.impostazioni = impostazioni;
+    }
+    public List<CustomImpostazioniRow> getTotalOccurrences() {
+        return totalSearchedOccurrences;
+    }
+    public Integer getSelectedTab() {
+        return selectedTab;
+    }
+    public void setSelectedTab(Integer selectedTab) {
+        this.selectedTab = selectedTab;
+    }
+    public void setTotalOccurrences(List<CustomImpostazioniRow> totalOccurrences) {
+        this.totalSearchedOccurrences = totalOccurrences;
     }
 }
