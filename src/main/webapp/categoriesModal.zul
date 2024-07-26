@@ -1,0 +1,36 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="categoriesModalDialog" mode="popup" title="Categories" border="normal" width="1300px" height="850px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.CategoriesModalViewModel')"
+    >
+
+        <div class="dictionaries-modal-grid-container">
+            <h:main class="dictionaries-modal-main-content">
+                <tree id="tree" model="@bind(vm.categoriesTreeModel)">
+                    <template name="model" var="each">
+                        <treeitem context="editPopup" open="@load(each.isOpen)" draggable="true" droppable="true" onOpen="@command('onOpenNode', event=event, node=each)" onDrop="@command('test', event=event, droppedNode=each)" onRightClick="@command('onRightClick', event=event, node=each)">
+                            <treerow>
+                                <treecell label="@load(each.descrizione)" />
+                            </treerow>
+                        </treeitem>
+                    </template>
+                </tree>
+            </h:main>
+            <h:footer class="dictionaries-modal-footer">
+                <h:button class="save-button">Salva</h:button>
+            </h:footer>
+
+        </div>
+
+
+
+        <menupopup id="editPopup">
+            <menuitem iconSclass="z-icon-plus" label="Aggiungi Categoria" onClick="@command('onCreateOrUpdateCategory', action='CREATE')"/>
+            <menuitem iconSclass="z-icon-pencil" label="Modifica Categoria" onClick="@command('onCreateOrUpdateCategory', action='UPDATE')"/>
+            <menuitem iconSclass="z-icon-trash" label="Elimina Categoria" onClick="@command('onDeleteCategory')"/>
+        </menupopup>
+    </window>
+</zk>

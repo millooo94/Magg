@@ -5,17 +5,68 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "dizionari")
-@IdClass(DizionariPKId.class)
 public class Dizionari {
     @Id
     @Column(name = "codice", length = 50, nullable = false, columnDefinition = "VARCHAR(50) NOT NULL")
     String Codice;
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "categoria", nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
-    DizionariCategorie Categoria;
+    @Column(name = "categoria", length = 20, nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
+    String Categoria;
     @Column(name = "descrizione", length = 255, nullable = false, columnDefinition = "VARCHAR(255) NOT NULL")
     String Descrizione;
     @Column(name = "modificabile", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean modificabile;
+
+    @Transient
+    private Boolean primaColonna = false;
+    @Transient
+    private Boolean secondaColonna = false;
+
+
+    public String getCodice() {
+        return Codice;
+    }
+
+    public void setCodice(String codice) {
+        Codice = codice;
+    }
+
+    public String getCategoria() {
+        return Categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        Categoria = categoria;
+    }
+
+    public String getDescrizione() {
+        return Descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        Descrizione = descrizione;
+    }
+
+    public Boolean getModificabile() {
+        return modificabile;
+    }
+
+    public void setModificabile(Boolean modificabile) {
+        this.modificabile = modificabile;
+    }
+
+    public Boolean getPrimaColonna() {
+        return primaColonna;
+    }
+
+    public void setPrimaColonna(Boolean primaColonna) {
+        this.primaColonna = primaColonna;
+    }
+
+    public Boolean getSecondaColonna() {
+        return secondaColonna;
+    }
+
+    public void setSecondaColonna(Boolean secondaColonna) {
+        this.secondaColonna = secondaColonna;
+    }
 }

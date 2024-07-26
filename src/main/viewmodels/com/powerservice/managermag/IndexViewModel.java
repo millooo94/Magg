@@ -13,9 +13,21 @@ public class IndexViewModel {
 
 
     @Command
-    public void onOpenModal() {
+    public void onOpenSettingsModal() {
         Window window = (Window)Executions.createComponents(
                 "/settingsModal.zul", null, null);
+        window.doModal();
+    }
+    @Command
+    public void onOpenDictionariesModal() {
+        Window window = (Window)Executions.createComponents(
+                "/dictionariesModal.zul", null, null);
+        window.doModal();
+    }
+    @Command
+    public void onOpenCategoriesModal() {
+        Window window = (Window)Executions.createComponents(
+                "/categoriesModal.zul", null, null);
         window.doModal();
     }
 }

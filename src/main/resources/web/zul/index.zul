@@ -1,7 +1,10 @@
 <?link rel="stylesheet" type="text/css" href="/css/index.css" ?>
 <?link rel="stylesheet" type="text/css" href="/css/settings-modal.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/dictionaries-modal.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/categories-modal.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/category-context-menu-modal.css" ?>
 
-<?script type="text/javascript" src="/js/index.js"?>
+<?script type="text/javascript" src="/js/index.js" defer?>
 
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
@@ -40,13 +43,13 @@
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-globe"></h:i>
                         </h:span>
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenCategoriesModal')">
                             <h:i class="fa-solid fa-magnifying-glass"></h:i>
                         </h:span>
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenDictionariesModal')">
                             <h:i class="fa-solid fa-comment"></h:i>
                         </h:span>
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenModal')">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenSettingsModal')">
                             <h:i class="fa-solid fa-download"></h:i>
                         </h:span>
                     </div>

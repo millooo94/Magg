@@ -10,12 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CategorieController {
     @Autowired
     CategorieService categorieService;
-    @GetMapping("/getCategorie")
-    public void getCategorie() {
-        var res = categorieService.getCategorie();
-        for (Categorie c: res) {
-            System.out.println(c);
-        }
-    }
+
 
 }

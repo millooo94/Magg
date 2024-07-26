@@ -55,15 +55,6 @@ public class ImpostazioniGridService {
                 String tipoCampo = rs.getString("tipoCampo");
                 Short isNew = rs.getShort("isNew");
 
-                //1. ti chiami questo metodo di questo service
-                //2. fai una griglia template sulla lista ritornata
-                //3. fai vedere una riga fatta così:
-                //      EtichettaCampo | campo con aspetto = aspettocampo con contenuto valoreStringa o valoreClob o valoreNumero in base al tipoCampo
-
-                //4. in basso alla griglia devi mostrare il tasto salva.
-                //5. cosa fa il salva? cerca con il service relativo nella impostazioniOggetto per quel dodice con GEN e iDOGGETTO=0 e tira giù la riga della domani
-                //   per fare salva (insert o update)
-
                 CustomImpostazioniRow c = new CustomImpostazioniRow(codice, tipoCampo, etichettaCampo, categoria, aspettoCampo,  valoreStringa,  valoreClob,  valoreNumero, isNew);
 
                 customImpostazioniRows.add(c);

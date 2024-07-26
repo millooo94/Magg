@@ -6,7 +6,6 @@
             apply="org.zkoss.bind.BindComposer"
             position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.SettingsModalViewModel')"
     >
-
         <div class="settings-modal-grid-container">
             <h:main class="settings-modal-main-content">
                 <div class="settings-modal-main-content-header">
@@ -29,12 +28,6 @@
                                    </div>
                                </div>
                             </div>
-                       </div>
-                       <div class="radio-buttons">
-                           <radiogroup id="radio-buttons"/>
-                           <radio id="generale" label="Generale" radiogroup="radio-buttons" selected="true" onCheck="@command('getImpostazioniGenerale')"/>
-                           <radio id="utente" label="Utente" radiogroup="radio-buttons" onCheck="@command('getImpostazioniUtente')"/>
-                           <radio id="documento" label="Documento" radiogroup="radio-buttons" onCheck="@command('getImpostazioniDocumento')"/>
                        </div>
                    </div>
                    <div class="row-labels">
@@ -154,7 +147,5 @@
                    <h:button class="save-button" onClick="@command('onSave')">Salva</h:button>
                </h:footer>
            </div>
-
        </window>
-
    </zk>

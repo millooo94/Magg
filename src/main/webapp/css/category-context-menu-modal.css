@@ -1,0 +1,26 @@
+.category-context-menu-modal.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.category-context-menu-modal.container .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 7px;
+    height: 100%
+}
+.codice, .descrizione {
+        display: flex;
+        align-items: center;
+        gap:15px
+}
+
+.category-context-menu-modal.container .footer {
+    padding: 7px;
+    align-self: end;
+}

@@ -1,7 +1,5 @@
 package it.powerservice.managermag.customClass;
 
-import it.powerservice.managermag.enums.TipoImpostazioni;
-
 public class CustomImpostazioniRow {
     String codice;
     String etichettaCampo;
