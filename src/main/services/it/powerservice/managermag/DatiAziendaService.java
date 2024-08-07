@@ -13,4 +13,8 @@ public class DatiAziendaService {
     public List<DatiAzienda> getDatiAzienda() {
         return datiAziendaRepository.getDatiAzienda();
     }
+
+    public void saveDatiAzienda(DatiAzienda datiAzienda) {
+        datiAziendaRepository.save(datiAzienda);
+    }
 }

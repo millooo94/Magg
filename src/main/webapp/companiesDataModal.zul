@@ -1,0 +1,34 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="companiesDataModal" mode="popup" title="Dati Azienda" border="normal" width="800px" height="600px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.CompaniesDataModalVIewModel')"
+    >
+        <div class="companies-data-modal-grid-container">
+            <h:main class="companies-data-modal-main-content">
+                <div xmlns:x="xhtml" xmlns:z="http://www.zkoss.org/2005/zul" class="field-container"
+                     children="@load(vm.fieldList)">
+                    <template name="children">
+                        <div class="field-item">
+                            <h:span>${each.label}:</h:span>
+                            <textbox if="${each.isTextbox}" value="@bind(each.fieldValue)" type="@bind(each.textboxType)" readonly="@bind(!each.isUpdating)"/>
+                            <decimalbox if="${each.isNumericInput}" readonly="@bind(!each.isUpdating)" format="#,##0.##" value="@bind(each.fieldValue)"/>
+                            <datebox if="${each.isDateInput}" disabled="@bind(!each.isUpdating)" format="short" value="@bind(each.fieldValue)"/>
+                            <combobox if="${each.isDropdownInput}" disabled="@bind(!each.isUpdating)" model="@bind(each.dropdownItems)" selectedItem="@bind(each.fieldValue)">
+                                <template name="model" var="item">
+                                    <comboitem label="@load(item.label)" value="@load(item.value)"/>
+                                </template>
+                            </combobox>
+                        </div>
+                    </template>
+                </div>
+            </h:main>
+            <h:footer class="settings-modal-footer">
+                <button disabled="@bind(vm.isDataUpdating)" class="edit-button" onClick="@command('onEdit')">Modifica</button>
+                <button class="save-button" onClick="@command('onSave')">Salva</button>
+            </h:footer>
+        </div>
+    </window>
+</zk>

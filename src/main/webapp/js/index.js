@@ -1,6 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
     const mainContainer = document.querySelector('.main-container');
+
     const rightSidebarButton = document.querySelector('.settings-button');
+
     const overlay = document.querySelector(".overlay");
     const rightSidebar = document.querySelector(".right-sidebar");
     const rightSidebarNavSection = document.querySelector(".right-sidebar .nav-section");
@@ -37,9 +38,11 @@ document.addEventListener('DOMContentLoaded', function() {
         leftSidebarElements.forEach(element => element.classList[action]('left-sidebar-collapsed'));
     }
 
+
     rightSidebarButton.addEventListener('click', function() {
         toggleRightSidebarClasses('add');
     });
+
 
     rightSidebarcloseButton.addEventListener('click', function() {
         toggleRightSidebarClasses('remove');
@@ -52,4 +55,3 @@ document.addEventListener('DOMContentLoaded', function() {
     menuButton.addEventListener('click', function() {
         toggleLeftSidebarClasses('toggle');
     });
-});

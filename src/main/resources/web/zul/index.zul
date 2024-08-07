@@ -3,8 +3,10 @@
 <?link rel="stylesheet" type="text/css" href="/css/dictionaries-modal.css" ?>
 <?link rel="stylesheet" type="text/css" href="/css/categories-modal.css" ?>
 <?link rel="stylesheet" type="text/css" href="/css/category-context-menu-modal.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/variants-modal.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/companies-data-modal.css" ?>
+<?link rel="stylesheet" type="text/css" href="/css/listini-modal.css" ?>
 
-<?script type="text/javascript" src="/js/index.js" defer?>
 
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
@@ -32,24 +34,24 @@
             width="100%" height="100%"
             viewModel="@id('vm') @init('com.powerservice.managermag.IndexViewModel')">
 
-        <div class="main-container">
-            <div class="overlay"></div>
+        <div class="main-container" zclass="@bind(vm.mainContainerMenuClass)">
+            <div class="overlay" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')"></div>
             <div class="header">
                 <div class="container">
-                    <h:span class="menu-icon menu-button" style="color:rgb(30, 41, 59); font-size: 20px;">
-                        <h:i class="fa-solid fa-bars"></h:i>
-                    </h:span>
+                    <div class="menu-button" style="color:rgb(30, 41, 59); font-size: 20px; cursor: pointer;" onClick="@command('onToggleLeftSidebar')">
+                        <h:i class="menu-icon  fa-solid fa-bars"></h:i>
+                    </div>
                     <div class="controls">
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-globe"></h:i>
                         </h:span>
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenCategoriesModal')">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-magnifying-glass"></h:i>
                         </h:span>
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenDictionariesModal')">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-comment"></h:i>
                         </h:span>
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" onClick="@command('onOpenSettingsModal')">
+                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-download"></h:i>
                         </h:span>
                     </div>
@@ -57,36 +59,48 @@
             </div>
             <div class="left-sidebar">
                 <div class="container">
-                    <div class="logo">LOGO</div>
-                    <div class="nav-section">
+                    <div class="logo" zclass="@bind(vm.isLeftSidebarOpen ? 'left-sidebar-collapsed' : '')">LOGO</div>
+                    <div class="nav-section" zclass="@bind(vm.isLeftSidebarOpen ? 'left-sidebar-collapsed' : '')">
                         <div class="nav-section-block">
                             <div class="label">
-                                <h:h4 class="title">DASHBOARDS</h:h4>
+                                <h:h4 class="title">GENERALI</h:h4>
                             </div>
                             <h:nav>
-                                <div class="nav-item">
+                                <div class="nav-item" onClick="@command('onOpenModal', modal='settingsModal')">
                                     <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-bars-progress"></h:i>
                                     </h:span>
-                                    <div class="name">Opzione 1</div>
+                                    <div class="name">Inpostazioni</div>
                                 </div>
-                                <div class="nav-item">
+                                <div class="nav-item" onClick="@command('onOpenModal', modal='dictionariesModal')">
                                     <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-cloud"></h:i>
                                     </h:span>
-                                    <div class="name">Opzione 2</div>
+                                    <div class="name">Dizionari</div>
                                 </div>
-                                <div class="nav-item">
+                                <div class="nav-item" onClick="@command('onOpenModal', modal='categoriesModal')">
                                     <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-circle-user"></h:i>
                                     </h:span>
-                                    <div class="name">Opzione 3</div>
+                                    <div class="name">Categorie</div>
                                 </div>
-                                <h:div class="nav-item">
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='variantiModal')">
                                     <span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
                                     </span>
-                                    <div class="name">Opzione 4</div>
+                                    <div class="name">Varianti</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='listiniModal')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Listini</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='companiesDataModal')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Dati Azienda</div>
                                 </h:div>
                             </h:nav>
                         </div>
@@ -162,20 +176,20 @@
                     MAIN CONTENT
                 </div>
             </div>
-            <div class="right-sidebar" >
+            <div class="right-sidebar" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')">
                 <div class="container">
-                    <div class="right-sidebar-header">
+                    <div class="right-sidebar-header" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')">
                         <div class="right-sidebar-header-left-block">
-                            <h:span style="color: #000; font-size: 20px;">
-                                <h:i class="settings-button fa-solid fa-gear"></h:i>
-                            </h:span>
-                            <div class="right-sidebar-header-left-block-title">SETTINGS</div>
+                            <div onClick="@command('onOpenRightSidebar')" class="settings-button" style="color: #000; font-size: 20px;">
+                                <h:i class="fa-solid fa-gear"></h:i>
+                            </div>
+                            <div class="right-sidebar-header-left-block-title" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')">SETTINGS</div>
                         </div>
-                        <h:span class="close" style="color: #000; font-size: 20px;">
+                        <div class="close" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')" style="color: #000; font-size: 20px;" onClick="@command('onCloseRightSidebar')">
                             <h:i class="fa-solid fa-xmark"></h:i>
-                        </h:span>
+                        </div>
                     </div>
-                    <div class="nav-section">
+                    <div class="nav-section" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')">
                         <div class="nav-section-block">
                             <div class="label">
                                 <h:h4 class="title">DASHBOARDS</h:h4>
@@ -281,6 +295,6 @@
             </div>
         </div>
     </window>
-
 </zk>
+
 

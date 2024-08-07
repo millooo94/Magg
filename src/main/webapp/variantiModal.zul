@@ -1,0 +1,209 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="variantiModal" mode="popup" title="Varianti" border="normal" width="1800px" height="900px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.VariantiModalViewModel')">
+
+        <hbox hflex="1" vflex="1" class="varianti">
+            <vbox hflex="1" vflex="1">
+                <vbox hflex="1" vflex="1" style="border: 1px solid black;">
+                    <vbox hflex="1" vflex="0" style="display: flex; align-items: center; padding: 4px 16px;">
+                        <div style="display: flex; justify-content: flex-end" class="search">
+                            <div class="parametro" style="display: flex; flex-direction: row; align-items: center">
+                                <h:label>Cerca:</h:label>
+                                <textbox disabled="@bind(vm.rightClickedVariante.isUpdating and vm.variantiCategorieSearchDisabled)" value="@bind(vm.variantiCategorieParametro)" onChanging="@command('setParametro', type='C')" instant="true"/>
+                            </div>
+                            <button disabled="@bind(vm.rightClickedVariante.isUpdating)" onClick="@command('onParametroSearch', type='C')">Cerca</button>
+                            <div style="display: flex; align-items: center; gap: 15px">
+                                <div>
+                                    <label visible="@load(vm.variantiCategorieTotalSearchedOccurrences.size() > 1)" value="@load(vm.variantiCategorieCurrentSearchedOccurrence)"/>
+                                    <label visible="@load(vm.variantiCategorieTotalSearchedOccurrences.size() > 1)" value="/"/>
+                                    <label visible="@load(vm.variantiCategorieTotalSearchedOccurrences.size() > 1)" value="@load(vm.variantiCategorieTotalSearchedOccurrences.size())"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 15px">
+                                    <button disabled="@bind(vm.variantiCategoriePrevDisabled)"  visible="@load(vm.variantiCategorieTotalSearchedOccurrences.size() > 1)"  onClick="@command('onPrevSearchOccurrence', type='C')" class="search-button">Prev</button>
+                                    <button disabled="@bind(vm.variantiCategorieNextDisabled)" visible="@load(vm.variantiCategorieTotalSearchedOccurrences.size() > 1)"  onClick="@command('onNextSearchOccurrence', type='C')" class="search-button">Next</button>
+                                </div>
+                            </div>
+                            <button style="display: flex; justify-content: center; position: absolute; left: 745px; width: 145px" label="@bind(vm.showDeletedVariantiCategorieButtonLabel)" onClick="@command('showDeletedVariants', type='C')"/>
+                        </div>
+                    </vbox>
+                    <vbox hflex="1" vflex="1" style="border: 1px solid black;">
+                        <listbox width="100%" height="100%" id="categorie" model="@bind(vm.variantiCategorie)">
+                            <listhead>
+                                <listheader style="background: white; color: black" label="Descrizione" />
+                                <listheader style="background: white; color: black" label="Descrizione Eng" />
+                                <listheader style="background: white; color: black" label="Obbligatorio" />
+                                <listheader style="background: white; color: black" label="Escludi Stampa" />
+                                <listheader style="background: white; color: black" label="Multiselezione Figli" />
+                                <listheader style="background: white; color: black" label="Filtro Web" />
+                            </listhead>
+                            <template name="model" var="each">
+                                <listitem context="editPopup" onClick="@command('onClickVariant', variant=each)" onRightClick="@command('onRightClick', variant=each)">
+                                    <listcell>
+                                        <html visible="@bind(!each.isUpdating)" content="@bind(each.highlightedDescrizione)"/>
+                                        <textbox visible="@bind(each.isUpdating)" value="@bind(each.descrizione)"/>
+                                    </listcell>
+                                    <listcell visible="@bind(!each.isUpdating)" label="@bind(each.descrizioneEng)"/>
+                                    <listcell visible="@bind(each.isUpdating)">
+                                        <textbox value="@bind(each.descrizioneEng)"/>
+                                    </listcell>
+                                    <listcell>
+                                        <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.obbligatorio)"/>
+                                    </listcell>
+                                    <listcell>
+                                        <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.escludiStampa)"/>
+                                    </listcell>
+                                    <listcell>
+                                        <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.multiSelezioneFigli)"/>
+                                    </listcell>
+                                    <listcell>
+                                        <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.filtroWeb)"/>
+                                    </listcell>
+                                </listitem>
+                            </template>
+                        </listbox>
+                        <h:div style="display: flex; align-items: center; gap: 15px; position: absolute; top: 424px; width: 885px; padding: .3rem;">
+                            <button label="Salva" visible="@bind(vm.rightClickedVariante.isUpdating)" onClick="@command('onSaveVariantUpdate')"/>
+                            <button label="Aggiungi" onClick="@command('onCreateVariant', type='C')"/>
+                        </h:div>
+                    </vbox>
+                </vbox>
+                <vbox hflex="1" vflex="1" style="border: 1px solid black;">
+                    <vbox hflex="1" vflex="0" style="display: flex; align-items: center; padding: 4px 16px;">
+                        <div style="display: flex; justify-content: flex-end" class="search">
+                            <div class="parametro" style="display: flex; flex-direction: row; align-items: center">
+                                <h:label>Cerca:</h:label>
+                                <textbox disabled="@bind(vm.rightClickedVariante.isUpdating and vm.variantiTipologieSearchDisabled)" value="@bind(vm.variantiTipologieParametro)" onChanging="@command('setParametro', type='T')" instant="true"/>
+                            </div>
+                            <button disabled="@bind(vm.rightClickedVariante.isUpdating)" onClick="@command('onParametroSearch', type='T')">Cerca</button>
+                            <div style="display: flex; align-items: center; gap: 15px">
+                                <div>
+                                    <label visible="@load(vm.variantiTipologieTotalSearchedOccurrences.size() > 1)" value="@load(vm.variantiTipologieCurrentSearchedOccurrence)"/>
+                                    <label visible="@load(vm.variantiTipologieTotalSearchedOccurrences.size() > 1)" value="/"/>
+                                    <label visible="@load(vm.variantiTipologieTotalSearchedOccurrences.size() > 1)" value="@load(vm.variantiTipologieTotalSearchedOccurrences.size())"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 15px">
+                                    <button disabled="@bind(vm.variantiTipologiePrevDisabled)"  visible="@load(vm.variantiTipologieTotalSearchedOccurrences.size() > 1)"  onClick="@command('onPrevSearchOccurrence', type='T')" class="search-button">Prev</button>
+                                    <button disabled="@bind(vm.variantiTipologieNextDisabled)" visible="@load(vm.variantiTipologieTotalSearchedOccurrences.size() > 1)"  onClick="@command('onNextSearchOccurrence', type='T')" class="search-button">Next</button>
+                                </div>
+                            </div>
+                            <button style="display: flex; justify-content: center; position: absolute; left: 745px; width: 145px" label="@bind(vm.showDeletedVariantiTipologieButtonLabel)" onClick="@command('showDeletedVariants', type='T')"/>
+                        </div>
+                    </vbox>
+                    <listbox width="100%" height="100%" id="tipologie" model="@bind(vm.variantiTipologie)">
+                        <listhead>
+                            <listheader style="background: white; color: black" label="Descrizione" />
+                            <listheader style="background: white; color: black" label="Descrizione Eng" />
+                            <listheader style="background: white; color: black" label="Obbligatorio" />
+                            <listheader style="background: white; color: black" label="Escludi Stampa" />
+                            <listheader style="background: white; color: black" label="Multiselezione Figli" />
+                            <listheader style="background: white; color: black" label="Filtro Web" />
+                        </listhead>
+                        <template name="model" var="each">
+                            <listitem context="editPopup" onClick="@command('onClickVariant', variant=each)" onRightClick="@command('onRightClick', variant=each)">
+                                <listcell>
+                                    <html visible="@bind(!each.isUpdating)" content="@bind(each.highlightedDescrizione)"/>
+                                    <textbox visible="@bind(each.isUpdating)" value="@bind(each.descrizione)"/>
+                                </listcell>
+                                <listcell visible="@bind(!each.isUpdating)" label="@bind(each.descrizioneEng)"/>
+                                <listcell visible="@bind(each.isUpdating)">
+                                    <textbox value="@bind(each.descrizioneEng)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.obbligatorio)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.escludiStampa)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.multiSelezioneFigli)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.filtroWeb)"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    <h:div style="display: flex; align-items: center; gap: 15px; position: absolute; bottom: 0px; width: 885px; padding: .3rem;">
+                        <button label="Salva" onClick="@command('onSaveVariantUpdate')"/>
+                        <button disabled="@bind(vm.isVariantiTipologieAddButtonDisabled)" label="Aggiungi" onClick="@command('onCreateVariant', type='T')"/>
+                    </h:div>
+                </vbox>
+            </vbox>
+            <vbox hflex="1" vflex="1">
+                <vbox hflex="1" vflex="1" style="border: 1px solid black;">
+                    <vbox hflex="1" vflex="0" style="display: flex; align-items: center; padding: 4px 16px;">
+                        <div style="display: flex; justify-content: flex-end" class="search">
+                            <div class="parametro" style="display: flex; flex-direction: row; align-items: center">
+                                <h:label>Cerca:</h:label>
+                                <textbox disabled="@bind(vm.rightClickedVariante.isUpdating and vm.variantiValoriSearchDisabled)" value="@bind(vm.variantiValoriParametro)" onChanging="@command('setParametro', type='V')" instant="true"/>
+                            </div>
+                            <button disabled="@bind(vm.rightClickedVariante.isUpdating)" onClick="@command('onParametroSearch', type='V')">Cerca</button>
+                            <div style="display: flex; align-items: center; gap: 15px">
+                                <div>
+                                    <label visible="@load(vm.variantiValoriTotalSearchedOccurrences.size() > 1)" value="@load(vm.variantiValoriCurrentSearchedOccurrence)"/>
+                                    <label visible="@load(vm.variantiValoriTotalSearchedOccurrences.size() > 1)" value="/"/>
+                                    <label visible="@load(vm.variantiValoriTotalSearchedOccurrences.size() > 1)" value="@load(vm.variantiValoriTotalSearchedOccurrences.size())"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 15px">
+                                    <button disabled="@bind(vm.variantiValoriPrevDisabled)"  visible="@load(vm.variantiValoriTotalSearchedOccurrences.size() > 1)"  onClick="@command('onPrevSearchOccurrence', type='V')" class="search-button">Prev</button>
+                                    <button disabled="@bind(vm.variantiValoriNextDisabled)" visible="@load(vm.variantiValoriTotalSearchedOccurrences.size() > 1)"  onClick="@command('onNextSearchOccurrence', type='V')" class="search-button">Next</button>
+                                </div>
+                            </div>
+                            <button style="display: flex; justify-content: center; position: absolute; left: 745px; width: 145px" label="@bind(vm.showDeletedVariantiValoriButtonLabel)" onClick="@command('showDeletedVariants', type='V')"/>
+                        </div>
+                    </vbox>
+                    <listbox width="100%" height="100%" id="valori" model="@bind(vm.variantiValori)">
+                        <listhead>
+                            <listheader style="background: white; color: black" label="Descrizione" />
+                            <listheader style="background: white; color: black" label="Descrizione Eng" />
+                            <listheader style="background: white; color: black" label="Obbligatorio" />
+                            <listheader style="background: white; color: black" label="Escludi Stampa" />
+                            <listheader style="background: white; color: black" label="Multiselezione Figli" />
+                            <listheader style="background: white; color: black" label="Filtro Web" />
+                        </listhead>
+                        <template name="model" var="each">
+                            <listitem context="editPopup" onClick="@command('onClickVariant', variant=each)" onRightClick="@command('onRightClick', variant=each)">
+                                <listcell>
+                                    <html visible="@bind(!each.isUpdating)" content="@bind(each.highlightedDescrizione)"/>
+                                    <textbox visible="@bind(each.isUpdating)" value="@bind(each.descrizione)"/>
+                                </listcell>
+                                <listcell visible="@bind(!each.isUpdating)" label="@bind(each.descrizioneEng)"/>
+                                <listcell visible="@bind(each.isUpdating)">
+                                    <textbox value="@bind(each.descrizioneEng)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.obbligatorio)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.escludiStampa)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.multiSelezioneFigli)"/>
+                                </listcell>
+                                <listcell>
+                                    <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.filtroWeb)"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    <h:div style="display: flex; align-items: center; gap: 15px; position: absolute; bottom: 429px; width: 885px; padding: .3rem;">
+                        <button label="Salva" onClick="@command('onSaveVariantUpdate')"/>
+                        <button label="Aggiungi" disabled="@bind(vm.isVariantiValoriAddButtonDisabled)" onClick="@command('onCreateVariant', type='V')"/>
+                    </h:div>
+                </vbox>
+                <vbox hflex="1" vflex="1" style="border: 1px solid black;">
+                    <label value="Fourth section"/>
+                </vbox>
+            </vbox>
+        </hbox>
+
+        <menupopup id="editPopup">
+            <menuitem iconSclass="z-icon-pencil" label="Modifica Variante" onClick="@command('onUpdateVariant')"/>
+            <menuitem iconSclass="z-icon-trash" label="Elimina Variante" onClick="@command('onDeleteVariant')"/>
+        </menupopup>
+    </window>
+</zk>

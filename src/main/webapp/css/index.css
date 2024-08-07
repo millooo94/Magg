@@ -1,4 +1,8 @@
-   .z-window-content {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.z-window-content {
         padding: 0;
         }
 
@@ -41,8 +45,7 @@
         grid-template-columns: 280px auto 65px;
         grid-template-rows: 65px 1fr 65px;
 
-        transition: grid-template-columns 0.3s ease; /* Transizione fluida per le dimensioni delle colonne */
-
+        transition: grid-template-columns 0.3s ease;
         }
 
         .header {
@@ -572,6 +575,7 @@
     width: 100%;
 }
 */
+
 
 
 

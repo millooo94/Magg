@@ -7,27 +7,57 @@ import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 import org.zkoss.zul.Window;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @VariableResolver(DelegatingVariableResolver.class)
 public class IndexViewModel {
 
+    private Boolean isRightSidebarOpen = false;
+    private Boolean isLeftSidebarOpen = false;
+    private String mainContainerMenuClass = "";
 
 
     @Command
-    public void onOpenSettingsModal() {
-        Window window = (Window)Executions.createComponents(
-                "/settingsModal.zul", null, null);
-        window.doModal();
+    @NotifyChange({"isRightSidebarOpen", "mainContainerMenuClass"})
+    public void onOpenRightSidebar() {
+        isRightSidebarOpen = true;
+        mainContainerMenuClass = "right-sidebar-collapsed";
     }
     @Command
-    public void onOpenDictionariesModal() {
-        Window window = (Window)Executions.createComponents(
-                "/dictionariesModal.zul", null, null);
-        window.doModal();
+    @NotifyChange({"isRightSidebarOpen", "mainContainerMenuClass"})
+    public void onCloseRightSidebar() {
+        isRightSidebarOpen = false;
+        mainContainerMenuClass = "";
     }
+
     @Command
-    public void onOpenCategoriesModal() {
+    @NotifyChange({"isLeftSidebarOpen", "mainContainerMenuClass"})
+    public void onToggleLeftSidebar() {
+        isLeftSidebarOpen = !isLeftSidebarOpen;
+        mainContainerMenuClass = isLeftSidebarOpen ? "left-sidebar-collapsed" : "";
+
+    }
+
+    @Command
+    public void onOpenModal(@BindingParam("modal") String modal) {
+        var modalUrl = "/" + modal + ".zul";
         Window window = (Window)Executions.createComponents(
-                "/categoriesModal.zul", null, null);
+                modalUrl, null, null);
         window.doModal();
     }
+
+    public Boolean getIsRightSidebarOpen() {
+        return isRightSidebarOpen;
+    }
+
+    public Boolean getIsLeftSidebarOpen() {
+        return isLeftSidebarOpen;
+    }
+
+    public String getMainContainerMenuClass() {
+        return mainContainerMenuClass;
+    }
+
 }

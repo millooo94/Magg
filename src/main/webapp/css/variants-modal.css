@@ -1,0 +1,19 @@
+
+
+.varianti .z-listheader-content {
+    padding: 7px 11px;
+    font-size: 12px;
+}
+.varianti .z-listcell-content {
+    width: 120px;
+    padding: 4px 16px;
+    font-size: 12px;
+}
+
+.space-between {
+    flex-direction: space-between;
+}
+
+.flex-end {
+    flex-direction: flex-end;
+}

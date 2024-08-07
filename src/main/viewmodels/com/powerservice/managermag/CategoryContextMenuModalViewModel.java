@@ -40,7 +40,7 @@ public class CategoryContextMenuModalViewModel {
     }
 
     @Command
-    public void saveCategory(@BindingParam("cmp") Window w) {
+    public void saveCategory() {
         if (action == ActionType.UPDATE) {
             categorieService.updateCategory(codice, descrizione, parentCategoryId);
         } else {

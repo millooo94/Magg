@@ -3,8 +3,8 @@ package it.powerservice.managermag.keys;
 import java.io.Serializable;
 
 public class VariantiRifPKId implements Serializable {
-    Integer idVariantePartenza;
-    Integer idVarianteArrivo;
+    Long idVariantePartenza;
+    Long idVarianteArrivo;
     @Override
     public int hashCode() {
         return super.hashCode();

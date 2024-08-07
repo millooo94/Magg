@@ -9,8 +9,16 @@ import jakarta.persistence.*;
 public class VariantiRif {
     @Id
     @Column(name = "idvariantepartenza", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL")
-    Integer idVariantePartenza;
+    Long idVariantePartenza;
     @Id
     @Column(name = "idvariantearrivo", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL")
-    Integer idVarianteArrivo;
+    Long idVarianteArrivo;
+
+    public VariantiRif() {
+    }
+
+    public VariantiRif(Long idVariantePartenza, Long idVarianteArrivo) {
+        this.idVariantePartenza = idVariantePartenza;
+        this.idVarianteArrivo = idVarianteArrivo;
+    }
 }

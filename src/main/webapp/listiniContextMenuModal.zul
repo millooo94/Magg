@@ -1,0 +1,43 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="listiniContextMenuDialog" mode="popup" title="Listino" border="normal" width="370px" height="380px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.ListiniContextMenuModalViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <div style="display: flex; flex-direction: column; height: 100%">
+            <div class="main" style="flex-grow: 1; display: flex; flex-direction: column; gap: 15px; padding: .5rem">
+                <div style="display: flex;">
+                    <label value="Nome:" style="display: flex; align-items: center; width: 50%"/>
+                    <textbox value="@bind(vm.listinoToSave.nome)"/>
+                </div>
+                <div style="display: flex">
+                    <label value="Ricarico:" style="display: flex; align-items: center; width: 50%" />
+                    <decimalbox value="@bind(vm.listinoToSave.ricarico)"/>
+                </div>
+                <div style="display: flex">
+                    <label value="Sconto Da Listino:" style="display: flex; align-items: center; width: 50%"/>
+                    <decimalbox value="@bind(vm.listinoToSave.scontoDaListino)"/>
+                </div>
+                <div style="display: flex">
+                    <label value="Sconto Da Vendita:" style="display: flex; align-items: center; width: 50%"/>
+                    <decimalbox value="@bind(vm.listinoToSave.scontoDaVendita)"/>
+                </div>
+                <div style="display: flex">
+                    <label value="Default su Web:" style="display: flex; align-items: center; width: 50%"/>
+                    <checkbox checked="@bind(vm.listinoToSave.defaultSuWeb)"/>
+                </div>
+                <div style="display: flex">
+                    <label value="Visualizza Ivato:" style="display: flex; align-items: center; width: 50%"/>
+                    <checkbox checked="@bind(vm.listinoToSave.visIvato)"/>
+                </div>
+            </div>
+            <div class="footer" style="padding: .5rem">
+                <h:button class="save-button" onClick="@command('onSaveListino')">Salva</h:button>
+            </div>
+        </div>
+
+    </window>
+</zk>

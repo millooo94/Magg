@@ -13,4 +13,8 @@ public class ListiniService {
     public List<Listini> getListini() {
         return listiniRepository.getListini();
     }
+    public void saveListino(Listini listino) {
+        listiniRepository.save(listino);
+    }
+
 }

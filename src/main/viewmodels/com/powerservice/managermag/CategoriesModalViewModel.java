@@ -75,7 +75,7 @@ public class CategoriesModalViewModel {
         tree.setModel(categoriesTreeModel);
     }
     @Command
-    public void onRightClick(@BindingParam("event") Event event, @BindingParam("node") CategoryTreeNode node) {
+    public void onRightClick(@BindingParam("node") CategoryTreeNode node) {
         currentCategoryContextMenu = node.getData().getId();
     }
 
@@ -91,7 +91,7 @@ public class CategoriesModalViewModel {
         params.put("parentCategoryId", currentCategoryContextMenu);
         params.put("action", actionType);
 
-        CategoryContextMenuModalViewModel.apriPopup(params, action, currentCategoryContextMenu).addEventListener(Events.ON_CLOSE, new PopupClosListener(this));
+        CategoryContextMenuModalViewModel.apriPopup(params, action, currentCategoryContextMenu).addEventListener(Events.ON_CLOSE, new CategoriesModalCloseListener(this));
     }
     @Command
     public void onDeleteCategory() {
@@ -113,6 +113,7 @@ public class CategoriesModalViewModel {
     }
 
     public void refreshTreeModel() {
+        System.out.println("REFRESH");
         tree.setModel(categoriesTreeModel);
         BindUtils.postNotifyChange(null, null, this, "categoriesTreeModel");
     }

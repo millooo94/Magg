@@ -11,7 +11,7 @@
             <h:main class="dictionaries-modal-main-content">
                 <tree id="tree" model="@bind(vm.categoriesTreeModel)">
                     <template name="model" var="each">
-                        <treeitem context="editPopup" open="@load(each.isOpen)" draggable="true" droppable="true" onOpen="@command('onOpenNode', event=event, node=each)" onDrop="@command('test', event=event, droppedNode=each)" onRightClick="@command('onRightClick', event=event, node=each)">
+                        <treeitem context="editPopup" open="@load(each.isOpen)" draggable="true" droppable="true" onOpen="@command('onOpenNode', event=event, node=each)" onDrop="@command('test', event=event, droppedNode=each)" onRightClick="@command('onRightClick', node=each)">
                             <treerow>
                                 <treecell label="@load(each.descrizione)" />
                             </treerow>

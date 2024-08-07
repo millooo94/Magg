@@ -11,11 +11,5 @@ public class VariantiController {
     @Autowired
     VariantiService variantiService;
 
-    @GetMapping("/getVarianti")
-    public void getVarianti() {
-        var res = variantiService.getVarianti();
-        for (Varianti v: res) {
-            System.out.println(v);
-        }
-    }
+
 }
