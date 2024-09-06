@@ -1,0 +1,16 @@
+.left-block {
+    position: relative;
+}
+.depositi-marketplace.right-block .z-listfooter:nth-child(1) > .z-listfooter-content {
+    justify-content: flex-start;
+}
+.depositi-marketplace.right-block .z-listfooter:nth-child(2) > .z-listfooter-content {
+    justify-content: flex-end;
+}
+.depositi-marketplace.right-block .z-listbox-footer {
+    position: absolute;
+    bottom: 0;
+}
+.depositi-add .z-listcell-content {
+    justify-content: flex-start;
+}

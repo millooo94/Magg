@@ -1,0 +1,45 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="MODALE_NUOVO_DEPOSITO" class="MODALE_NUOVO_DEPOSITO" mode="popup" title="Nuovo Deposito" border="normal" width="500px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.depositi.DepositiNewlViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <grid>
+            <columns>
+                <column label="Campo" width="auto"/>
+                <column label="Valore" width="auto"/>
+            </columns>
+            <rows>
+              <row>
+                  <label value="Codice Deposito:"/>
+                  <textbox sclass="@bind(vm.validator.get('codice') ? '' : 'invalid')" value="@bind(vm.depositoToSave.codice)" onChange="@command('onChangeDeposito')" instant="true"/>
+              </row>
+                <row>
+                    <label value="Nome:"/>
+                    <textbox sclass="@bind(vm.validator.get('nome') ? '' : 'invalid')" value="@bind(vm.depositoToSave.nome)" onChange="@command('onChangeDeposito')" instant="true"/>
+                </row>
+                <row>
+                    <label value="Non In Uso:"/>
+                    <datebox value="@bind(vm.depositoToSave.dataNonInUso)" onChange="@command('onChangeDeposito')" instant="true"/>
+                </row>
+                <row>
+                    <label value="Esterno:"/>
+                    <checkbox checked="@bind(vm.depositoToSave.esterno)" onCheck="@command('onChangeDeposito')"/>
+                </row>
+                <row>
+                    <label value="Indisponibile:"/>
+                    <checkbox checked="@bind(vm.depositoToSave.merceIndisponibile)" onCheck="@command('onChangeDeposito')"/>
+                </row>
+            </rows>
+            <foot>
+                <footer span="2">
+                    <button disabled="@bind(vm.buttonDisabled)" onClick="@command('onSaveDeposito')">Salva</button>
+                </footer>
+            </foot>
+        </grid>
+
+    </window>
+</zk>

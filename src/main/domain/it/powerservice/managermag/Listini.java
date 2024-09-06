@@ -10,24 +10,24 @@ import java.math.BigDecimal;
 public class Listini {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL AUTO_INCREMENT")
+    @Column(name = "id")
     Long id;
-    @Column(name = "nome", length = 50, nullable = false, columnDefinition = "VARCHAR(50) NOT NULL")
+    @Column(name = "nome")
     String nome;
-    @Column(name = "modificabile", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '1'")
+    @Column(name = "modificabile")
     Boolean modificabile = true;
-    @Column(name = "eliminato", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
+    @Column(name = "eliminato")
     Boolean eliminato = false;
-    @Column(name = "ricarico", columnDefinition = "DECIMAL(13, 2) DEFAULT NULL")
+    @Column(name = "ricarico")
     BigDecimal ricarico;
-    @Column(name = "scontodalistino", columnDefinition = "DECIMAL(13, 2) DEFAULT NULL")
+    @Column(name = "scontodalistino")
     BigDecimal scontoDaListino;
-    @Column(name = "scontodavendita", columnDefinition = "DECIMAL(13, 2) DEFAULT NULL")
+    @Column(name = "scontodavendita")
     BigDecimal scontoDaVendita;
-    @Column(name = "defaultsuweb", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean defaultSuWeb;
-    @Column(name = "visivato", nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean visIvato;
+    @Column(name = "defaultsuweb")
+    Boolean defaultSuWeb = false;
+    @Column(name = "visivato")
+    Boolean visIvato = false;
 
     @Transient
     Boolean isUpdating = false;

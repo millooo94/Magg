@@ -1,33 +1,17 @@
 <?link rel="stylesheet" type="text/css" href="/css/index.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/settings-modal.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/dictionaries-modal.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/categories-modal.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/category-context-menu-modal.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/variants-modal.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/companies-data-modal.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/listini-modal.css" ?>
-
+<?link  rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" ?>
+<?link rel="preconnect" href="https://fonts.googleapis.com" ?>
+<?link rel="preconnect" href="https://fonts.gstatic.com" crossorigin ?>
+<?link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
+        rel="stylesheet" ?>
 
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
-
-    <html><![CDATA[
-            <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
-      rel="stylesheet"
-    />
-    ]]></html>
-
 
     <window closable="false"
             apply="org.zkoss.bind.BindComposer"
@@ -35,24 +19,24 @@
             viewModel="@id('vm') @init('com.powerservice.managermag.IndexViewModel')">
 
         <div class="main-container" zclass="@bind(vm.mainContainerMenuClass)">
-            <div class="overlay" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')"></div>
+            <div class="overlay" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')"/>
             <div class="header">
                 <div class="container">
                     <div class="menu-button" style="color:rgb(30, 41, 59); font-size: 20px; cursor: pointer;" onClick="@command('onToggleLeftSidebar')">
-                        <h:i class="menu-icon  fa-solid fa-bars"></h:i>
+                        <h:i class="menu-icon  fa-solid fa-bars"/>
                     </div>
                     <div class="controls">
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
-                            <h:i class="fa-solid fa-globe"></h:i>
+                            <h:i class="fa-solid fa-globe"/>
                         </h:span>
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
-                            <h:i class="fa-solid fa-magnifying-glass"></h:i>
+                            <h:i class="fa-solid fa-magnifying-glass"/>
                         </h:span>
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
-                            <h:i class="fa-solid fa-comment"></h:i>
+                            <h:i class="fa-solid fa-comment"/>
                         </h:span>
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
-                            <h:i class="fa-solid fa-download"></h:i>
+                            <h:i class="fa-solid fa-download"/>
                         </h:span>
                     </div>
                 </div>
@@ -66,41 +50,83 @@
                                 <h:h4 class="title">GENERALI</h:h4>
                             </div>
                             <h:nav>
-                                <div class="nav-item" onClick="@command('onOpenModal', modal='settingsModal')">
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='anagrafiche')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Anagrafiche</div>
+                                </h:div>
+                                <div class="nav-item" onClick="@command('onOpenModal', modal='impostazioni')">
                                     <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-bars-progress"></h:i>
                                     </h:span>
                                     <div class="name">Inpostazioni</div>
                                 </div>
-                                <div class="nav-item" onClick="@command('onOpenModal', modal='dictionariesModal')">
+                                <div class="nav-item" onClick="@command('onOpenModal', modal='dizionari')">
                                     <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-cloud"></h:i>
                                     </h:span>
                                     <div class="name">Dizionari</div>
                                 </div>
-                                <div class="nav-item" onClick="@command('onOpenModal', modal='categoriesModal')">
+                                <div class="nav-item" onClick="@command('onOpenModal', modal='categorie')">
                                     <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-circle-user"></h:i>
                                     </h:span>
                                     <div class="name">Categorie</div>
                                 </div>
-                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='variantiModal')">
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='varianti')">
                                     <span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
                                     </span>
                                     <div class="name">Varianti</div>
                                 </h:div>
-                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='listiniModal')">
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='listini')">
                                     <span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
                                     </span>
                                     <div class="name">Listini</div>
                                 </h:div>
-                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='companiesDataModal')">
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='datiAzienda')">
                                     <span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
                                     </span>
                                     <div class="name">Dati Azienda</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='depositi')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Depositi</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='marketplace')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Marketplace</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='marche')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Marche</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='depositiMarketplace')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Depositi Marketplace</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='tipologiePagamenti')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Tipologie Pagamenti</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='prova')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">PROVA GRIGLIA</div>
                                 </h:div>
                             </h:nav>
                         </div>

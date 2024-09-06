@@ -10,4 +10,5 @@ import java.util.List;
 public interface TipologiePagamentiRepository extends JpaRepository<TipologiePagamenti, Long> {
     @Query("SELECT tp FROM TipologiePagamenti tp")
     List<TipologiePagamenti> getTipologiePagamenti();
+
 }

@@ -1,0 +1,41 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="NEW_TIPOLOGIE_PAGAMENTI_DETTAGLI" mode="modal" title="New Tipologia Pagamento Dettagli" border="normal" width="500px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.tipologiePagamenti.TipologiePagamentiDettagliNewViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <grid>
+            <rows>
+                <row>
+                    <label value="Giorni"/>
+                    <intbox value="@bind(vm.tipologiaPagamentoDettaglioToSave.giorni)" maxlength="4" instant="true"/>
+                </row>
+                <row>
+                    <label value="Mese"/>
+                    <intbox value="@bind(vm.tipologiaPagamentoDettaglioToSave.mese)" maxlength="2" instant="true"/>
+                </row>
+                <row>
+                    <label value="Fine Mese"/>
+                    <checkbox checked="@bind(vm.tipologiaPagamentoDettaglioToSave.fineMese)"/>
+                </row>
+                <row>
+                    <label value="Giorni Aggiunti"/>
+                    <intbox value="@bind(vm.tipologiaPagamentoDettaglioToSave.giorniAggiunti)"/>
+                </row>
+                <row>
+                    <label value="IVA"/>
+                    <checkbox checked="@bind(vm.tipologiaPagamentoDettaglioToSave.iva)"/>
+                </row>
+            </rows>
+            <foot>
+                <footer span="2">
+                    <button onClick="@command('onSaveTipologiePagamentiDettagli')">Salva</button>
+                </footer>
+            </foot>
+        </grid>
+
+    </window>
+</zk>

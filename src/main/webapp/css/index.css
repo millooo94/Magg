@@ -1,6 +1,16 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('categorie/categorie.css');
+@import url('listini/listini.css');
+@import url('dizionari/dizionari.css');
+@import url('datiAzienda/dati-azienda.css');
+@import url('varianti/varianti.css');
+@import url('impostazioni/impostazioni.css');
+@import url('depositi/depositi.css');
+@import url('marketplace/marketplace.css');
+@import url('marche/marche.css');
+@import url('depositiMarketplace/depositi-marketplace.css');
+@import url('tipologiePagamenti/tipologie-pagamenti.css');
+@import url('anagrafiche/anagrafiche.css');
+
 
 .z-window-content {
         padding: 0;

@@ -1,0 +1,53 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="DEPOSITI_MARKETPLACE_INDEX" mode="popup" title="Depositi Marketplace"  width="1200px"
+            apply="org.zkoss.bind.BindComposer"
+            position="top,center" closable="true"
+            viewModel="@id('vm') @init('com.powerservice.managermag.depositiMarketplace.DepositiMarketplaceIndexViewModel')">
+
+        <hbox width="100%" height="100%" spacing="0">
+            <vbox hflex="60" height="100%" style="border-right: 3px solid #0093F9; overflow:auto;" >
+                <listbox id="leftListbox" width="100%" height="100%" model="@bind(vm.marketplaces)" style="overflow:auto;" multiple="true">
+                    <listhead>
+                        <listheader label="Tipo" />
+                        <listheader label="Descrizione" />
+                    </listhead>
+                    <template name="model" var="each">
+                        <listitem onClick="@command('onMarketplaceClicked', marketplace=each)">
+                            <listcell label="@bind(each.tipo)" />
+                            <listcell label="@bind(each.descrizione)" />
+                        </listitem>
+                    </template>
+                </listbox>
+            </vbox>
+            <vbox hflex="40" height="100%" class="left-block" style="overflow:auto;">
+                <listbox id="rightListbox" width="100%" height="100%" model="@bind(vm.currentDepositi)" class="depositi-marketplace right-block" style="overflow:auto;">
+                    <listhead>
+                        <listheader label="Codice" />
+                        <listheader label="Nome" />
+                        <listheader label="Non Inviare" />
+                    </listhead>
+                    <template name="model" var="each">
+                        <listitem onClick="@command('onDepositoClicked', clickedDeposito=each)">
+                            <listcell label="@bind(each.codice)" />
+                            <listcell label="@bind(each.nome)" />
+                            <listcell>
+                                <checkbox checked="@bind(each.nonInviare)" onCheck="@command('onNonInviareChecked', clickedDeposito=each)"/>
+                            </listcell>
+                        </listitem>
+                    </template>
+                    <listfoot>
+                        <listfooter>
+                            <button label="Aggiungi" visible="@bind(vm.isAddButtonVisible)" onClick="@command('onAddClicked')"/>
+                        </listfooter>
+                        <listfooter span="2">
+                            <button label="Rimuovi" visible="@bind(vm.isRemoveButtonVisible)" onClick="@command('onRemoveDeposito')"/>
+                        </listfooter>
+                    </listfoot>
+                </listbox>
+            </vbox>
+        </hbox>
+    </window>
+</zk>

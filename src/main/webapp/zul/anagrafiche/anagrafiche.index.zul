@@ -1,0 +1,80 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="ANAGRAFICHE_INDEX" mode="popup" title="Anagrafiche" border="normal" width="1500px" height="800px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheIndexViewModel')"
+    >
+        <borderlayout sclass="ANAGRAFICHE">
+            <north height="200px">
+                <vlayout vflex="1">
+                    <hlayout style="padding-top: .6rem; padding-bottom: .6rem">
+                      <div hflex="2" vflex="1" style="display: flex; flex-direction: column; gap: .5rem">
+                          <label value="Elenco Anagrafiche"/>
+                          <label value="Visualizza l'elenco delle anagrafiche presenti in magazzino"/>
+                      </div>
+                      <div hflex="2" height="100%" style="display: flex; align-items: center;">
+                          <radiogroup style="display: flex; gap: .5rem;" model="@bind(vm.tipiAnagrafiche)" selectedIndex="@bind(vm.selectedTipoAnagraficaIndex)" onCheck="@command('onCheckTipoAnagrafica')">
+                              <template name="model" var="each">
+                                  <radio label="@bind(each.descrizione)" value="@bind(each.descrizione)"/>
+                              </template>
+                          </radiogroup>
+                      </div>
+                        <div hflex="1" height="100%" style="display: flex; align-items: center">
+                            <label>Optio labore molestiae voluptas aut explicabo ea facilis est accusantium in ducimus beatae autem assumenda</label>
+                        </div>
+                    </hlayout>
+                    <hlayout style="">
+                        Optio labore molestiae voluptas aut explicabo ea facilis est accusantium in ducimus beatae autem assumenda iusto distinctio harum minima necessitatibus, delectus fugit quidem dicta dolore molestias magnam. Optio, excepturi quae.
+                        Accusantium, ducimus dicta laudantium libero, suscipit modi qui ipsa beatae cumque, possimus vero quidem in praesentium. Quo dolor neque provident et perspiciatis harum. Incidunt nihil voluptatum porro culpa deleniti labore.
+                        Distinctio, vel nisi officiis illum ipsum soluta molestiae quisquam magni, nam repellat ipsa? Sit, est. Cupiditate molestiae dolore esse placeat possimus quibusdam illo qui quisquam, dolores, reiciendis neque vel assumenda.
+                    </hlayout>
+                </vlayout>
+            </north>
+            <center>
+                <vlayout vflex="1">
+                    <listbox vflex="8" style="border-bottom: 1px solid lightgray" model="@bind(vm.anagrafiche)">
+                        <listhead>
+                            <listheader label="Id"/>
+                            <listheader label="Codice"/>
+                            <listheader label="Nominativo/Ragione Sociale"/>
+                            <listheader label="Nome"/>
+                            <listheader label="Sesso"/>
+                            <listheader label="Provincia"/>
+                            <listheader label="Comune"/>
+                        </listhead>
+                        <template name="model" var="each">
+                            <listitem visible="@bind(!each.eliminato)" onClick="@command('onClickAnagrafica', anagrafica=each)">
+                                <listcell label="@bind(each.id)"/>
+                                <listcell label="@bind(each.codice)"/>
+                                <listcell label="@bind(each.cognomeRgs)"/>
+                                <listcell label="@bind(each.nome)"/>
+                                <listcell label="@bind(each.sesso)"/>
+                                <listcell label="@bind(each.provinciaNascita)"/>
+                                <listcell label="@bind(each.comuneNascita)"/>
+                            </listitem>
+                        </template>
+                    </listbox>
+                    <div vflex="2">
+                        Sit veniam hic fugit necessitatibus odio inventore labore delectus excepturi aspernatur provident. Nulla ad accusamus quidem ratione consectetur, sapiente nihil ducimus cupiditate nostrum quia, velit ea deserunt dolorum pariatur dolorem?
+                        Nesciunt qui similique soluta quis sapiente? Sit veritatis vero tenetur, illum sapiente delectus earum esse in cupiditate iusto, quasi quae. Fugit eligendi accusamus inventore voluptates repudiandae repellat nihil consequatur. Earum?
+                        Nesciunt qui similique soluta quis sapiente? Sit veritatis vero tenetur, illum sapiente delectus earum esse in cupiditate iusto, quasi quae. Fugit eligendi accusamus inventore voluptates repudiandae repellat nihil consequatur. Earum?
+                        Nesciunt qui similique soluta quis sapiente? Sit veritatis vero tenetur, illum sapiente delectus earum esse in cupiditate iusto, quasi quae. Fugit eligendi accusamus inventore voluptates repudiandae repellat nihil consequatur. Earum?
+                    </div>
+                </vlayout>
+            </center>
+            <south>
+                <div style="display: flex; justify-content: space-between">
+                    <div style="display: flex; gap: 1rem">
+                        <button label="Nuovo" disabled="@bind(vm.createButtonDisabled)" onClick="@command('onOpenAnagraficheMono', type='CREATE')"/>
+                        <button label="Modifica" disabled="@bind(vm.editButtonDisabled)" onClick="@command('onOpenAnagraficheMono', type='EDIT')"/>
+                    </div>
+                    <div>
+                        <button label="Rimuovi" disabled="@bind(vm.removeButtonDisabled)" onClick="@command('onDeleteAnagrafica')"/>
+                    </div>
+                </div>
+            </south>
+        </borderlayout>
+    </window>
+</zk>

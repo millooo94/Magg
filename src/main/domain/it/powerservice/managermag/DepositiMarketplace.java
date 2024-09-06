@@ -8,9 +8,45 @@ import jakarta.persistence.*;
 @IdClass(DepositiMarketplacePKId.class)
 public class DepositiMarketplace {
     @Id
-    @Column(name = "iddeposito", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL")
+    @Column(name = "iddeposito")
     Long idDeposito;
     @Id
-    @Column(name = "idmarketplace", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL")
+    @Column(name = "idmarketplace")
     Long idMarketplace;
+    @Column(name = "noninviare")
+    Boolean nonInviare;
+
+    public DepositiMarketplace() {
+    }
+
+    public DepositiMarketplace(Long idDeposito, Long idMarketplace, Boolean nonInviare) {
+        this.idDeposito = idDeposito;
+        this.idMarketplace = idMarketplace;
+        this.nonInviare = nonInviare;
+    }
+
+    public Long getIdDeposito() {
+        return idDeposito;
+    }
+
+    public void setIdDeposito(Long idDeposito) {
+        this.idDeposito = idDeposito;
+    }
+
+    public Long getIdMarketplace() {
+        return idMarketplace;
+    }
+
+    public void setIdMarketplace(Long idMarketplace) {
+        this.idMarketplace = idMarketplace;
+    }
+
+    public Boolean getNonInviare() {
+        return nonInviare;
+    }
+
+    public void setNonInviare(Boolean nonInviare) {
+        this.nonInviare = nonInviare;
+    }
 }
+

@@ -1,0 +1,136 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="TIPOLOGIE_PAGAMENTI_INDEX" mode="popup" title="Tipologie Pagamenti"  width="1780px"
+            apply="org.zkoss.bind.BindComposer"
+            position="top,center" closable="true"
+            viewModel="@id('vm') @init('com.powerservice.managermag.tipologiePagamenti.TipologiePagamentiIndexViewModel')">
+
+        <vbox width="100%" height="100%" spacing="0">
+            <vbox hflex="1" height="50%" class="left-block" style="border-bottom: 3px solid #0093F9; overflow:auto;">
+                <listbox id="leftListbox" model="@bind(vm.tipologiePagamenti)" width="100%" height="100%" class="tipologie-pagamenti left-block" style="overflow:auto;">
+                    <listhead>
+                        <listheader label="Id" width="100px"/>
+                        <listheader label="Codice" width="110px"/>
+                        <listheader label="Descrizione" width="170px"/>
+                        <listheader label="Tipo" width="100px"/>
+                        <listheader label="Riba" width="100px"/>
+                        <listheader label="Regola Auto" width="110px"/>
+                        <listheader label="Avvisi" width="120px"/>
+                        <listheader label="Mod. Pag. Fatt. PA" width="200px"/>
+                        <listheader label="Cond. Pag. Fatt. PA" width="200px"/>
+                        <listheader label="Sconto" width="150px"/>
+                        <listheader label="Spese Incasso" width="170px"/>
+                        <listheader label="Banca" width="180px"/>
+                    </listhead>
+                    <template name="model" var="each">
+                        <listitem visible="@bind(vm.showDeleted || !each.eliminato)" onClick="@command('onSelectTipologiaPagamento', tipologiaPagamento=each)" >
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <textbox readonly="true" value="@bind(each.id)" width="80px" onChange="@command('onChangeTipologiePagamento', tipologiaPagamento=each)" instant="true"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <textbox readonly="true" value="@bind(each.codice)" width="80px" onChange="@command('onChangeTipologiePagamento', tipologiaPagamento=each)" instant="true"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <textbox readonly="each.nonModificabile" width="120px" value="@bind(each.descrizione)" onChange="@command('onChangeTipologiePagamento', tipologiaPagamento=each)" instant="true"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <checkbox checked="@bind(each.tipo)" onCheck="@command('onChangeTipologiePagamento', tipologiaPagamento=each)"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <checkbox checked="@bind(each.riba)" onCheck="@command('onChangeTipologiePagamento', tipologiaPagamento=each)"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <checkbox checked="@bind(each.regolaAuto)" onCheck="@command('onChangeTipologiePagamento', tipologiaPagamento=each)"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <checkbox checked="@bind(each.avvisi)" onCheck="@command('onChangeTipologiePagamento', tipologiaPagamento=each)"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <selectbox model="@bind(vm.modPagFattPa)" selectedItem="@bind(each.selectedModPagFattPA)" onSelect="@command('onSelectModPagFattPa', item=each)" >
+                                    <template name="model" var="comboitem">
+                                        <label value="@bind(comboitem.descrizione)"/>
+                                    </template>
+                                </selectbox>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <selectbox model="@bind(vm.condPagFattPa)" selectedItem="@bind(each.selectedCondPagFattPA)" onSelect="@command('onSelectCondPagFattPa', item=each)">
+                                    <template name="model" var="comboitem">
+                                        <label value="@bind(comboitem.descrizione)"/>
+                                    </template>
+                                </selectbox>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <decimalbox value="@bind(each.sconto)" instant="true"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <decimalbox value="@bind(each.speseIncasso)" onChange="@command('onChangeTipologiePagamento', tipologiaPagamento=each)" instant="true"/>
+                            </listcell>
+                            <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                                <selectbox width="200px" model="@bind(vm.banche)" selectedItem="@bind(each.selectedBanca)" onSelect="@command('onChangeTipologiePagamento', tipologiaPagamento=each)">
+                                    <template name="model" var="each">
+                                        <label value="@bind(each.agenzia)"/>
+                                    </template>
+                                </selectbox>
+                            </listcell>
+                        </listitem>
+                    </template>
+                    <listfoot>
+                        <listfooter span="12">
+                            <div style="display: flex; justify-content: space-between; gap: 1rem">
+                                <button label="Aggiungi" onClick="@command('onCreateTipologiaPagamento')"/>
+                                <button label="@bind(!vm.showDeleted ? 'Mostra Eliminati' : 'Nascondi Eliminati')" onClick="@command('onChangeVisibility')"/>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; gap: 1rem">
+                                <button label="Salva" visible="@bind(vm.isTipologiePagamentiSaveButtonVisible)" onClick="@command('onSaveTipologiePagamenti')"/>
+                                <button label="Rimuovi" visible="@bind(vm.isTipologiePagamentiRemoveButtonVisible)" onClick="@command('onDeleteTipologiaPagamento')"/>
+                            </div>
+                        </listfooter>
+                    </listfoot>
+                </listbox>
+            </vbox>
+            <vbox hflex="1" height="50%" class="right-block" style="overflow:auto; min-height: 300px">
+                <listbox model="@bind(vm.currentTipologiePagamentiDettagli)" id="rightListbox" width="100%" height="100%" class="tipologie-pagamenti right-block" style="overflow:auto;">
+                    <listhead>
+                        <listheader label="Giorni" />
+                        <listheader label="Mese" />
+                        <listheader label="Fine Mese" />
+                        <listheader label="Giorni Aggiunti" />
+                        <listheader label="IVA" />
+                    </listhead>
+                    <template name="model" var="each">
+                        <listitem onClick="@command('onSelectTipologiaPagamentoDettaglio', tipologiaPagamentoDettaglio=each)">
+                            <listcell>
+                                <intbox value="@bind(each.giorni)" maxlength="4" height="30px" onChange="@command('onChangeTipologiePagamentoDettagli', tipologiaPagamentoDettagli=each)" instant="true"/>
+                            </listcell>
+                            <listcell>
+                                <intbox value="@bind(each.mese)" maxlength="2" height="30px" onChange="@command('onChangeTipologiePagamentoDettagli', tipologiaPagamentoDettagli=each)" instant="true"/>
+                            </listcell>
+                            <listcell>
+                                <checkbox checked="@bind(each.fineMese)" onCheck="@command('onChangeTipologiePagamentoDettagli', tipologiaPagamentoDettagli=each)"/>
+                            </listcell>
+                            <listcell>
+                                <intbox value="@bind(each.giorniAggiunti)" maxlength="4" height="30px" onChange="@command('onChangeTipologiePagamentoDettagli', tipologiaPagamentoDettagli=each)" instant="true"/>
+                            </listcell>
+                            <listcell>
+                                <checkbox checked="@bind(each.iva)" onCheck="@command('onChangeTipologiePagamentoDettagli', tipologiaPagamentoDettagli=each)"/>
+                            </listcell>
+                        </listitem>
+                    </template>
+                    <listfoot>
+                        <listfooter span="5">
+                            <div style="display: flex; justify-content: space-between; gap: 1rem">
+                                <button visible="@bind(vm.isTipologiePagamentiDettagliAddButtonVisible)" label="Aggiungi" onClick="@command('onCreateTipologiaPagamentoDettagli')"/>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; gap: 1rem">
+                                <button label="Salva" visible="@bind(vm.isTipologiePagamentiDettagliSaveButtonVisible)" onClick="@command('onSaveTipologiePagamentiDettagli')"/>
+                                <button label="Rimuovi" visible="@bind(vm.isTipologiePagamentiDettagliRemoveButtonVisible)" onClick="@command('onDeleteTipologiaPagamentoDettaglio')"/>
+                            </div>
+                        </listfooter>
+                    </listfoot>
+                </listbox>
+            </vbox>
+        </vbox>
+    </window>
+</zk>

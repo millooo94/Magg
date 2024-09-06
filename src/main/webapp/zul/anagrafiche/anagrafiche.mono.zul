@@ -1,0 +1,333 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="MONO_ANAGRAFICHE" mode="modal" title="@load(vm.title)" border="normal" width="1400px" height="845px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheMonoViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <borderlayout sclass="ANAGRAFICHE_MONO">
+            <north height="80px">
+                <vlayout>
+                    <vlayout style="padding: .5rem; border-bottom: 1px solid lightgray;" visible="@load(vm.isEditModal)">
+                        <label value="Modifica Anagrafica(${vm.anagraficaToSave.id}) - Cod: ${vm.anagraficaToSave.codice}"/>
+                    </vlayout>
+                    <hlayout>
+                        <div hflex="1" height="100%" style="display: flex; align-items: center; gap: .7rem; padding-left: .5rem" visible="@load(vm.isEditModal)">
+                            <label value="Codice:"/>
+                            <textbox width="60px" readonly="true" value="@load(vm.anagraficaToSave.codice)"/>
+                        </div>
+                        <div hflex="5" style="background: red; padding: .5rem">
+                            <label value="@load(vm.anagraficaExtendedType)" style="color: white; font-weight: bold"/>
+                        </div>
+                        <div hflex="4">
+                            <label>
+                                Optio labore molestiae labore
+                                Optio labore molestiae labore
+                                Optio labore molestiae labore
+                                Optio labore molestiae labore
+                                Optio labore molestiae labore
+                            </label>
+                        </div>
+                    </hlayout>
+                </vlayout>
+            </north>
+            <center>
+                <vlayout>
+                    <vlayout>
+                        <vlayout>
+                            <div style="display: flex; flex-direction: column; gap: .4rem; width: 100%; border-top: 2px solid; darkgreen; border-bottom: 2px solid darkgreen; padding-bottom: .5rem">
+                                <div>
+                                    <label value="Sede Legale" style="background: green; color: white; font-weight: bold;"/>
+                                </div>
+                                <div style="display: flex; gap: .6rem; padding-left: .5rem;">
+                                    <label style="display: flex; align-items: center" value="Conto Patrimoniale:"/>
+                                    <selectbox/>
+                                </div>
+                                <div style="display: flex; gap: 1rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Status:"/>
+                                        <selectbox model="@bind(vm.status)" selectedIndex="@bind(vm.selectedStatusIndex)">
+                                            <template name="model" var="each">
+                                                <label value="@load(each)"/>
+                                            </template>
+                                        </selectbox>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="SubCategoria:"/>
+                                        <selectbox model="@bind(vm.subCategorie)" selectedIndex="@bind(vm.selectedSubcategoriaIndex)">
+                                            <template name="model" var="each">
+                                                <label value="@load(each)"/>
+                                            </template>
+                                        </selectbox>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Codice Fidelity:"/>
+                                        <textbox value="@bind(vm.anagraficaToSave.codiceFidelity)"/>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 1rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="RGS/Cognome:"/>
+                                        <textbox width="250px" value="@bind(vm.anagraficaToSave.cognomeRgs))"/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Nome:"/>
+                                        <textbox width="250px" value="@bind(vm.anagraficaToSave.nome))"/>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 1rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="P.Iva:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="C.F.:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Sesso:"/>
+                                        <selectbox model="@bind(vm.sesso)" selectedIndex="@bind(vm.selectedSessoIndex)">
+                                            <template name="model" var="each">
+                                                <label value="@load(each)"/>
+                                            </template>
+                                        </selectbox>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: .6rem; background: yellow; padding: .4rem">
+                                        <label style="display: flex; align-items: center" value="Split Payment:"/>
+                                        <checkbox checked="@bind(vm.anagraficaToSave.splitPayment)"/>
+                                        <label style="display: flex; align-items: center" value="Rev Charge:"/>
+                                        <checkbox checked="@bind(vm.anagraficaToSave.revCharge)"/>
+                                    </div>
+                                    <radiogroup style="display: flex; align-items: center; background: darkgreen; color: white; padding: .4rem" model="@bind(vm.ceeExtraCee)" selectedItem="@bind(vm.selectedCeeExtraCee)" onCheck="@command('onCheckCeeExtraCee')">
+                                        <template name="model" var="each">
+                                            <radio label="@load(each)" checked="@load(each)"/>
+                                        </template>
+                                    </radiogroup>
+                                    <div>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Nazione:"/>
+                                        <combobox model="@bind(vm.stati)" selectedIndex="@bind(vm.selectedStatoIndex)">
+                                            <template name="model" var="each">
+                                                <comboitem label="@bind(each)" value="@bind(each)"/>
+                                            </template>
+                                        </combobox>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Provincia:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Comune:"/>
+                                        <selectbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Frazione:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Certif:"/>
+                                        <checkbox/>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Indirizzo:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Regione:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="CAP:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Cod.SDI:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Suff:"/>
+                                        <textbox/>
+                                    </div>
+                                </div>
+                            </div>
+                        </vlayout>
+                        <vlayout>
+                            <div style="display: flex; flex-direction: column; gap: .4rem; width: 100%; border-bottom: 2px solid darkgreen; padding-bottom: .5rem">
+                                <div>
+                                    <label value="Destinazione Base" style="background: green; color: white; font-weight: bold"/>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Denomin./RGS:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Ref:"/>
+                                        <textbox/>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Nazione"/>
+                                        <selectbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Provincia:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Comune:"/>
+                                        <selectbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Frazione:"/>
+                                        <textbox/>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Indirizzo"/>
+                                        <selectbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Regione:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="CAP:"/>
+                                        <textbox/>
+                                    </div>
+                                </div>
+                            </div>
+                        </vlayout>
+                    </vlayout>
+                    <vlayout>
+                        <div style="display: flex; flex-direction: column; gap: .4rem; border-bottom: 2px solid darkgreen; padding-bottom: .5rem">
+                            <div>
+                                <label value="Recapiti" style="background: green; color: white; font-weight: bold"/>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Telefono 1:"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Telefono 2"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Telefono 3:"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Fax:"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Mobile:"/>
+                                    <textbox/>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Email:"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="PEC"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Sito:"/>
+                                    <textbox/>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Prodotti e Servizi:"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Referente"/>
+                                    <textbox/>
+                                </div>
+                                <div style="display: flex; gap: .6rem">
+                                    <label style="display: flex; align-items: center" value="Recapito:"/>
+                                    <textbox/>
+                                </div>
+                            </div>
+                        </div>
+                        <vlayout>
+                            <div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem; border-bottom: 2px solid darkgreen; padding-bottom: .5rem; padding-top: .5rem">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Listino:"/>
+                                        <selectbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="No sconto list"/>
+                                        <checkbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Sconto 1:"/>
+                                        <decimalbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Sconto 2:"/>
+                                        <decimalbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Sconto 3:"/>
+                                        <decimalbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Tot:"/>
+                                        <decimalbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Iva:"/>
+                                        <decimalbox/>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem; border-bottom: 2px solid darkgreen; padding-bottom: .5rem; padding-top: .5rem">
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Tipo Pagamento:"/>
+                                        <textbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Banca"/>
+                                        <selectbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Max Fido:"/>
+                                        <decimalbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Importi su DDT"/>
+                                        <checkbox/>
+                                    </div>
+                                    <div style="display: flex; gap: .6rem">
+                                        <label style="display: flex; align-items: center" value="Cod. Forni su Vend:"/>
+                                        <checkbox/>
+                                    </div>
+                                </div>
+                            </div>
+                        </vlayout>
+                    </vlayout>
+                </vlayout>
+            </center>
+            <south>
+                <div style="display: flex; justify-content: space-between">
+                    <button label="Salva"/>
+                </div>
+            </south>
+        </borderlayout>
+    </window>
+</zk>

@@ -1,0 +1,70 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="MARKETPLACE_INDEX" mode="modal" title="Marketplace" border="normal"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.marketplace.MarketplaceIndexViewModel')">
+        <listbox id="box" model="@bind(vm.marketplaces)">
+            <listhead id="listhead" sizable="true" >
+                <listheader label="Tipo" width="60px"/>
+                <listheader label="Descrizione" width="100px"/>
+                <listheader label="Listino" width="170px"/>
+                <listheader label="Listino Inglese" width="170px"/>
+                <listheader label="Non Esportare Giac. Maga" width="200px"/>
+                <listheader label="Disp. Meno Sc. Min." width="160px"/>
+                <listheader label="Non Esportare Se Disp. Neg." width="210px"/>
+                <listheader label="Disp. Fissa" width="110px"/>
+                <listheader label="Disp. Non Zero" width="130px"/>
+                <listheader label="Sp. Spedizione" width="140px"/>
+                <listheader label="T. Spedizione" width="130px"/>
+                <listheader label="Prezzo per Kg" width="140px"/>
+                <listheader label="Attivo" width="100px"/>
+            </listhead>
+            <template name="model" var="each">
+                <listitem onClick="@command('onMarketplaceClicked', marketplace=each)">
+                    <listcell label="@load(each.tipo)" style="font-size: 14px"/>
+                    <listcell label="@load(each.descrizione)" style="font-size: 14px"/>
+                    <listcell>
+                        <textbox width="120px" disabled="true" value="@bind(each.selectedListino.nome)"/>
+                    </listcell>
+                    <listcell>
+                        <textbox width="120px" disabled="true" value="@bind(each.selectedListino.nome)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.nonEsportareGiacenzaMaga)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.disponibilitamenoScMin)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.nonEsportareSeDispNeg)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.disponibilitaFissa)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.disponibilitaNonZero)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.speseSped)"/>
+                    </listcell>
+                    <listcell>
+                        <label value="@load(each.tempiSpedizione eq null ? '/' : each.tempiSpedizione)"/>
+                    </listcell>
+                    <listcell>
+                        <checkbox disabled="true" checked="@load(each.prezzoperkg)"/>
+                    </listcell>
+                    <listcell>
+                        <div style="height: 20px; width: 20px; border-radius: 50%" sclass="@bind(vm.getMarketplaceStatusClass(each))"/>
+                    </listcell>
+                </listitem>
+            </template>
+            <listfoot>
+                <listfooter span="20">
+                    <button label="MODIFICA" visible="@bind(vm.isEditButtonVisible)" disabled="@bind(vm.buttonDisabled)" onClick="@command('onEditMarketplace')"/>
+                </listfooter>
+            </listfoot>
+        </listbox>
+    </window>
+</zk>

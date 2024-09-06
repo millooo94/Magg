@@ -1,0 +1,39 @@
+.active {
+    background-color: green;
+}
+.unactive {
+    background-color: red;
+}
+#MARKETPLACE_INDEX .z-row-content {
+    display: flex;
+    justify-content: center;
+}
+.z-footer-content {
+    display: flex;
+    justify-content: flex-end;
+}
+.z-listcell-content {
+    width: 100%;
+    justify-content: center;
+}
+.z-listfooter-content {
+    display: flex;
+    justify-content: flex-end;
+}
+.z-listcell-content:last-child {
+    padding-bottom: .8rem
+}
+.z-listbox-footer {
+    height: 60px;
+}
+
+.z-row .z-row-inner:nth-child(2) .z-row-content {
+  display: flex;
+  justify-content: center;
+ }
+ .z-foot-bar {
+    display: none;
+ }
+ .z-listheader-content {
+    font-size: 14px
+ }

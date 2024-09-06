@@ -1,0 +1,60 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="listiniModalDialog" mode="popup" title="Listini" border="normal" width="1300px" height="850px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.listini.ListiniIndexViewModel')"
+    >
+        <div style="height: 100%" class="listini-container">
+            <div class="table-header">
+                <div class="type">Tipologia Listino</div>
+                <div class="web-list">Listino per il WEB</div>
+                <div class="sconti">
+                    <div>Ricarico</div>
+                    <div>Sconto Da Listino</div>
+                    <div>Sconto Da Vendita</div>
+                </div>
+                <div class="web">
+                    <div sclass="header">Dati per Web</div>
+                    <div class="opzioni">
+                        <div>Default su Web</div>
+                        <div>Visualizza Ivato</div>
+                    </div>
+                </div>
+            </div>
+            <h:main style="overflow-Y: scroll">
+                <div style="" class="table-body" xmlns:x="xhtml" xmlns:z="http://www.zkoss.org/2005/zul"
+                     children="@load(vm.listini)">
+                    <template name="children">
+                        <div sclass="@bind(each.eliminato ? 'row del' : 'row')" visible="@bind(vm.showDeleted || !each.eliminato)" class="row" context="@bind(vm.getPopupContext(each))"
+                             onRightClick="@command('onRightClickListino', listino=each)">
+                            <textbox readonly="@bind(!each.modificabile)" value="@bind(each.nome)" style="width: 234px" constraint="no empty" onChange="@command('onChangeListino', listino=each)"/>
+                            <textbox readonly="@bind(!each.modificabile)" value="Nome Web" style="width: 245px" onChange="@command('onChangeListino', listino=each)"/>
+                            <decimalbox readonly="@bind(!each.modificabile)" value="@bind(each.ricarico)" style="width: 159px" onChange="@command('onChangeListino', listino=each)"/>
+                            <decimalbox readonly="@bind(!each.modificabile)" value="@bind(each.scontoDaListino)" style="width: 159px" onChange="@command('onChangeListino', listino=each)"/>
+                            <decimalbox readonly="@bind(!each.modificabile)" value="@bind(each.scontoDaVendita)" style="width: 159px" onChange="@command('onChangeListino', listino=each)"/>
+                            <checkbox disabled="@bind(!each.modificabile)" checked="@bind(each.defaultSuWeb)" style="display: flex; justify-content: center; align-items: center; width: 169px" onCheck="@command('onChangeListino', listino=each)"/>
+                            <checkbox disabled="@bind(!each.modificabile)" checked="@bind(each.visIvato)" style="flex-grow: 1; display: flex; justify-content: center; align-items: center; width: 169px" onCheck="@command('onChangeListino', listino=each)"/>
+                        </div>
+                    </template>
+                </div>
+            </h:main>
+            <h:footer class="listini-modal-footer">
+                <button disabled="@bind(vm.buttonDisabled)" class="visibility-button" onClick="@command('onChangeVisibility')" label="@bind(!vm.showDeleted ? 'Mostra Eliminati' : 'Nascondi Eliminati')"/>
+                <div style="display: flex; gap: 15px">
+                    <button disabled="@bind(vm.buttonDisabled)" class="new-button" onClick="@command('onCreateListino')">Nuovo</button>
+                    <button disabled="@bind(vm.buttonDisabled)" class="save-button" onClick="@command('onSaveListino')">Salva</button>
+                </div>
+            </h:footer>
+        </div>
+
+
+        <menupopup id="deletePopup">
+            <menuitem  iconSclass="z-icon-trash" label="Elimina Listino" onClick="@command('onDeleteRestoreListino', action='delete')"/>
+        </menupopup>
+        <menupopup id="restorePopup">
+            <menuitem  iconSclass="z-icon-trash" label="Ripristina Listino" onClick="@command('onDeleteRestoreListino', action='restore')"/>
+        </menupopup>
+    </window>
+</zk>

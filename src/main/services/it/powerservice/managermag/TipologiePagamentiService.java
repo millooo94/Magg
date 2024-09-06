@@ -13,4 +13,8 @@ public class TipologiePagamentiService {
     public List<TipologiePagamenti> getTipologiePagamenti() {
         return tipologiePagamentiRepository.getTipologiePagamenti();
     }
+    public void onSaveTipologiaPagamento(TipologiePagamenti tipologiePagamento) {
+        tipologiePagamentiRepository.save(tipologiePagamento);
+    }
+
 }

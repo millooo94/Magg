@@ -1,0 +1,36 @@
+.tipologie-pagamenti .z-textbox,
+.tipologie-pagamenti .z-decimalbox,
+.tipologie-pagamenti .z-combobox-input,
+.tipologie-pagamenti .z-comboitem {
+    font-size: 12px;
+}
+
+.left-block {
+    position: relative;
+}
+
+
+.tipologie-pagamenti.left-block .z-listfooter {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.right-block.z-vbox {
+    position: relative;
+}
+
+.tipologie-pagamenti.right-block .z-listbox-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+}
+
+.tipologie-pagamenti.left-block .z-listfooter-content, .tipologie-pagamenti.right-block .z-listfooter-content{
+    justify-content: space-between;
+}
+
+.tipologie-pagamenti.right-block .z-listcell-content {
+    justify-content: flex-start;
+}
+

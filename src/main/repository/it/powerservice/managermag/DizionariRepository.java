@@ -1,5 +1,6 @@
 package it.powerservice.managermag;
 
+import com.powerservice.managermag.dizionari.utilities.DizionariUI;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,6 +14,10 @@ import java.util.List;
 public interface DizionariRepository extends JpaRepository<Dizionari, String> {
     @Query("SELECT d FROM Dizionari d")
     List<Dizionari> getDizionari();
+
+    @Query("SELECT d FROM Dizionari d WHERE d.Categoria = :categoria")
+    List<Dizionari> getDizionariFromCategoria(@Param("categoria") String categoria);
+
 
     @Modifying
     @Transactional

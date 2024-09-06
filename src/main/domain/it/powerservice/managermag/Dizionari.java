@@ -16,11 +16,15 @@ public class Dizionari {
     @Column(name = "modificabile", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean modificabile;
 
-    @Transient
-    private Boolean primaColonna = false;
-    @Transient
-    private Boolean secondaColonna = false;
+    public Dizionari() {
+    }
 
+    public Dizionari(String codice, String categoria, String descrizione, Boolean modificabile) {
+        Codice = codice;
+        Categoria = categoria;
+        Descrizione = descrizione;
+        this.modificabile = modificabile;
+    }
 
     public String getCodice() {
         return Codice;
@@ -54,19 +58,18 @@ public class Dizionari {
         this.modificabile = modificabile;
     }
 
-    public Boolean getPrimaColonna() {
-        return primaColonna;
-    }
 
-    public void setPrimaColonna(Boolean primaColonna) {
-        this.primaColonna = primaColonna;
-    }
 
-    public Boolean getSecondaColonna() {
-        return secondaColonna;
-    }
 
-    public void setSecondaColonna(Boolean secondaColonna) {
-        this.secondaColonna = secondaColonna;
+
+
+    @Override
+    public String toString() {
+        return "Dizionari{" +
+                "Codice='" + Codice + '\'' +
+                ", Categoria='" + Categoria + '\'' +
+                ", Descrizione='" + Descrizione + '\'' +
+                ", modificabile=" + modificabile +
+                '}';
     }
 }

@@ -1,0 +1,13 @@
+
+.ANAGRAFICHE .z-center-body, .ANAGRAFICHE_MONO .z-center-body {
+    padding: 0;
+}
+
+.ANAGRAFICHE_MONO .z-north-body {
+    padding: 0;
+}
+.ANAGRAFICHE_MONO .z-vlayout-inner {
+    padding-bottom: 0 !important;
+}
+
+

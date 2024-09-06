@@ -1,0 +1,77 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="NEW_TIPOLOGIE_PAGAMENTI" mode="modal" title="New Tipologia Pagamento" border="normal" width="500px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.tipologiePagamenti.TipologiePagamentiNewViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <grid>
+            <rows>
+                <row>
+                    <label value="Codice"/>
+                    <textbox value="@bind(vm.tipologiaPagamentoToSave.codice)"/>
+                </row>
+                <row>
+                    <label value="Descrizione"/>
+                    <textbox value="@bind(vm.tipologiaPagamentoToSave.descrizione)"/>
+                </row>
+                <row>
+                    <label value="Tipo"/>
+                    <checkbox checked="@bind(vm.tipologiaPagamentoToSave.tipo)"/>
+                </row>
+                <row>
+                    <label value="Riba"/>
+                    <checkbox checked="@bind(vm.tipologiaPagamentoToSave.riba)"/>
+                </row>
+                <row>
+                    <label value="Regola Auto"/>
+                    <checkbox checked="@bind(vm.tipologiaPagamentoToSave.regolaAuto)"/>
+                </row>
+                <row>
+                    <label value="Avvisi"/>
+                    <checkbox checked="@bind(vm.tipologiaPagamentoToSave.avvisi)"/>
+                </row>
+                <row>
+                    <label value="ModPagFattPa"/>
+                    <combobox model="@bind(vm.modPagFattPa)" selectedItem="@bind(vm.selectedModPagFattPa)" onSelect="@command('onSelectModPagFattPa')">
+                        <template name="model" var="each">
+                            <comboitem label="@bind(each.descrizione)" value="@bind(each.codice)"/>
+                        </template>
+                    </combobox>
+                </row>
+                <row>
+                    <label value="CondPagFattPa"/>
+                    <combobox model="@bind(vm.condPagFattPa)" selectedItem="@bind(vm.selectedCondPagFattPa)" onSelect="@command('onSelectCondPagFattPa')">
+                        <template name="model" var="each">
+                            <comboitem label="@bind(each.descrizione)" value="@bind(each.codice)"/>
+                        </template>
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Sconto"/>
+                    <decimalbox value="@bind(vm.tipologiaPagamentoToSave.sconto)"/>
+                </row>
+                <row>
+                    <label value="Spese Incasso"/>
+                    <decimalbox value="@bind(vm.tipologiaPagamentoToSave.speseIncasso)"/>
+                </row>
+                <row>
+                    <label value="Banca"/>
+                    <combobox model="@bind(vm.banche)" onSelect="@command('onSelectBanca')">
+                        <template name="model" var="each">
+                            <comboitem label="@bind(each.agenzia)" value="@bind(each.agenzia)"/>
+                        </template>
+                    </combobox>
+                </row>
+            </rows>
+            <foot>
+                <footer span="2">
+                    <button onClick="@command('onSaveTipologiaPagamento')">Salva</button>
+                </footer>
+            </foot>
+        </grid>
+
+    </window>
+</zk>

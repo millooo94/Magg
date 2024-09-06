@@ -1,0 +1,51 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="DIZIONARI_INDEX" mode="popup" title="Dizionari" border="normal" width="500px" height="800px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.dizionari.DizionariIndexViewModel')"
+    >
+        <borderlayout sclass="DIZIONARI">
+            <north>
+                <hlayout valign="middle">
+                    <label value="Dizionario:"/>
+                    <selectbox model="@bind(vm.dizionariCategorie)" selectedIndex="@bind(vm.selectedDizionarioCategoriaIndex)" onSelect="@command('onSelect')">
+                        <template name="model" var="each">
+                            <label value="@load(each.categoria)"/>
+                        </template>
+                    </selectbox>
+                </hlayout>
+            </north>
+            <center>
+                <vlayout height="100%">
+                    <listbox height="100%" model="@bind(vm.dizionariUI)">
+                        <listhead>
+                            <listheader>
+                                Codice
+                            </listheader>
+                            <listheader>
+                                Descrizione
+                            </listheader>
+                        </listhead>
+                        <template name="model" var="each">
+                            <listitem>
+                                <listcell>
+                                    <textbox height="35px" value="@bind(each.codice)" readonly="@bind(!each.modificabile)" instant="true" onChange="@command('onChange', dizionarioUI=each)"/>
+                                </listcell>
+                                <listcell>
+                                    <textbox height="35px" value="@bind(each.descrizioneDizionario)" readonly="@bind(!each.modificabile)" instant="true" onChange="@command('onChange', dizionarioUI=each)"/>
+                                </listcell>
+                            </listitem>
+                        </template>
+                    </listbox>
+                </vlayout>
+            </center>
+            <south>
+                <hlayout style="display: flex; justify-content: flex-end">
+                    <button label="Salva" disabled="@bind(vm.saveButtonDisabled)" onClick="@command('onSave')"/>
+                </hlayout>
+            </south>
+        </borderlayout>
+    </window>
+</zk>

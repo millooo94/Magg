@@ -1,0 +1,37 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="MARCHE_INDEX" mode="modal" title="Marche" border="normal"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" width="500px" viewModel="@id('vm') @init('com.powerservice.managermag.marche.MarcheIndexViewModel')">
+        <listbox id="box" model="@bind(vm.marche)" class="marche">
+            <listhead id="listhead" sizable="true" >
+                <listheader label="Id"/>
+                <listheader label="Marca"/>
+            </listhead>
+            <template name="model" var="each">
+                <listitem visible="@bind(vm.showDeleted || !each.eliminato)" onClick="@command('onMarcaClicked', marca=each)">
+                    <listcell sclass="@bind(each.eliminato ? 'row del' : 'row')">
+                        <label value="@bind(each.id)"/>
+                    </listcell>
+                    <listcell sclass="@bind(each.eliminato ? 'del' : '')">
+                        <label visible="@bind(!each.isUpdating)" value="@bind(each.marca)"/>
+                        <textbox visible="@bind(each.isUpdating)" value="@bind(each.marca)" />
+                    </listcell>
+                </listitem>
+            </template>
+            <listfoot>
+                <listfooter>
+                    <button label="Nuovo" visible="@bind(vm.isNewButtonVisible)" disabled="@bind(vm.isNewButtonDisabled)" onClick="@command('onCreateMarca')"/>
+                    <button onClick="@command('onChangeVisibility')" label="@bind(!vm.showDeleted ? 'Mostra Eliminati' : 'Nascondi Eliminati')" visible="@bind(vm.isShowDeletedButtonVisible)" disabled="@bind(vm.isShowDeletedButtonDisabled)"/>
+                </listfooter>
+                <listfooter>
+                    <button label="Modifica" visible="@bind(vm.isEditButtonVisible)" disabled="@bind(vm.isEditButtonDisabled)" onClick="@command('onEditMarca')"/>
+                    <button label="Salva" visible="@bind(vm.isSaveButtonVisible)" disabled="@bind(vm.isSaveButtonDisabled)" onClick="@command('onSaveMarca')"/>
+                    <button label="Elimina" visible="@bind(vm.isDeleteButtonVisible)" disabled="@bind(vm.isDeleteButtonDisabled)" onClick="@command('onDeleteMarca')"/>
+                </listfooter>
+            </listfoot>
+        </listbox>
+    </window>
+</zk>

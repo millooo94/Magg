@@ -1,0 +1,8 @@
+.MODALE_NUOVO_DEPOSITO .z-footer-content {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.invalid {
+    border-color: red;
+}

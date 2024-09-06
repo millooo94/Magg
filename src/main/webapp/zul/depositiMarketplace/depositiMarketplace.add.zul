@@ -1,0 +1,31 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="DEPOSITI_MARKETPLACE_ADD" mode="modal" title="Aggiungi Depositi" border="normal" width="500px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.depositiMarketplace.DepositiMarketplaceAddViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    > <listbox width="100%" height="100%" model="@bind(vm.depositiNonAssociati)" class="depositi-add">
+        <listhead>
+            <listheader label="Codice" />
+            <listheader label="Nome" />
+            <listheader width="75px" />
+        </listhead>
+        <template name="model" var="each">
+            <listitem>
+                <listcell label="@bind(each.codice)"/>
+                <listcell label="@bind(each.nome)"/>
+                <listcell>
+                    <checkbox checked="false" onCheck="@command('onDepositoChecked', deposito=each)"/>
+                </listcell>
+            </listitem>
+        </template>
+        <listfoot>
+            <listfooter span="3">
+                <button label="Salva" onClick="@command('onSaveDepositi')"/>
+            </listfooter>
+        </listfoot>
+    </listbox>
+    </window>
+</zk>

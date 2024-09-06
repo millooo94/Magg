@@ -1,9 +1,6 @@
 package it.powerservice.managermag;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.Comment;
 
 @Entity
@@ -12,7 +9,8 @@ public class Banche {
     @Id
     @Column(name = "id", precision = 11, nullable = false, columnDefinition = "BIGINT NOT NULL AUTO_INCREMENT")
     Long id;
-    @Column(name = "idAnagrafica", precision = 11, columnDefinition = "INT(11) NULL DEFAULT NULL")
+
+    @Transient
     Long idAnagrafica;
     @Column(name = "agenzia", length = 100, nullable = false, columnDefinition = "VARCHAR(100) NOT NULL" )
     @Comment("Se nullo è banca aziendale")
@@ -41,4 +39,115 @@ public class Banche {
     @Column(name = "eliminato", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean eliminato;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getIdAnagrafica() {
+        return idAnagrafica;
+    }
+
+    public void setIdAnagrafica(Long idAnagrafica) {
+        this.idAnagrafica = idAnagrafica;
+    }
+
+    public String getAgenzia() {
+        return agenzia;
+    }
+
+    public void setAgenzia(String agenzia) {
+        this.agenzia = agenzia;
+    }
+
+    public String getIban() {
+        return iban;
+    }
+
+    public void setIban(String iban) {
+        this.iban = iban;
+    }
+
+    public String getAbi() {
+        return abi;
+    }
+
+    public void setAbi(String abi) {
+        this.abi = abi;
+    }
+
+    public String getCab() {
+        return cab;
+    }
+
+    public void setCab(String cab) {
+        this.cab = cab;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
+    public String getSwift() {
+        return swift;
+    }
+
+    public void setSwift(String swift) {
+        this.swift = swift;
+    }
+
+    public String getLocalita() {
+        return localita;
+    }
+
+    public void setLocalita(String localita) {
+        this.localita = localita;
+    }
+
+    public String getIndirizzo() {
+        return indirizzo;
+    }
+
+    public void setIndirizzo(String indirizzo) {
+        this.indirizzo = indirizzo;
+    }
+
+    public String getCodSIA() {
+        return codSIA;
+    }
+
+    public void setCodSIA(String codSIA) {
+        this.codSIA = codSIA;
+    }
+
+    public Boolean getPredefinito() {
+        return predefinito;
+    }
+
+    public void setPredefinito(Boolean predefinito) {
+        this.predefinito = predefinito;
+    }
+
+    public Boolean getEliminato() {
+        return eliminato;
+    }
+
+    public void setEliminato(Boolean eliminato) {
+        this.eliminato = eliminato;
+    }
 }

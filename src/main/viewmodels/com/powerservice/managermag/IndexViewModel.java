@@ -42,7 +42,7 @@ public class IndexViewModel {
 
     @Command
     public void onOpenModal(@BindingParam("modal") String modal) {
-        var modalUrl = "/" + modal + ".zul";
+        var modalUrl = "/zul/" + modal + "/" + modal + ".index.zul";
         Window window = (Window)Executions.createComponents(
                 modalUrl, null, null);
         window.doModal();

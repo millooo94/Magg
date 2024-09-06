@@ -1,0 +1,25 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="NEW_MARKETPLACE" mode="modal" title="New Marca" border="normal" width="500px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.marche.MarcheNewViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <grid>
+            <rows>
+                <row>
+                    <label value="Marca:"/>
+                    <textbox value="@bind(vm.marcaToSave.marca)"/>
+                </row>
+            </rows>
+            <foot>
+                <footer span="2">
+                    <button onClick="@command('onSaveMarca')">Salva</button>
+                </footer>
+            </foot>
+        </grid>
+
+    </window>
+</zk>

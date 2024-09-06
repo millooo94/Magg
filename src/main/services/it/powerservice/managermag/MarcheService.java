@@ -14,4 +14,6 @@ public class MarcheService {
     public List<Marche> getMarche() {
         return marcheRepository.getMarche();
     }
+    public void saveMarca(Marche marca) { marcheRepository.save(marca);}
+    public  void deleteMarca(Long marcaId) {marcheRepository.deleteById(marcaId);}
 }

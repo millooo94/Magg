@@ -1,0 +1,24 @@
+.marche .z-listcell-content {
+    justify-content: flex-start;
+}
+.marche .z-listfooter-content {
+    gap: .5rem;
+}
+.marche .z-listfooter:nth-child(1) > .z-listfooter-content {
+    justify-content: flex-start;
+}
+.marche .z-listfooter:nth-child(2) > .z-listfooter-content {
+    justify-content: flex-end;
+}
+.marche .z-listcell-content {
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+ .z-listcell.del {
+    background: pink;
+ }
+
+.z-listbox:hover .z-listcell.del {
+    background: pink;
+}

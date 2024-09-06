@@ -13,4 +13,11 @@ public class DepositiService {
     public List<Depositi> getDepositi() {
         return depositiRepository.getDepositi();
     }
+    public void saveDeposito(Depositi deposito) {
+        depositiRepository.save(deposito);
+    }
+    public List<Depositi> findDepositiNonAssociati(Long marketplaceId) {
+        return depositiRepository.findDepositiNonAssociati(marketplaceId);
+    }
+
 }

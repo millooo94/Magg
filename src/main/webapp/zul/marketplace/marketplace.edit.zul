@@ -1,0 +1,85 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="EDIT_MARKETPLACE" mode="modal" title="Edit Marketplace" border="normal" width="500px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.marketplace.MarketplaceEditViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
+    >
+        <grid>
+            <rows>
+                <row>
+                    <label value="Id:"/>
+                    <textbox value="@bind(vm.marketplaceToSave.id)" readonly="true"/>
+                </row>
+                <row>
+                    <label value="Tipo:"/>
+                    <textbox value="@bind(vm.marketplaceToSave.tipo)" readonly="true"/>
+                </row>
+                <row>
+                    <label value="Descrizione:"/>
+                    <textbox value="@bind(vm.marketplaceToSave.descrizione)" readonly="true"/>
+                </row>
+                <row>
+                    <label value="Listino:"/>
+                    <combobox model="@bind(vm.listini)" selectedItem="@bind(vm.selectedListino)" onSelect="@command('onSelectListino')">
+                        <template name="model" var="each">
+                            <comboitem label="@bind(each.nome)" value="@bind(each.id)"/>
+                        </template>
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Listino Inglese:"/>
+                    <combobox model="@bind(vm.listini)" selectedItem="@bind(vm.selectedListinoInglese)" onSelect="@command('onSelectListinoInglese')">
+                        <template name="model" var="each">
+                            <comboitem label="@bind(each.nome)" value="@bind(each.id)"/>
+                        </template>
+                    </combobox>
+                </row>
+                <row>
+                    <label value="Non Esportare Giac. Maga:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.nonEsportareGiacenzaMaga)"/>
+                </row>
+                <row>
+                    <label value="Disp. Meno Sc. Min:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.disponibilitamenoScMin)"/>
+                </row>
+                <row>
+                    <label value="Non Esportare Se Disp. Neg:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.nonEsportareSeDispNeg)"/>
+                </row>
+                <row>
+                    <label value="Disp. Fissa:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.disponibilitaFissa)"/>
+                </row>
+                <row>
+                    <label value="Disp. Non Zero:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.disponibilitaNonZero)"/>
+                </row>
+                <row>
+                    <label value="Sp. Spedizione:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.speseSped)"/>
+                </row>
+                <row>
+                    <label value="T. Spedizione:"/>
+                    <textbox value="@bind(vm.marketplaceToSave.tempiSpedizione)"/>
+                </row>
+                <row>
+                    <label value="Prezzo per Kg:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.prezzoperkg)"/>
+                </row>
+                <row>
+                    <label value="Attivo:"/>
+                    <checkbox checked="@bind(vm.marketplaceToSave.attivo)"/>
+                </row>
+            </rows>
+            <foot>
+                <footer span="2">
+                    <button onClick="@command('onSaveMarketplace')">Salva</button>
+                </footer>
+            </foot>
+        </grid>
+
+    </window>
+</zk>
