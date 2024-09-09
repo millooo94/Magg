@@ -15,14 +15,8 @@
                 <column label="@bind(vm.colonne.get(3).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
                 <column label="@bind(vm.colonne.get(4).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
             </columns>
-            <rows>
-                <row>
-                    <label value="@bind(vm.riga.get(0).label)" />
-                    <label value="@bind(vm.riga.get(1).label)" />
-                    <label value="@bind(vm.riga.get(2).label)" />
-                    <label value="@bind(vm.riga.get(3).label)" />
-                    <label value="@bind(vm.riga.get(4).label)" />
-                </row>
+            <rows id="rows">
+
             </rows>
         </grid>
     </window>

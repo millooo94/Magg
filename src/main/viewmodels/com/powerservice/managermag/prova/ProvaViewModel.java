@@ -2,22 +2,24 @@ package com.powerservice.managermag.prova;
 
 import it.powerservice.managermag.Anagrafiche;
 import it.powerservice.managermag.AnagraficheService;
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
-import org.zkoss.bind.annotation.Init;
-import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.bind.annotation.*;
+import org.zkoss.zhtml.Li;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.DropEvent;
+import org.zkoss.zk.ui.select.SelectorComposer;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
-import org.zkoss.zul.Column;
+import org.zkoss.zul.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 @VariableResolver(DelegatingVariableResolver.class)
-public class ProvaViewModel {
+public class ProvaViewModel extends SelectorComposer<Window> {
 
     @WireVariable
     AnagraficheService anagraficheService;
@@ -28,6 +30,17 @@ public class ProvaViewModel {
 
     private List<Cella> riga = new ArrayList<>();
 
+    private List<List<Cella>> anagraficheee = new ArrayList<>();
+
+
+    @Wire("#rows")
+    private Rows rows;
+
+    @AfterCompose
+    public void afterCompose(@ContextParam(ContextType.VIEW) Component view) {
+        Selectors.wireComponents(view, this, false);
+        test();
+    }
 
 
     @Init
@@ -35,6 +48,8 @@ public class ProvaViewModel {
         anagrafiche = anagraficheService.getAnagrafiche().subList(0, 12);
         initColonne();
         initRow();
+        initAnagrafiche();
+        System.out.println(rows);
     }
 
     public List<Anagrafiche> getAnagrafiche() {
@@ -90,7 +105,62 @@ public class ProvaViewModel {
         riga.add(new Cella("Giuseppe", "Giuseppe"));
     }
 
+    public void initAnagrafiche() {
+        var result = anagraficheService.getAnagrafiche();
+
+        for (Anagrafiche r : result) {
+            List<Cella> row = new ArrayList<>();
+            Field[] rowFields = r.getClass().getDeclaredFields();
+
+            for (Field field : rowFields) {
+                field.setAccessible(true);
+                try {
+                    String label = field.getName();
+                    Object value = field.get(r);
+
+                    row.add(new Cella(label, value));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            this.anagraficheee.add(row);
+        }
+    }
+
+    public void test() {
+        var result = anagraficheService.getAnagrafiche();
+
+        for (Anagrafiche r : result) {
+            Row row = new Row();
+            Field[] rowFields = r.getClass().getDeclaredFields();
+
+            for (Field field : rowFields) {
+                System.out.println(field);
+                field.setAccessible(true);
+                try {
+                    Label label = new Label(field.get(r).toString());
+                    row.appendChild(label);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            rows.appendChild(row);
+        }
+    }
+
     public List<Cella> getRiga() {
         return riga;
+    }
+
+    private void prepareRows() {
+        rows.getChildren().clear(); // Pulisce le righe esistenti
+
+        for (Cella cella : riga) {
+            Row row = new Row();
+            Label label = new Label(cella.getLabel());
+            label.setValue("ciaoooo");
+            row.appendChild(label);
+            rows.appendChild(row);
+        }
     }
 }

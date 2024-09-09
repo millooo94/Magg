@@ -9,6 +9,16 @@
 <?link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
         rel="stylesheet" ?>
 
+<?link rel="stylesheet" href="css/pq/pqgrid.dev.css" ?>
+<?link rel="stylesheet" href="css/pq/pqgrid.min.css" ?>
+<?link rel="stylesheet" href="css/pq/pqgrid.ui.min.css" ?>
+
+<?script src="js/index.js"?>
+
+<?script src="js/pq/pqgrid.min.js" ?>
+<?script src="js/pq/localize/pq-localize-it.js" ?>
+<?script src="js/pq/javascript-detect-element-resize/jquery.resize.js" ?>
+
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
@@ -127,6 +137,12 @@
                                         <h:i class="fa-solid fa-city"></h:i>
                                     </span>
                                     <div class="name">PROVA GRIGLIA</div>
+                                </h:div>
+                                <h:div class="nav-item" onClick="@command('onOpenModal', modal='pq')">
+                                    <span style="color: #ddd">
+                                        <h:i class="fa-solid fa-city"></h:i>
+                                    </span>
+                                    <div class="name">Param Query</div>
                                 </h:div>
                             </h:nav>
                         </div>
