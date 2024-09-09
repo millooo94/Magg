@@ -12,7 +12,7 @@ public class AnagraficheService {
     @Autowired
     AnagraficheRepository anagraficheRepository;
 
-    public List<Anagrafiche> getAnagrafiche(CodDesc codDesc) {
+    public List<Anagrafiche> getAnagrafiche() {
         return anagraficheRepository.getAnagrafiche();
     }
 

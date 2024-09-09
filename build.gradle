@@ -62,6 +62,7 @@ dependencies {
 
     implementation 'org.zkoss.zk:zuti:8.0.5-Eval'
 
+
     runtimeOnly "org.slf4j:slf4j-jdk14:1.7.28"
 }
 

@@ -1,0 +1,29 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="MONO_ANAGRAFICHE" mode="modal" title="PROVA" border="normal" width="1400px" height="845px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true"
+            viewModel="@id('vm') @init('com.powerservice.managermag.prova.ProvaViewModel') @bind('window', window)">
+
+        <grid>
+            <columns>
+                <column label="@bind(vm.colonne.get(0).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)"/>
+                <column label="@bind(vm.colonne.get(1).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)"/>
+                <column label="@bind(vm.colonne.get(2).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
+                <column label="@bind(vm.colonne.get(3).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
+                <column label="@bind(vm.colonne.get(4).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
+            </columns>
+            <rows>
+                <row>
+                    <label value="@bind(vm.riga.get(0).label)" />
+                    <label value="@bind(vm.riga.get(1).label)" />
+                    <label value="@bind(vm.riga.get(2).label)" />
+                    <label value="@bind(vm.riga.get(3).label)" />
+                    <label value="@bind(vm.riga.get(4).label)" />
+                </row>
+            </rows>
+        </grid>
+    </window>
+</zk>
