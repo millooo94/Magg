@@ -2,7 +2,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="companiesDataModal" mode="popup" title="Dati Azienda" border="normal" width="800px" height="600px"
+    <window id="ANAGRAFICHE_INDEX" mode="popup" title="Dati Azienda" border="normal" width="800px" height="700px"
             apply="org.zkoss.bind.BindComposer"
             position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.datiAzienda.DatiAziendaIndexlViewModel')"
     >

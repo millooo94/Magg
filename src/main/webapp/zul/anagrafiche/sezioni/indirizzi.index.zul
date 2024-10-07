@@ -1,0 +1,183 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="INDIRIZZI_INDEX" height="100%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.sezioni.IndirizziIndexViewModel')"
+
+    >
+        <div class="grid-container">
+            <grid model="@bind(vm.indirizzi)">
+                <columns id="indirizzi-columns">
+                    <column width="40px">
+                        <checkbox checked="@bind(vm.allIndirizziChecked)" onCheck="@command('onAllIndirizziChecked')"/>
+                    </column>
+                </columns>
+                <rows>
+                    <template name="model">
+                        <row onClick="@command('onIndirizzoSelected', indirizzo=each)" sclass="@bind(each.selected ? 'selected' : '')">
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <checkbox value="false" checked="@bind(each.checked)" onCheck="@command('onIndirizzoChecked')"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.referente)"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.nazione)"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.regione)"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.provincia)"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.comune)"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.telefono1)"/>
+                            </cell>
+                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                <label value="@load(each.email)"/>
+                            </cell>
+                        </row>
+                    </template>
+                </rows>
+            </grid>
+        </div>
+        <div visible="true">
+            <h:fieldset class="indirizzi-dettaglio">
+                <h:legend>Dettaglio Indirizzo:</h:legend>
+                <div style="display: flex; flex-direction: row; gap: 2rem">
+                    <div class="col1">
+                        <div style="display: flex; align-items: center">
+                            <label value="Tipo Indirizzo:"/>
+                            <selectbox model="@bind(vm.tipiIndirizzo)" selectedIndex="@bind(vm.selectedTipoIndirizzoIndex)">
+                                <template name="model">
+                                    <label value="@bind(each.descrizione)"/>
+                                </template>
+                            </selectbox>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Denominazione Alternativa:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.denominazioneAlternativa)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Referente:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.referente)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Recapito Referente:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.recapitoReferente)"/>
+                        </div>
+                    </div>
+                    <div class="col2">
+                        <div style="display: flex; align-items: center">
+                            <label value="Nazione:"/>
+                            <selectbox model="@bind(vm.nazioni)" selectedIndex="@bind(vm.selectedNazioneIndex)" onSelect="@command('onNazioneSelected')">
+                                <template name="model">
+                                    <label value="@bind(each.nazione)"/>
+                                </template>
+                            </selectbox>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Regione:"/>
+                            <selectbox model="@bind(vm.regioni)">
+                                <template name="model">
+                                    <label value="@bind(each.nome)"/>
+                                </template>
+                            </selectbox>
+                            <textbox value="vm.selectedIndirizzo.regione"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Provincia:"/>
+                            <selectbox>
+                                <template name="model">
+                                    <label value=""/>
+                                </template>
+                            </selectbox>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Comune:"/>
+                            <selectbox>
+                                <template name="model">
+                                    <label value=""/>
+                                </template>
+                            </selectbox>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="CAP:"/>
+                            <selectbox>
+                                <template name="model">
+                                    <label value=""/>
+                                </template>
+                            </selectbox>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Frazione:"/>
+                            <selectbox>
+                                <template name="model">
+                                    <label value=""/>
+                                </template>
+                            </selectbox>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Indirizzo:"/>
+                            <selectbox>
+                                <template name="model">
+                                    <label value=""/>
+                                </template>
+                            </selectbox>
+                        </div>
+                    </div>
+                    <div class="col3">
+                        <div style="display: flex; align-items: center">
+                            <label value="Codice SDI:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.codSdi)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Telefono 1:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.telefono1)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Telefono2:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.telefono2)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Telefono3:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.telefono3)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Telefono3:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.cellulare)"/>
+                        </div>
+                    </div>
+                    <div class="col4">
+                        <div style="display: flex; align-items: center">
+                            <label value="Fax:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.fax)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Email:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.email)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="PEC:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.pec)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Sito:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.sito)"/>
+                        </div>
+                        <div style="display: flex; align-items: center">
+                            <label value="Note:"/>
+                            <textbox value="@bind(vm.selectedIndirizzo.notes)"/>
+                        </div>
+                    </div>
+                </div>
+            </h:fieldset>
+        </div>
+
+    </window>
+</zk>

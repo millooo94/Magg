@@ -63,15 +63,17 @@ public class AnagraficheIndexViewModel {
     @Command
     public void onOpenAnagraficheMono(@BindingParam("type") String actionType) {
         Map<String, Object> params = new HashMap<>();
-        params.put("tipoAnagrafica", tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getCodice());
+        System.out.println("INDEX ===> " + tipiAnagrafiche.get(selectedTipoAnagraficaIndex));
         switch (actionType) {
             case "EDIT":
                 params.put("anagraficaToSave", selectedAnagrafica);
                 params.put("monoType", "EDIT");
+                params.put("tipoAnagrafica", selectedAnagrafica.getTipo());
                 break;
             case "CREATE":
                 params.put("anagraficaToSave", new Anagrafiche());
                 params.put("monoType", "CREATE");
+                params.put("tipoAnagrafica", tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getCodice());
                 break;
         }
         AnagraficheMonoViewModel.apriPopup(this, params).addEventListener(Events.ON_CLOSE, new AnagraficheMonoCloseListener(this));

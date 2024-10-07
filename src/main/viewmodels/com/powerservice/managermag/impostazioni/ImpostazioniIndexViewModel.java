@@ -140,6 +140,8 @@ public class ImpostazioniIndexViewModel {
     }
     public void initImpostazioni() throws SQLException {
         impostazioni = impostazioniGridService.getImpostazioniRows();
+        for (CustomImpostazioniRow i: impostazioni)
+            System.out.println(i);
         int altreImpostazioniCount = 0;
         for (int i = 0; i < impostazioni.size(); i++) {
             CustomImpostazioniRow row = impostazioni.get(i);

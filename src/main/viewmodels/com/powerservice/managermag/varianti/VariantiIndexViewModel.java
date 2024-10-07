@@ -1,5 +1,6 @@
 package com.powerservice.managermag.varianti;
 
+import com.powerservice.managermag.varianti.utilities.VariantiNewCloseListener;
 import it.powerservice.managermag.Varianti;
 import it.powerservice.managermag.VariantiService;
 import org.zkoss.bind.BindUtils;
@@ -118,7 +119,7 @@ public class VariantiIndexViewModel {
                 break;
 
         }
-        VariantiNewViewModel.apriPopup(params).addEventListener(Events.ON_CLOSE, new VariantsModalCloseListener(this));
+        VariantiNewViewModel.apriPopup(this, params).addEventListener(Events.ON_CLOSE, new VariantiNewCloseListener(this));
     }
     public void refresh() throws SQLException {
         initVarianti();
@@ -627,5 +628,11 @@ public class VariantiIndexViewModel {
         BindUtils.postNotifyChange(null, null, this, "variantiCategorie");
         BindUtils.postNotifyChange(null, null, this, "variantiTipologie");
         BindUtils.postNotifyChange(null, null, this, "variantiValori");
+    }
+
+
+    @Command
+    public void test() {
+        System.out.println("ceeeeeeeeeeeee");
     }
 }

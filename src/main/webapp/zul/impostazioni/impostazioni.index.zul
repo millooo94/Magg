@@ -47,7 +47,7 @@
                                            <tabpanel>
                                                <listbox model="@bind(vm.impostazioni)" class="rows">
                                                    <template name="model" var="each">
-                                                       <listitem visible="@load(each.isSenzaNomeCategory)">
+                                                       <listitem>
                                                            <listcell class="cell-container">
                                                                <html style="font-size: 14px" content="@load(each.highlightedEtichettaCampo)"/>
                                                                <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>

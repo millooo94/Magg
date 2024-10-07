@@ -1,333 +1,762 @@
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xmlns:ca="client/attribute"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="MONO_ANAGRAFICHE" mode="modal" title="@load(vm.title)" border="normal" width="1400px" height="845px"
+
+    <window class="MONO_ANAGRAFICHE" mode="modal" border="normal" width="1400px" height="auto"
             apply="org.zkoss.bind.BindComposer"
-            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheMonoViewModel') @bind('window', window)"
+            position="center,center" viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheMonoViewModel') @bind('window', window)"
             onCreate="@command('setWindow', window=self)"
+            id="windowWidget"
     >
-        <borderlayout sclass="ANAGRAFICHE_MONO">
-            <north height="80px">
-                <vlayout>
-                    <vlayout style="padding: .5rem; border-bottom: 1px solid lightgray;" visible="@load(vm.isEditModal)">
-                        <label value="Modifica Anagrafica(${vm.anagraficaToSave.id}) - Cod: ${vm.anagraficaToSave.codice}"/>
-                    </vlayout>
-                    <hlayout>
-                        <div hflex="1" height="100%" style="display: flex; align-items: center; gap: .7rem; padding-left: .5rem" visible="@load(vm.isEditModal)">
-                            <label value="Codice:"/>
-                            <textbox width="60px" readonly="true" value="@load(vm.anagraficaToSave.codice)"/>
-                        </div>
-                        <div hflex="5" style="background: red; padding: .5rem">
-                            <label value="@load(vm.anagraficaExtendedType)" style="color: white; font-weight: bold"/>
-                        </div>
-                        <div hflex="4">
-                            <label>
-                                Optio labore molestiae labore
-                                Optio labore molestiae labore
-                                Optio labore molestiae labore
-                                Optio labore molestiae labore
-                                Optio labore molestiae labore
-                            </label>
-                        </div>
-                    </hlayout>
-                </vlayout>
-            </north>
-            <center>
-                <vlayout>
-                    <vlayout>
-                        <vlayout>
-                            <div style="display: flex; flex-direction: column; gap: .4rem; width: 100%; border-top: 2px solid; darkgreen; border-bottom: 2px solid darkgreen; padding-bottom: .5rem">
-                                <div>
-                                    <label value="Sede Legale" style="background: green; color: white; font-weight: bold;"/>
-                                </div>
-                                <div style="display: flex; gap: .6rem; padding-left: .5rem;">
-                                    <label style="display: flex; align-items: center" value="Conto Patrimoniale:"/>
-                                    <selectbox/>
-                                </div>
-                                <div style="display: flex; gap: 1rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Status:"/>
-                                        <selectbox model="@bind(vm.status)" selectedIndex="@bind(vm.selectedStatusIndex)">
-                                            <template name="model" var="each">
-                                                <label value="@load(each)"/>
-                                            </template>
-                                        </selectbox>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="SubCategoria:"/>
-                                        <selectbox model="@bind(vm.subCategorie)" selectedIndex="@bind(vm.selectedSubcategoriaIndex)">
-                                            <template name="model" var="each">
-                                                <label value="@load(each)"/>
-                                            </template>
-                                        </selectbox>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Codice Fidelity:"/>
-                                        <textbox value="@bind(vm.anagraficaToSave.codiceFidelity)"/>
-                                    </div>
-                                </div>
-                                <div style="display: flex; gap: 1rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="RGS/Cognome:"/>
-                                        <textbox width="250px" value="@bind(vm.anagraficaToSave.cognomeRgs))"/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Nome:"/>
-                                        <textbox width="250px" value="@bind(vm.anagraficaToSave.nome))"/>
-                                    </div>
-                                </div>
-                                <div style="display: flex; gap: 1rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="P.Iva:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="C.F.:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Sesso:"/>
-                                        <selectbox model="@bind(vm.sesso)" selectedIndex="@bind(vm.selectedSessoIndex)">
-                                            <template name="model" var="each">
-                                                <label value="@load(each)"/>
-                                            </template>
-                                        </selectbox>
-                                    </div>
-                                    <div style="display: flex; align-items: center; gap: .6rem; background: yellow; padding: .4rem">
-                                        <label style="display: flex; align-items: center" value="Split Payment:"/>
-                                        <checkbox checked="@bind(vm.anagraficaToSave.splitPayment)"/>
-                                        <label style="display: flex; align-items: center" value="Rev Charge:"/>
-                                        <checkbox checked="@bind(vm.anagraficaToSave.revCharge)"/>
-                                    </div>
-                                    <radiogroup style="display: flex; align-items: center; background: darkgreen; color: white; padding: .4rem" model="@bind(vm.ceeExtraCee)" selectedItem="@bind(vm.selectedCeeExtraCee)" onCheck="@command('onCheckCeeExtraCee')">
-                                        <template name="model" var="each">
-                                            <radio label="@load(each)" checked="@load(each)"/>
-                                        </template>
-                                    </radiogroup>
-                                    <div>
-                                    </div>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Nazione:"/>
-                                        <combobox model="@bind(vm.stati)" selectedIndex="@bind(vm.selectedStatoIndex)">
-                                            <template name="model" var="each">
-                                                <comboitem label="@bind(each)" value="@bind(each)"/>
-                                            </template>
-                                        </combobox>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Provincia:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Comune:"/>
-                                        <selectbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Frazione:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Certif:"/>
-                                        <checkbox/>
-                                    </div>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Indirizzo:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Regione:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="CAP:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Cod.SDI:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Suff:"/>
-                                        <textbox/>
-                                    </div>
-                                </div>
-                            </div>
-                        </vlayout>
-                        <vlayout>
-                            <div style="display: flex; flex-direction: column; gap: .4rem; width: 100%; border-bottom: 2px solid darkgreen; padding-bottom: .5rem">
-                                <div>
-                                    <label value="Destinazione Base" style="background: green; color: white; font-weight: bold"/>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Denomin./RGS:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Ref:"/>
-                                        <textbox/>
-                                    </div>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Nazione"/>
-                                        <selectbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Provincia:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Comune:"/>
-                                        <selectbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Frazione:"/>
-                                        <textbox/>
-                                    </div>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Indirizzo"/>
-                                        <selectbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Regione:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="CAP:"/>
-                                        <textbox/>
-                                    </div>
-                                </div>
-                            </div>
-                        </vlayout>
-                    </vlayout>
-                    <vlayout>
-                        <div style="display: flex; flex-direction: column; gap: .4rem; border-bottom: 2px solid darkgreen; padding-bottom: .5rem">
-                            <div>
-                                <label value="Recapiti" style="background: green; color: white; font-weight: bold"/>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Telefono 1:"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Telefono 2"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Telefono 3:"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Fax:"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Mobile:"/>
-                                    <textbox/>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Email:"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="PEC"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Sito:"/>
-                                    <textbox/>
-                                </div>
-                            </div>
-                            <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem;">
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Prodotti e Servizi:"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Referente"/>
-                                    <textbox/>
-                                </div>
-                                <div style="display: flex; gap: .6rem">
-                                    <label style="display: flex; align-items: center" value="Recapito:"/>
-                                    <textbox/>
-                                </div>
-                            </div>
-                        </div>
-                        <vlayout>
-                            <div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem; border-bottom: 2px solid darkgreen; padding-bottom: .5rem; padding-top: .5rem">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Listino:"/>
-                                        <selectbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="No sconto list"/>
-                                        <checkbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Sconto 1:"/>
-                                        <decimalbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Sconto 2:"/>
-                                        <decimalbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Sconto 3:"/>
-                                        <decimalbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Tot:"/>
-                                        <decimalbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Iva:"/>
-                                        <decimalbox/>
-                                    </div>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: .6rem; padding-left: .5rem; border-bottom: 2px solid darkgreen; padding-bottom: .5rem; padding-top: .5rem">
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Tipo Pagamento:"/>
-                                        <textbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Banca"/>
-                                        <selectbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Max Fido:"/>
-                                        <decimalbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Importi su DDT"/>
-                                        <checkbox/>
-                                    </div>
-                                    <div style="display: flex; gap: .6rem">
-                                        <label style="display: flex; align-items: center" value="Cod. Forni su Vend:"/>
-                                        <checkbox/>
-                                    </div>
-                                </div>
-                            </div>
-                        </vlayout>
-                    </vlayout>
-                </vlayout>
-            </center>
-            <south>
-                <div style="display: flex; justify-content: space-between">
-                    <button label="Salva"/>
+
+        <!-- HEADER -->
+        <caption>
+            <label value="@load(vm.anagraficaToSave.codice)" />
+            <div>
+                <label style="font-weight: bold" value="@load(vm.fullName)"/>
+                <label style="font-weight: bold">/</label>
+                <label value="@load(vm.tipoAnagrafica.descrizione)"/>
+            </div>
+            <div id="stars-container"/>
+        </caption>
+        <!-- HEADER -->
+
+        <!-- BODY -->
+        <div class="modal-body" width="100%">
+
+            <div class="badges">
+                <div class="badge scadenze">
+                    10
                 </div>
-            </south>
-        </borderlayout>
+                <div class="badge allegati">
+                    23
+                </div>
+                <div class="badge allegati">
+                    36
+                </div>
+                <div class="badge allegati">
+                    72
+                </div>
+                <div class="badge allegati">
+                    11
+                </div>
+                <div class="badge allegati">
+                    90
+                </div>
+            </div>
+
+            <div class="acc-gest">
+                <checkbox/>
+                <label value="Accesso al gestionale"/>
+            </div>
+
+            <!-- MAIN TABS -->
+            <tabbox width="100%">
+                <tabs id="main-tabs"/>
+                <tabpanels id="panels">
+                    <tabpanel>
+                        <div class="first-section">
+                            <div>
+                                <div class="label">Codice</div>
+                                <textbox value="@bind(vm.anagraficaToSave.codice)"/>
+                            </div>
+                            <div>
+                                <div class="label">Status</div>
+                                <div class="custom-combobox">
+                                    <combobox ca:autocomplete="off" model="@bind(vm.status)" selectedIndex="@bind(vm.selectedStatusIndex)">
+                                        <template name="model">
+                                            <comboitem label="@bind(each.codice)"  value="@bind(each.codice)"/>
+                                        </template>
+                                    </combobox>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="label">Codice Fidelity</div>
+                                <textbox value="@bind(vm.anagraficaToSave.codiceFidelity)" ca:autocomplete="off"/>
+                            </div>
+                        </div>
+
+                        <!-- SECONDARY TABS -->
+                        <div class="secondary-tabs" width="100%">
+                            <tabbox width="100%">
+                                <tabs id="secondary-tabs"/>
+                                <tabpanels>
+                                    <tabpanel>
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <div style="display: flex; flex-direction: column;">
+                                                <div class="custom-fieldset">
+                                                    <div class="legend">
+                                                        <h:h2>Dati Generali</h:h2>
+                                                        <div class="line"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Tipo</div>
+                                                        <div class="custom-combobox" style="width: 140px; transform: translateX(-7px)">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.soggetti)" selectedIndex="@bind(vm.selectedSoggettoIndex)" onSelect="@command('onSelectSoggetto')">
+                                                                <template name="model">
+                                                                    <comboitem label="@bind(each.descrizione)" value="@bind(each.descrizione)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Rag. sociale</div>
+                                                        <textbox style="font-weight: bold" disabled="@bind(vm.ragioneSocialeDisabled)" value="@bind(vm.anagraficaToSave.ragioneSociale)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Nome</div>
+                                                        <textbox value="@bind(vm.anagraficaToSave.nome)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cognome</div>
+                                                        <textbox value="@bind(vm.anagraficaToSave.cognome)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Partita Iva</div>
+                                                        <textbox disabled="true" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cod. Fiscale</div>
+                                                        <textbox disabled="true" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Sesso</div>
+                                                        <div class="custom-combobox">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.sessi)" selectedIndex="@bind(vm.selectedSessoIndex)">
+                                                                <template name="model">
+                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="custom-fieldset">
+                                                    <div class="legend">
+                                                        <h:h2>Sede Principale</h:h2>
+                                                        <div class="line"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div  class="label">Indirizzo</div>
+                                                        <div>
+                                                            <iframe zindex="100" xmlns:ca="client/attribute" id="iframeIndirizzoSedePrincipale" class="first" src="indirizzoSedePrincipale.html" width="900px" height="250px"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Nazione</div>
+                                                        <div class="custom-combobox">
+                                                            <combobox id="statoSedePrincipale" model="@bind(vm.nazioni)" onChange="@command('onNazioneSedePrincipaleSelected', stato=self.value)" selectedIndex="@bind(vm.selectedNazioneSedePrincipaleIndex)" onClick="@command('onSedePrincipaleServerSwitch')">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)" />
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Regione</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox id="regioneSedePrincipale" name="server" onChange="@command('onRegioneSedePrincipaleSelected', regione=self.value)" selectedIndex="@bind(vm.selectedRegioneSedePrincipaleIndex)" model="@bind(vm.regioni)" onClick="@command('onSedePrincipaleServerSwitch')">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nome)" value="@bind(each.nome)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.regione)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Provincia</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox id="provinciaSedePrincipale" model="@bind(vm.provinceSedePrincipale)" onChange="@command('onProvinciaSedePrincipaleSelected', provincia=self.value)" selectedIndex="@bind(vm.selectedProvinciaSedePrincipaleIndex)" onClick="@command('onSedePrincipaleServerSwitch')">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.provincia)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Comune</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox id="cittaSedePrincipale" visible="@bind(vm.isSedePrincipaleInItaly)" model="@bind(vm.comuniSedePrincipale)" onChange="@command('onComuneSedePrincipaleSelected', comune=self.value)" selectedIndex="@bind(vm.selectedComuneSedePrincipaleIndex)" onClick="@command('onSedePrincipaleServerSwitch')">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.comune)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cap</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox id="capSedePrincipale"  visible="@bind(vm.isSedePrincipaleInItaly)" selectedIndex="@bind(vm.selectedCapSedePrincipaleIndex)" model="@bind(vm.capSedePrincipale)" onClick="@command('onSedePrincipaleServerSwitch')">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.cap)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Località</div>
+                                                        <textbox value="@bind(vm.indirizzoSedePrincipale.frazione)" ca:autocomplete="off"/>
+                                                        <textbox style="position: absolute; opacity: 0; pointer-events: none" id="sedePrincipaleFalseWidget" onChange="@command('onSedePrincipaleFalseWidgetChange', valore=self.value)" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; flex-direction: column;">
+                                                <div class="custom-fieldset">
+                                                    <div class="legend">
+                                                        <h:h2>Dati Generali</h:h2>
+                                                        <div class="line"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Tipo</div>
+                                                        <div class="custom-combobox" style="width: 140px; transform: translateX(-7px)">
+                                                            <combobox model="@bind(vm.soggetti)" selectedIndex="@bind(vm.selectedSoggettoIndex)" onSelect="@command('onSelectSoggetto')">
+                                                                <template name="model">
+                                                                    <comboitem label="@bind(each.descrizione)" value="@bind(each.descrizione)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Rag. sociale</div>
+                                                        <textbox style="font-weight: bold" disabled="@bind(vm.ragioneSocialeDisabled)" value="@bind(vm.anagraficaToSave.ragioneSociale)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Nome</div>
+                                                        <textbox value="@bind(vm.anagraficaToSave.nome)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cognome</div>
+                                                        <textbox value="@bind(vm.anagraficaToSave.cognome)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Partita Iva</div>
+                                                        <textbox disabled="true"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cod. Fiscale</div>
+                                                        <textbox disabled="true"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Sesso</div>
+                                                        <div class="custom-combobox">
+                                                            <combobox model="@bind(vm.sessi)" selectedIndex="@bind(vm.selectedSessoIndex)">
+                                                                <template name="model">
+                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="custom-fieldset">
+                                                    <div class="legend">
+                                                        <h:h2>Sede Principale</h:h2>
+                                                        <div class="line"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Indirizzo</div>
+                                                        <textbox/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Nazione</div>
+                                                        <div class="custom-combobox">
+                                                            <combobox model="@bind(vm.nazioni)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Regione</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox model="@bind(vm.regioni)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nome)" value="@bind(each.nome)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.regione)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Provincia</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox model="@bind(vm.provinceSedePrincipale)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.provincia)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Comune</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox model="@bind(vm.comuniSedePrincipale)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.comune)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cap</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox visible="@bind(vm.isSedePrincipaleInItaly)" model="@bind(vm.capSedePrincipale)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.cap)"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Località</div>
+                                                        <textbox/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; flex-direction: column;">
+                                                <div class="custom-fieldset">
+                                                    <div class="legend">
+                                                        <h:h2>Dati Generali</h:h2>
+                                                        <div class="line"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Tipo</div>
+                                                        <div class="custom-combobox" style="width: 140px; transform: translateX(-7px)">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.soggetti)" selectedIndex="@bind(vm.selectedSoggettoIndex)" onSelect="@command('onSelectSoggetto')">
+                                                                <template name="model">
+                                                                    <comboitem label="@bind(each.descrizione)" value="@bind(each.descrizione)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Rag. sociale</div>
+                                                        <textbox style="font-weight: bold" disabled="@bind(vm.ragioneSocialeDisabled)" value="@bind(vm.anagraficaToSave.ragioneSociale)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Nome</div>
+                                                        <textbox value="@bind(vm.anagraficaToSave.nome)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cognome</div>
+                                                        <textbox value="@bind(vm.anagraficaToSave.cognome)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Partita Iva</div>
+                                                        <textbox disabled="true" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cod. Fiscale</div>
+                                                        <textbox disabled="true" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Sesso</div>
+                                                        <div class="custom-combobox">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.sessi)" selectedIndex="@bind(vm.selectedSessoIndex)">
+                                                                <template name="model">
+                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="custom-fieldset">
+                                                    <div class="legend">
+                                                        <h:h2>Sede Principale</h:h2>
+                                                        <div class="line"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Indirizzo</div>
+                                                        <textbox ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Nazione</div>
+                                                        <div class="custom-combobox">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.nazioni)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Regione</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.regioni)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nome)" value="@bind(each.nome)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.regione)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Provincia</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.provinceSedePrincipale)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.provincia)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Comune</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox ca:autocomplete="off" model="@bind(vm.comuniSedePrincipale)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.comune)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Cap</div>
+                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
+                                                            <combobox ca:autocomplete="off" visible="@bind(vm.isSedePrincipaleInItaly)" model="@bind(vm.capSedePrincipale)">
+                                                                <template name="model" var="each">
+                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                </template>
+                                                            </combobox>
+                                                        </div>
+                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.cap)" ca:autocomplete="off"/>
+                                                    </div>
+                                                    <div class="field">
+                                                        <div class="label">Località</div>
+                                                        <textbox ca:autocomplete="off"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </tabpanel>
+                                    <tabpanel>
+                                        <div class="grid-container">
+                                            <grid model="@bind(vm.indirizzi)">
+                                                <columns id="indirizzi-columns">
+                                                    <column width="40px">
+                                                        <checkbox checked="@bind(vm.allIndirizziChecked)" onCheck="@command('onAllIndirizziChecked')"/>
+                                                    </column>
+                                                </columns>
+                                                <rows>
+                                                    <template name="model">
+                                                        <row onClick="@command('onIndirizzoSelected', indirizzo=each)">
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <checkbox value="false" checked="@bind(each.checked)" onCheck="@command('onIndirizzoChecked')"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.referente)"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.nazione)"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.regione)"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.provincia)"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.comune)"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.telefono1)"/>
+                                                            </cell>
+                                                            <cell sclass="@bind(each.selected ? 'selected' : '')">
+                                                                <label value="@load(each.email)"/>
+                                                            </cell>
+                                                        </row>
+                                                    </template>
+                                                </rows>
+                                            </grid>
+                                        </div>
+                                        <div visible="@bind(vm.selectedIndirizzo)">
+                                            <h:fieldset class="indirizzi-dettaglio">
+                                                <h:legend>Dettaglio Indirizzo:</h:legend>
+                                                <div style="display: flex; flex-direction: row; gap: 2rem">
+                                                    <div class="col1">
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Tipo Indirizzo:"/>
+                                                            <div class="custom-combobox" style="width: 210px" >
+                                                                <combobox model="@bind(vm.tipiIndirizzo)" selectedIndex="@bind(vm.selectedTipoIndirizzoIndex)" ca:autocomplete="off">
+                                                                    <template name="model">
+                                                                        <comboitem label="@bind(each.descrizione)" value="@bind(each.descrizione)"/>
+                                                                    </template>
+                                                                </combobox>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Denominazione Alternativa:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.denominazioneAlternativa)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Referente:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.referente)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Recapito Referente:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.recapitoReferente)" ca:autocomplete="off"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col2">
+                                                        <div style="position: relative; display: flex; align-items: center;">
+                                                            <label value="Indirizzo:"/>
+                                                            <iframe zindex="100" xmlns:ca="client/attribute" id="iframeIndirizzo" class="second" src="indirizzo.html" width="900px" height="250px" />
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Nazione:"/>
+                                                            <div class="custom-combobox">
+                                                                <combobox id="statoSelectedIndirizzo" model="@bind(vm.nazioni)" selectedIndex="@bind(vm.selectedIndirizzoNazioneIndex)" onChange="@command('onNazioneSelectedIndirizzoSelected', stato=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
+                                                                    <template name="model">
+                                                                        <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)" ca:autocomplete="off"/>
+                                                                    </template>
+                                                                </combobox>
+                                                            </div>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Regione:"/>
+                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
+                                                                <combobox id="regioneSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.regioni)" selectedIndex="@bind(vm.selectedIndirizzoRegioneIndex)" onChange="@command('onRegioneSelectedIndirizzoSelected', regione=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
+                                                                    <template name="model">
+                                                                        <comboitem  label="@bind(each.nome)" value="@bind(each.nome)"/>
+                                                                    </template>
+                                                                </combobox>
+                                                            </div>
+                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.regione)"/>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Provincia:"/>
+                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
+                                                                <combobox id="provinciaSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.provinceSelectedIndirizzo)" selectedIndex="@bind(vm.selectedIndirizzoProvinciaIndex)" onChange="@command('onProvinciaSelectedIndirizzoSelected', provincia=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
+                                                                    <template name="model">
+                                                                        <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
+                                                                    </template>
+                                                                </combobox>
+                                                            </div>
+                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.provincia)"/>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Comune:"/>
+                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
+                                                                <combobox id="comuneSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.comuniSelectedIndirizzo)" selectedIndex="@bind(vm.selectedIndirizzoComuneIndex)" onChange="@command('onComuneSelectedIndirizzoSelected', comune=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
+                                                                    <template name="model">
+                                                                        <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
+                                                                    </template>
+                                                                </combobox>
+                                                            </div>
+                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.comune)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="CAP:"/>
+                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
+                                                                <combobox id="capSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.capSelectedIndirizzo)" selectedIndex="@bind(vm.selectedIndirizzoCapIndex)" onClick="@command('onSelectedIndirizzoServerSwitch')">
+                                                                    <template name="model">
+                                                                        <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
+                                                                    </template>
+                                                                </combobox>
+                                                            </div>
+                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.cap)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="display: flex; align-items: center">
+                                                            <label value="Località:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.frazione)" ca:autocomplete="off"/>
+                                                            <textbox style="opacity: 0; pointer-events: none" id="selectedIndirizzoFalseWidget" onChange="@command('onSelectedIndirizzoFalseWidgetChange', valore=self.value)" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col3">
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Codice SDI:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.codSdi)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Telefono 1:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.telefono1)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Telefono2:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.telefono2)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Telefono3:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.telefono3)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Telefono3:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.cellulare)" ca:autocomplete="off"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col4">
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Fax:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.fax)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Email:"/>
+                                                            <textbox type="email" value="@bind(vm.selectedIndirizzo.email)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="PEC:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.pec)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Sito:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.sito)" ca:autocomplete="off"/>
+                                                        </div>
+                                                        <div style="position: relative; display: flex; align-items: center">
+                                                            <label value="Note:"/>
+                                                            <textbox value="@bind(vm.selectedIndirizzo.notes)" ca:autocomplete="off"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </h:fieldset>
+                                        </div>
+                                    </tabpanel>
+                                </tabpanels>
+                            </tabbox>
+                        </div>
+                    </tabpanel>
+                    <tabpanel>
+                    </tabpanel>
+                </tabpanels>
+            </tabbox>
+            <!-- MAIN TABS -->
+        </div>
+        <!-- BODY -->
+
+
+
+
+
+
+        <div class="modal-footer" >
+            <button class="btn close" label="Chiudi" onClick="@command('onCloseModal')"/>
+        </div>
+
     </window>
+
+
+    <script>
+
+        function setSedePrincipale() {
+
+            var statoSedePrincipaleWidget = zk.Widget.$('$statoSedePrincipale');
+            var regioneSedePrincipaleWidget = zk.Widget.$('$regioneSedePrincipale');
+            var provinciaSedePrincipaleWidget = zk.Widget.$('$provinciaSedePrincipale');
+            var cittaSedePrincipaleWidget = zk.Widget.$('$cittaSedePrincipale');
+            var capSedePrincipaleWidget = zk.Widget.$('$capSedePrincipale');
+
+            var stato = localStorage.getItem("countrySedePrincipaleLongName");
+            var regione = localStorage.getItem("administrativeAreaLevel1SedePrincipaleLongName");
+
+            if (localStorage.getItem("administrativeAreaLevel2SedePrincipaleLongName")) {
+                var provinciaArray = localStorage.getItem("administrativeAreaLevel2SedePrincipaleLongName").split(" ");
+                var provincia = null;
+                if (provinciaArray[provinciaArray.length - 1] === "Capitale") {
+                provincia = "Roma";
+                } else {
+                provincia = provinciaArray[provinciaArray.length - 1];
+                }
+            }
+
+            var citta = localStorage.getItem("administrativeAreaLevel3SedePrincipaleLongName");
+            var cap = localStorage.getItem("postalCodeSedePrincipaleLongName");
+
+            if (!!stato) {
+                let valore = '';
+                valore = stato === 'Italia' ? stato : stato + '/' + regione + '/' + provincia + '/' + citta;
+                zAu.send(new zk.Event(statoSedePrincipaleWidget, "onChange", {value: valore}, {toServer:true}));
+            }
+            if (!!regione) {
+            zAu.send(new zk.Event(regioneSedePrincipaleWidget, "onChange", {value: regione}, {toServer:true}));
+            }
+            if (!!provincia) {
+            zAu.send(new zk.Event(provinciaSedePrincipaleWidget, "onChange", {value: provincia}, {toServer:true}));
+            }
+            if (!!citta) {
+            zAu.send(new zk.Event(cittaSedePrincipaleWidget, "onChange", {value: citta}, {toServer:true}));
+            }
+            if (cap !== null) {
+            zAu.send(new zk.Event(capSedePrincipaleWidget, "onChange", {value: cap}, {toServer:true}));
+            }
+        }
+
+        function setSelectedIndirizzo() {
+
+        var statoSelectedIndirizzoWidget = zk.Widget.$('$statoSelectedIndirizzo');
+        var regioneSelectedIndirizzoWidget = zk.Widget.$('$regioneSelectedIndirizzo');
+        var provinciaSelectedIndirizzoWidget = zk.Widget.$('$provinciaSelectedIndirizzo');
+        var cittaSelectedIndirizzoWidget = zk.Widget.$('$comuneSelectedIndirizzo');
+        var capSelectedIndirizzoWidget = zk.Widget.$('$capSelectedIndirizzo');
+
+        var stato = localStorage.getItem("countrySelectedIndirizzoLongName");
+        var regione = localStorage.getItem("administrativeAreaLevel1SelectedIndirizzoLongName");
+
+        if (localStorage.getItem("administrativeAreaLevel2SelectedIndirizzoLongName")) {
+        var provinciaArray = localStorage.getItem("administrativeAreaLevel2SelectedIndirizzoLongName").split(" ");
+        var provincia = null;
+        if (provinciaArray[provinciaArray.length - 1] === "Capitale") {
+        provincia = "Roma";
+        } else {
+        provincia = provinciaArray[provinciaArray.length - 1];
+        }
+        }
+
+        var citta = localStorage.getItem("administrativeAreaLevel3SelectedIndirizzoLongName");
+        var cap = localStorage.getItem("postalCodeSelectedIndirizzoLongName");
+
+        if (!!stato) {
+        zAu.send(new zk.Event(statoSelectedIndirizzoWidget, "onChange", {value: stato}, {toServer:true}));
+        }
+        if (!!regione) {
+        zAu.send(new zk.Event(regioneSelectedIndirizzoWidget, "onChange", {value: regione}, {toServer:true}));
+        }
+        if (!!provincia) {
+        zAu.send(new zk.Event(provinciaSelectedIndirizzoWidget, "onChange", {value: provincia}, {toServer:true}));
+        }
+        if (!!citta) {
+        zAu.send(new zk.Event(cittaSelectedIndirizzoWidget, "onChange", {value: citta}, {toServer:true}));
+        }
+        if (cap !== null) {
+        zAu.send(new zk.Event(capSelectedIndirizzoWidget, "onChange", {value: cap}, {toServer:true}));
+        }
+        }
+
+        function onSelectedIndirizzoFocused() {
+            var selectedIndirizzoFalseWidget = zk.Widget.$('$selectedIndirizzoFalseWidget');
+            zAu.send(new zk.Event(selectedIndirizzoFalseWidget, "onChange", {value: localStorage.getItem('insideSelectedIndirizzo')}, {toServer:true}));
+        }
+        function onSedePrincipaleFocused() {
+            var sedePrincipaleFalseWidget = zk.Widget.$('$sedePrincipaleFalseWidget');
+            zAu.send(new zk.Event(sedePrincipaleFalseWidget, "onChange", {value: localStorage.getItem('insideSedePrincipale')}, {toServer:true}));
+        }
+
+        function removeSedePrincipaleData() {
+            for (let i = 0; i &lt; localStorage.length; i++) {
+                let key = localStorage.key(i);
+                if (key.includes("SedePrincipale")) {
+                localStorage.removeItem(key);
+                i--;
+                }
+            }
+            localStorage.removeItem("sedePrincipaleOnServer");
+        }
+
+        window.addEventListener('storage', function(event) {
+            setSedePrincipale();
+            onSedePrincipaleFocused();
+
+            setSelectedIndirizzo();
+            onSelectedIndirizzoFocused();
+            });
+    </script>
 </zk>
+
+

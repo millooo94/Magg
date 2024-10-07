@@ -2,40 +2,56 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="DEPOSITI_INDEX" mode="popup" title="Depositi" border="normal" width="1200px" height="750px"
+    <window id="DEPOSITI_INDEX" mode="popup" title="Depositi" border="normal" width="800px" height="600px"
             apply="org.zkoss.bind.BindComposer"
             position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.depositi.DepositiIndexViewModel')"
     >
-        <grid model="@bind(vm.depositi)" height="706px">
-            <columns>
-                <column label="Codice" sort="auto" />
-                <column label="Deposito" width="auto" sort="auto" />
-                <column label="Non in uso" width="auto" sort="auto" />
-                <column label="Esterno"  width="auto" sort="auto" />
-                <column label="Indisponibile" width="auto" sort="auto" />
-            </columns>
-            <rows>
-                <template name="model" var="each">
-                    <row visible="@bind(vm.showDataNonInUso ? each.isOutdated : !each.isOutdated)" sclass="@bind(each.isOutdated ? 'outdated' : '')" style="cursor: pointer">
-                        <textbox sclass="@bind(vm.getValidationClass(each.codice))" disabled="@bind(each.nonModificabile)" value="@bind(each.codice)" onChange="@command('onChangeDeposito', deposito=each)" instant="true"/>
-                        <textbox sclass="@bind(vm.getValidationClass(each.nome))" disabled="@bind(each.nonModificabile)" value="@bind(each.nome)" onChange="@command('onChangeDeposito', deposito=each)" instant="true"/>
-                        <datebox value="@bind(each.dataNonInUso)" onChange="@command('onChangeDeposito', deposito=each)" instant="true"/>
-                        <checkbox checked="@bind(each.esterno)" onCheck="@command('onChangeDeposito', deposito=each)"/>
-                        <checkbox checked="@bind(each.merceIndisponibile)" onCheck="@command('onChangeDeposito', deposito=each)"/>
-                    </row>
-                </template>
-            </rows>
-            <foot>
-                <footer span="2" id="footer_category" class="footer_right">
+        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 100%;" class="DEPOSITI_INDEX">
+            <div style="flex-grow: 1; display: flex; flex-direction: column;">
+                <grid>
+                    <columns>
+                        <column label="Codice" width="100px" sort="auto" />
+                        <column label="Deposito" width="250px" sort="auto" />
+                        <column label="Non in uso" width="220px" sort="auto" />
+                        <column label="Esterno"  width="100px" sort="auto" />
+                        <column label="Indisponibile" sort="auto" />
+                    </columns>
+                </grid>
+                <div style="flex-grow: 1; overflow-y: auto">
+                    <grid model="@bind(vm.depositi)">
+                        <rows>
+                            <template name="model" var="each">
+                                <row visible="@bind(vm.showDataNonInUso ? each.isOutdated : !each.isOutdated)" sclass="@bind(each.isOutdated ? 'outdated' : '')" style="cursor: pointer">
+                                    <cell width="100px">
+                                        <textbox width="70px" sclass="@bind(vm.getValidationClass(each.codice))" disabled="@bind(each.nonModificabile)" value="@bind(each.codice)" onChange="@command('onChangeDeposito', deposito=each)" instant="true"/>
+                                    </cell>
+                                    <cell width="250px">
+                                        <textbox sclass="@bind(vm.getValidationClass(each.nome))" disabled="@bind(each.nonModificabile)" value="@bind(each.nome)" onChange="@command('onChangeDeposito', deposito=each)" instant="true"/>
+                                    </cell>
+                                    <cell width="220px">
+                                        <datebox value="@bind(each.dataNonInUso)" onChange="@command('onChangeDeposito', deposito=each)" instant="true"/>
+                                    </cell>
+                                    <cell width="100px">
+                                        <checkbox checked="@bind(each.esterno)" onCheck="@command('onChangeDeposito', deposito=each)"/>
+                                    </cell>
+                                    <cell>
+                                        <checkbox checked="@bind(each.merceIndisponibile)" onCheck="@command('onChangeDeposito', deposito=each)"/>
+                                    </cell>
+                                </row>
+                            </template>
+                        </rows>
+                    </grid>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #f4f4f4;">
+                <div class="left-block">
                     <button label="@bind(vm.showDataNonInUso ? 'Nascondi Non In Uso' : 'Mostra Non In Uso')" onClick="@command('onChangeVisibility')"/>
-                </footer>
-                <footer span="3">
-                    <div style="display: flex; justify-content: flex-end; gap: 15px">
-                        <button disabled="@bind(vm.newButtonDisabled)" onClick="@command('onCreateDeposito')">Nuovo</button>
-                        <button disabled="@bind(vm.saveButtonDisabled)" onClick="@command('onSaveDepositi')">Salva</button>
-                    </div>
-                </footer>
-            </foot>
-        </grid>
+                </div>
+                <div class="right-block" style="display: flex; justify-content: space-between; gap: 15px;">
+                    <button disabled="@bind(vm.newButtonDisabled)" onClick="@command('onCreateDeposito')">Nuovo</button>
+                    <button disabled="@bind(vm.saveButtonDisabled)" onClick="@command('onSaveDepositi')">Salva</button>
+                </div>
+            </div>
+        </div>
     </window>
 </zk>

@@ -13,4 +13,8 @@ public class IndirizziService {
     public List<Indirizzi> getIndirizzi() {
         return indirizziRepository.getIndirizzi();
     }
+
+    public List<Indirizzi> getIndirizziFromIdAnagrafica(long idAnagrafica) {
+        return indirizziRepository.getIndirizziFromIdAnagrafica(idAnagrafica);
+    }
 }

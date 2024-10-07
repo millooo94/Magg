@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Google Maps Autocomplete</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #search_input {
+            width: 220px;
+            height: 24px;
+            font-size: 13px;
+            border-radius: 4px;
+            border: 1px solid #D9D9D9;
+            padding-left: 8px;
+        }
+        #search_input:focus {
+            border: 1px solid #D9D9D9;
+        }
+        #search_input:focus-visible {
+            outline: none;
+        }
+
+        .pac-container {
+            position: relative;
+            width: 800px !important;
+
+            cursor: pointer;
+        }
+        .pac-item {
+            background: white;
+        }
+    </style>
+    <script>
+        function initAutocomplete() {
+
+          removeSedePrincipaleData();
+          localStorage.removeItem('insideSedePrincipale');
+          localStorage.removeItem('sedePrincipaleOnServer');
+
+          setInterval(() => {
+            const sedePrincipaleOnServer = localStorage.getItem(
+                "sedePrincipaleOnServer"
+            );
+
+          if (sedePrincipaleOnServer === "true") {
+            searchInput.value = "";
+            removeSedePrincipaleData();
+          }
+        }, 500);
+
+          var searchInput = document.getElementById("search_input");
+
+          searchInput.addEventListener("focus", function () {
+            localStorage.setItem('insideSedePrincipale', 'true');
+          });
+
+          searchInput.addEventListener("blur", function () {
+            localStorage.setItem('insideSedePrincipale', 'false');
+          });
+
+          searchInput.addEventListener("mouseover", function () {
+            localStorage.setItem('insideSedePrincipale', 'true');
+          });
+
+          var pacContainers = document.getElementsByClassName("pac-container");
+
+        searchInput.addEventListener("mouseout", function (event) {
+            var toElement = event.relatedTarget;
+            var isOverPacContainer = false;
+
+            if (toElement) {
+                for (var i = 0; i < pacContainers.length; i++) {
+                    if (pacContainers[i].contains(toElement)) {
+                        isOverPacContainer = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!isOverPacContainer) {
+                localStorage.removeItem('insideSedePrincipale');
+                localStorage.setItem('insideSedePrincipale', 'false');
+            }
+        });
+
+
+          var autocomplete = new google.maps.places.Autocomplete(searchInput, {
+            types: ["geocode"],
+          });
+
+          autocomplete.addListener("place_changed", function () {
+
+
+            removeSedePrincipaleData();
+
+            var place = autocomplete.getPlace().address_components;
+
+            for (var key in place) {
+              if (place.hasOwnProperty(key)) {
+                if (
+                  place[key] &&
+                  place[key].types &&
+                  place[key].types.length > 0
+                ) {
+                  var type = place[key].types[0];
+
+                  if (place[key].long_name) {
+                    localStorage.setItem(
+                      toCamelCase(type) + "SedePrincipale" + "LongName",
+                      place[key].long_name
+                    );
+                  }
+
+                  if (place[key].short_name) {
+                    localStorage.setItem(
+                      toCamelCase(type) + "SedePrincipale" + "ShortName",
+                      place[key].short_name
+                    );
+                  }
+                }
+              }
+            }
+          });
+        }
+
+        function toCamelCase(str) {
+          return str
+            .split("_")
+            .map((word, index) =>
+              index === 0
+                ? word.toLowerCase()
+                : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+            )
+            .join("");
+        }
+
+        function removeSedePrincipaleData() {
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i);
+                if (key.includes("SedePrincipale")) {
+                    localStorage.removeItem(key);
+                    i--;
+                }
+            }
+            localStorage.removeItem("sedePrincipaleOnServer");
+        }
+    </script>
+</head>
+<body>
+<input type="text" name="search_input" id="search_input">
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4xaJMpS_uQHnMYH70fHFbuQLWYaO7FZg&libraries=places&callback=initAutocomplete"
+        async
+        defer>
+</script>
+</body>
+</html>

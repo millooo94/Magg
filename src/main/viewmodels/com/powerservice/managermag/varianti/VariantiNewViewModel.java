@@ -1,9 +1,12 @@
 package com.powerservice.managermag.varianti;
 
+import com.powerservice.managermag.tipologiePagamenti.TipologiePagamentiIndexViewModel;
 import it.powerservice.managermag.VariantiRifService;
 import it.powerservice.managermag.VariantiService;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
@@ -11,11 +14,12 @@ import org.zkoss.zk.ui.util.Notification;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 import org.zkoss.zul.Window;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 @VariableResolver(DelegatingVariableResolver.class)
 public class VariantiNewViewModel {
-
+    private Window window;
     @WireVariable
     VariantiService variantiService;
     @WireVariable
@@ -24,6 +28,7 @@ public class VariantiNewViewModel {
     private String descrizioneEng;
     private String tipo;
     private Long idVariantePartenza;
+    private static VariantiIndexViewModel variantiIndexViewModel;
 
     @Init
     void init() {
@@ -31,19 +36,29 @@ public class VariantiNewViewModel {
         setIdVariantePartenza((Long) Executions.getCurrent().getArg().get("idVariantePartenza"));
     }
 
-    static Window apriPopup(Map<String, Object> params) {
+    @Command
+    @NotifyChange({"descrizione", "descrizioneEng", "tipo", "idVariantePartenza"})
+    public void setWindow(@BindingParam("window") Window window) {
+        this.window = window;
+    }
+
+    static Window apriPopup(VariantiIndexViewModel parentModel ,Map<String, Object> params) {
+        variantiIndexViewModel = parentModel;
         Window window = (Window) Executions.createComponents(
-                "/varianti.new.zul", null, params);
-        System.out.println(params);
+                "varianti/varianti.new.zul", null, params);
         window.setAttribute("type", params.get("type"));
         window.setAttribute("type", params.get("idVariantePartenza"));
         return window;
     }
 
     @Command
-    public void saveVariant() {
+    public void saveVariant() throws SQLException {
         variantiService.createVariant(descrizione, descrizioneEng, tipo, idVariantePartenza);
-        Notification.show("Salvato!");
+        System.out.println("SIAMO QUI");
+        if (window != null) {
+            variantiIndexViewModel.refresh();
+            window.detach();
+        }
     }
 
     public String getDescrizione() {

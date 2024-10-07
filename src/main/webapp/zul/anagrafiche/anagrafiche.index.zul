@@ -2,9 +2,9 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="ANAGRAFICHE_INDEX" mode="popup" title="Anagrafiche" border="normal" width="1500px" height="800px"
+    <window id="ANAGRAFICHE_INDEX" title="Anagrafiche" height="100%"
             apply="org.zkoss.bind.BindComposer"
-            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheIndexViewModel')"
+            viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheIndexViewModel')"
     >
         <borderlayout sclass="ANAGRAFICHE">
             <north height="200px">
@@ -34,22 +34,24 @@
             </north>
             <center>
                 <vlayout vflex="1">
-                    <listbox vflex="8" style="border-bottom: 1px solid lightgray" model="@bind(vm.anagrafiche)">
+                    <listbox vflex="8" style="border-bottom: 1px solid lightgray" model="@bind(vm.anagrafiche)" >
                         <listhead>
                             <listheader label="Id"/>
                             <listheader label="Codice"/>
-                            <listheader label="Nominativo/Ragione Sociale"/>
                             <listheader label="Nome"/>
+                            <listheader label="Cognome"/>
+                            <listheader label="Ragione Sociale"/>
                             <listheader label="Sesso"/>
                             <listheader label="Provincia"/>
                             <listheader label="Comune"/>
                         </listhead>
                         <template name="model" var="each">
-                            <listitem visible="@bind(!each.eliminato)" onClick="@command('onClickAnagrafica', anagrafica=each)">
+                            <listitem visible="@bind(!each.eliminato)" onClick="@command('onClickAnagrafica', anagrafica=each)" onDoubleClick="@command('onOpenAnagraficheMono', type='EDIT')">
                                 <listcell label="@bind(each.id)"/>
                                 <listcell label="@bind(each.codice)"/>
-                                <listcell label="@bind(each.cognomeRgs)"/>
                                 <listcell label="@bind(each.nome)"/>
+                                <listcell label="@bind(each.cognome)"/>
+                                <listcell label="@bind(each.ragioneSociale eq null ? '' : each.ragioneSociale)"/>
                                 <listcell label="@bind(each.sesso)"/>
                                 <listcell label="@bind(each.provinciaNascita)"/>
                                 <listcell label="@bind(each.comuneNascita)"/>
