@@ -9,6 +9,7 @@
             position="center,center" viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheMonoViewModel') @bind('window', window)"
             onCreate="@command('setWindow', window=self)"
             id="windowWidget"
+            onClick="@command('onWindowClicked')"
     >
 
         <!-- HEADER -->
@@ -59,7 +60,7 @@
                     <tabpanel>
                         <div class="first-section">
                             <div>
-                                <div class="label">Codice</div>
+                                <div class="label">FACCIMINKIA</div>
                                 <textbox value="@bind(vm.anagraficaToSave.codice)"/>
                             </div>
                             <div>
@@ -132,76 +133,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="custom-fieldset">
+                                                <div style="position: relative" class="custom-fieldset">
                                                     <div class="legend">
                                                         <h:h2>Sede Principale</h:h2>
                                                         <div class="line"/>
                                                     </div>
-                                                    <div class="field">
-                                                        <div  class="label">Indirizzo</div>
-                                                        <div>
-                                                            <iframe zindex="100" xmlns:ca="client/attribute" id="iframeIndirizzoSedePrincipale" class="first" src="indirizzoSedePrincipale.html" width="900px" height="250px"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Nazione</div>
-                                                        <div class="custom-combobox">
-                                                            <combobox id="statoSedePrincipale" model="@bind(vm.nazioni)" onChange="@command('onNazioneSedePrincipaleSelected', stato=self.value)" selectedIndex="@bind(vm.selectedNazioneSedePrincipaleIndex)" onClick="@command('onSedePrincipaleServerSwitch')">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)" />
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Regione</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox id="regioneSedePrincipale" name="server" onChange="@command('onRegioneSedePrincipaleSelected', regione=self.value)" selectedIndex="@bind(vm.selectedRegioneSedePrincipaleIndex)" model="@bind(vm.regioni)" onClick="@command('onSedePrincipaleServerSwitch')">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nome)" value="@bind(each.nome)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.regione)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Provincia</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox id="provinciaSedePrincipale" model="@bind(vm.provinceSedePrincipale)" onChange="@command('onProvinciaSedePrincipaleSelected', provincia=self.value)" selectedIndex="@bind(vm.selectedProvinciaSedePrincipaleIndex)" onClick="@command('onSedePrincipaleServerSwitch')">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.provincia)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Comune</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox id="cittaSedePrincipale" visible="@bind(vm.isSedePrincipaleInItaly)" model="@bind(vm.comuniSedePrincipale)" onChange="@command('onComuneSedePrincipaleSelected', comune=self.value)" selectedIndex="@bind(vm.selectedComuneSedePrincipaleIndex)" onClick="@command('onSedePrincipaleServerSwitch')">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.comune)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Cap</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox id="capSedePrincipale"  visible="@bind(vm.isSedePrincipaleInItaly)" selectedIndex="@bind(vm.selectedCapSedePrincipaleIndex)" model="@bind(vm.capSedePrincipale)" onClick="@command('onSedePrincipaleServerSwitch')">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.cap)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Località</div>
-                                                        <textbox value="@bind(vm.indirizzoSedePrincipale.frazione)" ca:autocomplete="off"/>
-                                                        <textbox style="position: absolute; opacity: 0; pointer-events: none" id="sedePrincipaleFalseWidget" onChange="@command('onSedePrincipaleFalseWidgetChange', valore=self.value)" />
-                                                    </div>
+                                                    <iframe style="position: absolute; top: 60px;" width="425px" height="270px" xmlns:ca="client/attribute" src="/angular/indirizzoSedePrincipale/browser/index.html"/>
                                                 </div>
                                             </div>
                                             <div style="display: flex; flex-direction: column;">
@@ -251,73 +188,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="custom-fieldset">
+                                                <div style="position: relative" class="custom-fieldset">
                                                     <div class="legend">
                                                         <h:h2>Sede Principale</h:h2>
                                                         <div class="line"/>
                                                     </div>
-                                                    <div class="field">
-                                                        <div class="label">Indirizzo</div>
-                                                        <textbox/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Nazione</div>
-                                                        <div class="custom-combobox">
-                                                            <combobox model="@bind(vm.nazioni)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Regione</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox model="@bind(vm.regioni)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nome)" value="@bind(each.nome)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.regione)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Provincia</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox model="@bind(vm.provinceSedePrincipale)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.provincia)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Comune</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox model="@bind(vm.comuniSedePrincipale)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.comune)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Cap</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox visible="@bind(vm.isSedePrincipaleInItaly)" model="@bind(vm.capSedePrincipale)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.cap)"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Località</div>
-                                                        <textbox/>
-                                                    </div>
+                                                    <iframe  width="425px" height="270px" xmlns:ca="client/attribute" src="/angular/indirizzoSedePrincipale/browser/index.html"/>
                                                 </div>
                                             </div>
                                             <div style="display: flex; flex-direction: column;">
@@ -367,73 +243,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="custom-fieldset">
-                                                    <div class="legend">
+                                                <div style="position: relative" class="custom-fieldset">
+                                                    <div id="ok" class="legend">
                                                         <h:h2>Sede Principale</h:h2>
                                                         <div class="line"/>
                                                     </div>
-                                                    <div class="field">
-                                                        <div class="label">Indirizzo</div>
-                                                        <textbox ca:autocomplete="off"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Nazione</div>
-                                                        <div class="custom-combobox">
-                                                            <combobox ca:autocomplete="off" model="@bind(vm.nazioni)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Regione</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox ca:autocomplete="off" model="@bind(vm.regioni)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nome)" value="@bind(each.nome)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.regione)" ca:autocomplete="off"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Provincia</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox ca:autocomplete="off" model="@bind(vm.provinceSedePrincipale)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.provincia)" ca:autocomplete="off"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Comune</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox ca:autocomplete="off" model="@bind(vm.comuniSedePrincipale)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.comune)" ca:autocomplete="off"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Cap</div>
-                                                        <div class="custom-combobox" visible="@bind(vm.isSedePrincipaleInItaly)">
-                                                            <combobox ca:autocomplete="off" visible="@bind(vm.isSedePrincipaleInItaly)" model="@bind(vm.capSedePrincipale)">
-                                                                <template name="model" var="each">
-                                                                    <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
-                                                                </template>
-                                                            </combobox>
-                                                        </div>
-                                                        <textbox visible="@bind(!vm.isSedePrincipaleInItaly)" value="@bind(vm.indirizzoSedePrincipale.cap)" ca:autocomplete="off"/>
-                                                    </div>
-                                                    <div class="field">
-                                                        <div class="label">Località</div>
-                                                        <textbox ca:autocomplete="off"/>
-                                                    </div>
+                                                    <iframe style="position: absolute; top: 60px;" width="425px" height="270px" xmlns:ca="client/attribute" src="/angular/indirizzoSedePrincipale/browser/index.html"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -478,7 +293,7 @@
                                                 </rows>
                                             </grid>
                                         </div>
-                                        <div visible="@bind(vm.selectedIndirizzo)">
+                                        <div visible="@bind(vm.selectedIndirizzo.id)">
                                             <h:fieldset class="indirizzi-dettaglio">
                                                 <h:legend>Dettaglio Indirizzo:</h:legend>
                                                 <div style="display: flex; flex-direction: row; gap: 2rem">
@@ -507,69 +322,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col2">
-                                                        <div style="position: relative; display: flex; align-items: center;">
-                                                            <label value="Indirizzo:"/>
-                                                            <iframe zindex="100" xmlns:ca="client/attribute" id="iframeIndirizzo" class="second" src="indirizzo.html" width="900px" height="250px" />
-                                                        </div>
-                                                        <div style="display: flex; align-items: center">
-                                                            <label value="Nazione:"/>
-                                                            <div class="custom-combobox">
-                                                                <combobox id="statoSelectedIndirizzo" model="@bind(vm.nazioni)" selectedIndex="@bind(vm.selectedIndirizzoNazioneIndex)" onChange="@command('onNazioneSelectedIndirizzoSelected', stato=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
-                                                                    <template name="model">
-                                                                        <comboitem label="@bind(each.nazione)" value="@bind(each.nazione)" ca:autocomplete="off"/>
-                                                                    </template>
-                                                                </combobox>
-                                                            </div>
-                                                        </div>
-                                                        <div style="display: flex; align-items: center">
-                                                            <label value="Regione:"/>
-                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
-                                                                <combobox id="regioneSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.regioni)" selectedIndex="@bind(vm.selectedIndirizzoRegioneIndex)" onChange="@command('onRegioneSelectedIndirizzoSelected', regione=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
-                                                                    <template name="model">
-                                                                        <comboitem  label="@bind(each.nome)" value="@bind(each.nome)"/>
-                                                                    </template>
-                                                                </combobox>
-                                                            </div>
-                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.regione)"/>
-                                                        </div>
-                                                        <div style="display: flex; align-items: center">
-                                                            <label value="Provincia:"/>
-                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
-                                                                <combobox id="provinciaSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.provinceSelectedIndirizzo)" selectedIndex="@bind(vm.selectedIndirizzoProvinciaIndex)" onChange="@command('onProvinciaSelectedIndirizzoSelected', provincia=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
-                                                                    <template name="model">
-                                                                        <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.nomeCompleto)"/>
-                                                                    </template>
-                                                                </combobox>
-                                                            </div>
-                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.provincia)"/>
-                                                        </div>
-                                                        <div style="display: flex; align-items: center">
-                                                            <label value="Comune:"/>
-                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
-                                                                <combobox id="comuneSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.comuniSelectedIndirizzo)" selectedIndex="@bind(vm.selectedIndirizzoComuneIndex)" onChange="@command('onComuneSelectedIndirizzoSelected', comune=self.value)" onClick="@command('onSelectedIndirizzoServerSwitch')">
-                                                                    <template name="model">
-                                                                        <comboitem label="@bind(each.citta)" value="@bind(each.citta)"/>
-                                                                    </template>
-                                                                </combobox>
-                                                            </div>
-                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.comune)" ca:autocomplete="off"/>
-                                                        </div>
-                                                        <div style="display: flex; align-items: center">
-                                                            <label value="CAP:"/>
-                                                            <div class="custom-combobox" visible="@bind(vm.isSelectedIndirizzoInItaly)">
-                                                                <combobox id="capSelectedIndirizzo" ca:autocomplete="off" model="@bind(vm.capSelectedIndirizzo)" selectedIndex="@bind(vm.selectedIndirizzoCapIndex)" onClick="@command('onSelectedIndirizzoServerSwitch')">
-                                                                    <template name="model">
-                                                                        <comboitem label="@bind(each.codice)" value="@bind(each.codice)"/>
-                                                                    </template>
-                                                                </combobox>
-                                                            </div>
-                                                            <textbox visible="@bind(!vm.isSelectedIndirizzoInItaly)" value="@bind(vm.selectedIndirizzo.cap)" ca:autocomplete="off"/>
-                                                        </div>
-                                                        <div style="display: flex; align-items: center">
-                                                            <label value="Località:"/>
-                                                            <textbox value="@bind(vm.selectedIndirizzo.frazione)" ca:autocomplete="off"/>
-                                                            <textbox style="opacity: 0; pointer-events: none" id="selectedIndirizzoFalseWidget" onChange="@command('onSelectedIndirizzoFalseWidgetChange', valore=self.value)" />
-                                                        </div>
+                                                        <iframe width="360px" height="270px" xmlns:ca="client/attribute" src="/angular/indirizzoSelezionato/browser/index.html"/>
                                                     </div>
                                                     <div class="col3">
                                                         <div style="position: relative; display: flex; align-items: center">
@@ -756,6 +509,15 @@
             setSelectedIndirizzo();
             onSelectedIndirizzoFocused();
             });
+
+
+
+
+
+
+
+
+
     </script>
 </zk>
 

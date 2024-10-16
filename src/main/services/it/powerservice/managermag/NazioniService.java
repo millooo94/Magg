@@ -13,4 +13,5 @@ public class NazioniService {
     public List<Nazioni> getNazioni() {
         return  nazioniRepository.findAll();
     }
+
 }

@@ -12,6 +12,12 @@ public interface IndirizziRepository extends JpaRepository<Indirizzi, Long> {
     @Query("SELECT i FROM Indirizzi i")
     List<Indirizzi> getIndirizzi();
 
+    @Query("SELECT i FROM Indirizzi i WHERE i.id = :id")
+    Indirizzi getIndirizziFromId(@Param("id") long id);
+
     @Query("SELECT i FROM Indirizzi i WHERE i.idAnagrafica = :idAnagrafica")
     List<Indirizzi> getIndirizziFromIdAnagrafica(@Param("idAnagrafica") long idAnagrafica);
+
+    @Query("SELECT i FROM Indirizzi i WHERE i.idAnagrafica = :idAnagrafica AND i.tipoIndirizzo = 'S'")
+    Indirizzi getIndirizzoSedePrincipaleFromIdAnagrafica(@Param("idAnagrafica") long idAnagrafica);
 }

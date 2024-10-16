@@ -93,7 +93,7 @@ public class DepositiIndexViewModel {
         BindUtils.postNotifyChange(null, null, this, "depositi");
     }
 
-    public  void refresh() {
+    public void refresh() {
         depositi = depositiService.getDepositi();
         newButtonDisabled = false;
         BindUtils.postNotifyChange(null, null, this, "depositi");
