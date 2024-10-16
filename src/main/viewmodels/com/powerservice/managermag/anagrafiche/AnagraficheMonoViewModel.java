@@ -398,13 +398,6 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
         System.out.println("CLICCATO");
         Clients.evalJavaScript("localStorage.setItem('windowClicked', 'true');");
     }
-
-    public void nuovoMetodo() {
-        System.out.println("NUOVO METODO");
-    }
-
-
-
 }
 
 
