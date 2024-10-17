@@ -60,6 +60,7 @@ class Application extends SpringBootServletInitializer {
 
             int exitCode = process.waitFor();
             System.out.println("Codice di uscita per " + angularProject + ": " + exitCode);
+            System.out.println("Aggiunto qui");
 
             return exitCode == 0;
         } catch (IOException | InterruptedException e) {
