@@ -1,0 +1,77 @@
+@if(!!indirizzoSelezionato) {
+  <form *ngIf="indirizzoSelezionato" class="form">
+    <div class="form-field">
+      <label for="indirizzo">Indirizzo:</label>
+      <indirizzo
+        adressType="address"
+        [value]="indirizzoSelezionato.indirizzo"
+        (setAddress)="getAddress($event)"
+      ></indirizzo>
+    </div>
+    <div class="form-field">
+      <label for="indirizzo">Nazione:</label>
+      <dropdown [items]="nazioni" [key]="'nazione'" [value]="indirizzoSelezionato.nazione" (onchange)="onNazioneChange($event)"></dropdown>
+    </div>
+    <div class="form-field">
+      <label for="regione">Regione:</label>
+      <dropdown *ngIf="indirizzoSelezionatoInItaly" [items]="regioni" [key]="'nome'" [value]="indirizzoSelezionato.regione" (onchange)="onRegioneChange($event)"></dropdown>
+      <input
+        *ngIf="!indirizzoSelezionatoInItaly"
+        type="text"
+        id="regione"
+        name="regione"
+        required
+        [(ngModel)]="indirizzoSelezionato.regione"
+      />
+    </div>
+    <div class="form-field">
+      <label for="provincia">Provincia:</label>
+      <dropdown *ngIf="indirizzoSelezionatoInItaly" [items]="province" [key]="'nomeCompleto'" [value]="indirizzoSelezionato.provincia" (onchange)="onProvinciaChange($event)"></dropdown>
+      <input
+        *ngIf="!indirizzoSelezionatoInItaly"
+        type="text"
+        id="provincia"
+        name="provincia"
+        required
+        [(ngModel)]="indirizzoSelezionato.provincia"
+      />
+    </div>
+    <div class="form-field">
+      <label for="comune">Comune:</label>
+      <dropdown *ngIf="indirizzoSelezionatoInItaly" [items]="comuni" [key]="'citta'" [value]="indirizzoSelezionato.comune" (onchange)="onComuneChange($event)"></dropdown>
+      <input
+        *ngIf="!indirizzoSelezionatoInItaly"
+        type="text"
+        id="comune"
+        name="comune"
+        required
+        [(ngModel)]="indirizzoSelezionato.comune"
+      />
+    </div>
+    <div class="form-field">
+      <label for="cap">Cap:</label>
+      <dropdown *ngIf="indirizzoSelezionatoInItaly" [items]="cap" [key]="'codice'" [value]="indirizzoSelezionato.cap" (onchange)="indirizzoSelezionato.cap=$event"></dropdown>
+      <input
+        *ngIf="!indirizzoSelezionatoInItaly"
+        type="text"
+        id="cap"
+        name="cap"
+        required
+        [(ngModel)]="indirizzoSelezionato.cap"
+      />
+    </div>
+    <div class="form-field">
+      <label for="localita">Località:</label>
+      <input
+        type="text"
+        id="localita"
+        name="localita"
+        required
+        [(ngModel)]="indirizzoSelezionato.frazione"
+      />
+    </div>
+  </form>
+}
+@else {
+  <div id="loader"></div>
+}
