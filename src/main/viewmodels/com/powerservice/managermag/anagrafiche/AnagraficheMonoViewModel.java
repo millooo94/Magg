@@ -7,6 +7,7 @@ import it.powerservice.managermag.customClass.CodDesc;
 import it.powerservice.managermag.customClass.GridColumn;
 import it.powerservice.managermag.customClass.TabRef;
 import it.powerservice.managermag.geography.*;
+import it.powerservice.managermag.utilities.PropertiesReader;
 import org.springframework.context.event.EventListener;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.*;
@@ -25,6 +26,7 @@ import org.zkoss.zul.*;
 import org.zkoss.zul.Window;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,7 +86,9 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     }
 
     @Init
-    private void init() {
+    private void init() throws IOException {
+        PropertiesReader.setURI();
+
         Map<?, ?> args = Executions.getCurrent().getArg();
         anagraficaToSave = (Anagrafiche) args.get("anagraficaToSave");
         tipoAnagrafica = new CodDesc((String) args.get("tipoAnagrafica"), General.setTipoAnagrafica((String) args.get("tipoAnagrafica")));
