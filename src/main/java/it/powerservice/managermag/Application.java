@@ -1,5 +1,6 @@
 package it.powerservice.managermag;
 
+import it.powerservice.managermag.utilities.PropertiesReader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -13,12 +14,23 @@ import java.io.InputStreamReader;
 @SpringBootApplication
 class Application extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        if (executeBuildCommands()) {
-            SpringApplication.run(Application.class, args);
+    public static void main(String[] args) throws IOException {
+        if (isPortValid()) {
+            System.out.println("La porta è 8084. Eseguendo i build...");
+            if (executeBuildCommands()) {
+                SpringApplication.run(Application.class, args);
+            } else {
+                System.err.println("Errore durante la build di Angular. L'applicazione Spring Boot non verrà avviata.");
+            }
         } else {
-            System.err.println("Errore durante la build di Angular. L'applicazione Spring Boot non verrà avviata.");
+            System.out.println("La porta non è 8084. Avvio dell'applicazione senza build...");
+            SpringApplication.run(Application.class, args);
         }
+    }
+
+    private static boolean isPortValid() throws IOException {
+        String port = PropertiesReader.getPort();
+        return port.equals("8084");
     }
 
     private static boolean executeBuildCommands() {
