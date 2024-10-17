@@ -6,3 +6,58 @@
 .invalid {
     border-color: red;
 }
+
+.DEPOSITI_INDEX .z-textbox {
+    width: 200px;
+}
+
+.DEPOSITI_INDEX .z-cell {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.DEPOSITI_INDEX .z-cell span {
+    display: flex;
+    justify-content: center;
+}
+
+.DEPOSITI_INDEX .z-grid {
+    border-bottom: none;
+}
+
+.DEPOSITI_INDEX .z-datebox {
+  height: 28px;
+}
+
+.DEPOSITI_INDEX .z-datebox .z-datebox-input {
+    height: 100%;
+}
+
+.DEPOSITI_INDEX .z-datebox .z-datebox-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    padding: 0;
+}
+
+.DEPOSITI_INDEX .z-datebox-icon.z-icon-calendar {
+    font-size: 15px;
+}
+
+.DEPOSITI_INDEX .left-block > .z-footer-content {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+}
+
+.DEPOSITI_INDEX .right-block > .z-footer-content .z-div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    height: 100%;
+}

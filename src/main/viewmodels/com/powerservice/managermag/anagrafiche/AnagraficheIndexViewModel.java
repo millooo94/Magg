@@ -12,8 +12,13 @@ import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.select.annotation.VariableResolver;
 import org.zkoss.zk.ui.select.annotation.WireVariable;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +55,9 @@ public class AnagraficheIndexViewModel {
         selectedAnagrafica = anagrafica;
         editButtonDisabled = false;
         removeButtonDisabled = false;
+
+        String script = "localStorage.setItem('idAnagrafica', '" + anagrafica.getId() + "');";
+        Clients.evalJavaScript(script);
     }
     @Command
     @NotifyChange({"anagrafiche", "removeButtonDisabled"})
@@ -63,15 +71,17 @@ public class AnagraficheIndexViewModel {
     @Command
     public void onOpenAnagraficheMono(@BindingParam("type") String actionType) {
         Map<String, Object> params = new HashMap<>();
-        params.put("tipoAnagrafica", tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getCodice());
+        System.out.println("INDEX ===> " + tipiAnagrafiche.get(selectedTipoAnagraficaIndex));
         switch (actionType) {
             case "EDIT":
                 params.put("anagraficaToSave", selectedAnagrafica);
                 params.put("monoType", "EDIT");
+                params.put("tipoAnagrafica", selectedAnagrafica.getTipo());
                 break;
             case "CREATE":
                 params.put("anagraficaToSave", new Anagrafiche());
                 params.put("monoType", "CREATE");
+                params.put("tipoAnagrafica", tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getCodice());
                 break;
         }
         AnagraficheMonoViewModel.apriPopup(this, params).addEventListener(Events.ON_CLOSE, new AnagraficheMonoCloseListener(this));
@@ -132,4 +142,5 @@ public class AnagraficheIndexViewModel {
         this.removeButtonDisabled = removeButtonDisabled;
         BindUtils.postNotifyChange(null, null, this, "removeButtonDisabled");
     }
+
 }

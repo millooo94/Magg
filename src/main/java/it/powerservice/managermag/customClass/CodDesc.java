@@ -27,7 +27,7 @@ public class CodDesc{
 
     @Override
     public String toString() {
-        return "PagFattPa{" +
+        return "CodDesc{" +
                 "codice='" + codice + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 '}';

@@ -7,6 +7,11 @@ buildscript {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    exclude 'C:/Users/CamilloZK/Desktop/Magg/src/main/resources/static/address'
+}
+
+
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
@@ -61,6 +66,11 @@ dependencies {
     implementation 'org.zkoss.zk:zkplus:9.6.0-jakarta'
 
     implementation 'org.zkoss.zk:zuti:8.0.5-Eval'
+
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+
+
+
 
 
     runtimeOnly "org.slf4j:slf4j-jdk14:1.7.28"

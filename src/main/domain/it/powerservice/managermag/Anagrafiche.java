@@ -36,13 +36,17 @@ public class Anagrafiche {
     Boolean ckAgente;
     @Column(name = "ckpersonale", columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
     Boolean ckPersonale;
+    @Column(name = "soggetto", columnDefinition = "VARCHAR(20) NOT NULL")
+    private String soggetto;
     @Column(name = "subcategoria", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     @Comment("Collegata con tabella DIZIONARI con categoriaDizionario=SUBCAT_ANAG , restituisce il campo descrizione del dizionario")
     String subCategoria;
-    @Column(name = "cognomergs", length = 150, nullable = false, columnDefinition = "VARCHAR(150) NOT NULL")
-    String cognomeRgs;
-    @Column(name = "nome", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
+    @Column(name = "cognome", length = 150, nullable = false, columnDefinition = "VARCHAR(150) NOT NULL")
+    String cognome;
+    @Column(name = "nome", length = 150, columnDefinition = "VARCHAR(150) NOT NULL")
     String nome;
+    @Column(name = "ragionesociale", length = 150, columnDefinition = "VARCHAR(150) NULL DEFAULT NULL")
+    String ragioneSociale = "";
     @Column(name = "codsdi", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
     String codSDI;
     @Column(name = "sesso", length = 1, columnDefinition = "VARCHAR(1) NULL DEFAULT NULL")
@@ -186,20 +190,28 @@ public class Anagrafiche {
         this.subCategoria = subCategoria;
     }
 
-    public String getCognomeRgs() {
-        return cognomeRgs;
-    }
-
-    public void setCognomeRgs(String cognomeRgs) {
-        this.cognomeRgs = cognomeRgs;
-    }
-
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getRagioneSociale() {
+        return ragioneSociale;
+    }
+
+    public void setRagioneSociale(String ragioneSociale) {
+        this.ragioneSociale = ragioneSociale;
     }
 
     public String getCodSDI() {
@@ -554,6 +566,14 @@ public class Anagrafiche {
         this.ckPersonale = ckPersonale;
     }
 
+    public String getSoggetto() {
+        return soggetto;
+    }
+
+    public void setSoggetto(String soggetto) {
+        this.soggetto = soggetto;
+    }
+
     public String getCodiceFidelity() {
         return codiceFidelity;
     }
@@ -576,9 +596,11 @@ public class Anagrafiche {
                 ", ckTrasportatore=" + ckTrasportatore +
                 ", ckAgente=" + ckAgente +
                 ", ckPersonale=" + ckPersonale +
+                ", soggetto='" + soggetto + '\'' +
                 ", subCategoria='" + subCategoria + '\'' +
-                ", cognomeRgs='" + cognomeRgs + '\'' +
+                ", cognome='" + cognome + '\'' +
                 ", nome='" + nome + '\'' +
+                ", ragioneSociale='" + ragioneSociale + '\'' +
                 ", codSDI='" + codSDI + '\'' +
                 ", sesso='" + sesso + '\'' +
                 ", prodottiEServizi='" + prodottiEServizi + '\'' +
@@ -615,6 +637,7 @@ public class Anagrafiche {
                 ", dataEmissioneDocumentoIdentita=" + dataEmissioneDocumentoIdentita +
                 ", provinciaNascita='" + provinciaNascita + '\'' +
                 ", comuneNascita='" + comuneNascita + '\'' +
+                ", codiceFidelity='" + codiceFidelity + '\'' +
                 ", dataIns=" + dataIns +
                 ", dataUpd=" + dataUpd +
                 ", eliminato=" + eliminato +

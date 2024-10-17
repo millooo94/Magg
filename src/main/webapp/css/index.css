@@ -10,6 +10,17 @@
 @import url('depositiMarketplace/depositi-marketplace.css');
 @import url('tipologiePagamenti/tipologie-pagamenti.css');
 @import url('anagrafiche/anagrafiche.css');
+@import url('places/places.css');
+
+.z-window, .z-label {
+    font-family: "Inter", sans-serif !important;
+    font-optical-sizing: auto !important;
+    font-size: 13px;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-variation-settings:
+    "slnt" 0; !important
+}
 
 
 .z-window-content {
@@ -31,15 +42,6 @@
         overflow: hidden;
 
         font-size: 13px;
-
-
-        font-family: "Inter", sans-serif;
-        font-optical-sizing: auto;
-        font-weight: 400; /* Peso del carattere normale */
-        font-style: normal;
-        font-variation-settings:
-        "slnt" 0; /* Nessuna inclinazione */
-
         }
 
 
@@ -589,3 +591,126 @@
 
 
 
+
+
+
+/* TABS */
+
+
+
+
+/* CUSTOM FIELDSET */
+
+.custom-fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 1rem 20px 1rem 0;
+
+  max-width: 350px;
+}
+
+.custom-fieldset .legend {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.custom-fieldset .legend h2 {
+    width: 150px;
+    margin: 0;
+    font-size: 16px;
+}
+
+.custom-fieldset .line {
+    width: calc(100% - 122px);
+    border-top: 1px solid black;
+}
+
+.custom-fieldset .field {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.custom-fieldset .label {
+    width: 85px;
+}
+
+.custom-fieldset .z-label {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.57);
+}
+
+.custom-fieldset .z-textbox, fieldset .z-textbox {
+    width: 250px;
+    height: 28px;
+
+    font-size: 13px
+}
+
+/* CUSTOM FIELDSET */
+
+.custom-combobox {
+    position: relative;
+
+    width: 250px;
+    height: 28px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+
+}
+
+.z-combobox {
+     display: flex;
+     align-items: center;
+     height: 100%;
+}
+
+.z-combobox-input {
+    height: 100%;
+    width: 100%;
+
+    background: transparent;
+    border: none;
+
+    font-size: 13px;
+}
+
+
+/* CUSTOM COMBOBOX */
+
+.z-combobox-button {
+    top: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+
+    padding: 0;
+
+    border: none;
+
+    border-color: #D9D9D9;
+    background: transparent;
+}
+
+
+.z-combobox-button:hover {
+    border-color: #D9D9D9;
+    background: inherit;
+}
+
+.z-combobox-input:focus+.z-combobox-button {
+    border-left: none;
+}
+
+.z-icon-caret-down:before {
+    position: absolute;
+    top: 2px;
+    left: 18px;
+    font-size: 18px;
+    color: #6E6E6E
+}

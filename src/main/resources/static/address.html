@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="script.js" defer></script>
+    <script
+            defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBWrHEirkYv3AOQ23QLVb6UogtoRosEpWE&libraries=places"
+    ></script>
+</head>
+<body>
+<form class="sede-principale" action="POST">
+    <div class="field">
+        <label for="indirizzo-input">Indirizzo:</label>
+        <input type="text" id="indirizzo-input" name="indirizzo" />
+    </div>
+    <div class="field">
+        <label for="nazione-select">Nazione:</label>
+        <select id="nazione-select" name="nazione">
+            <option>(Nessuno)</option>
+        </select>
+    </div>
+    <div class="field">
+        <label for="regione-select">Regione:</label>
+        <select id="regione-select" name="regione">
+            <option>(Nessuno)</option>
+        </select>
+        <input type="text" id="regione-input" />
+    </div>
+    <div class="field">
+        <label for="provincia-select">Provincia:</label>
+        <select id="provincia-select" name="provincia">
+            <option>(Nessuno)</option>
+        </select>
+        <input type="text" id="provincia-input" />
+    </div>
+    <div class="field">
+        <label for="comune-select">Comune:</label>
+        <select id="comune-select" name="comune">
+            <option>(Nessuno)</option>
+        </select>
+        <input type="text" id="comune-input" />
+    </div>
+    <div class="field">
+        <label for="cap-select">CAP:</label>
+        <select id="cap-select" name="cap">
+            <option>(Nessuno)</option>
+        </select>
+        <input type="text" id="cap-input" />
+    </div>
+    <div class="field">
+        <label for="localita-input">Località:</label>
+        <input id="localita-input" type="text" name="localita" />
+    </div>
+</form>
+</body>
+</html>

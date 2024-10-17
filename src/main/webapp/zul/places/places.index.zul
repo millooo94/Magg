@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xmlns:n="native"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window class="PLACES" mode="popup" title="Categories" border="normal" width="1300px" height="850px"
+            apply="org.zkoss.bind.BindComposer"
+            position="center,center" closable="true"
+            viewModel="@id('vm') @init('com.powerservice.managermag.places.PlacesIndexViewModel')"
+            id="win"
+    >
+
+        <div style="position: relative; z-index: 1000000">
+            <iframe xmlns:ca="client/attribute" id="iframe" src="places.html"/>
+        </div>
+
+
+        <textbox id="provincia" value="@bind(vm.provincia)" instant="true"/>
+
+        <textbox id="stato" value="@bind(vm.stato)" instant="true"/>
+
+        <textbox id="regione" value="@bind(vm.regione)" instant="true"/>
+
+        <div class="custom-combobox">
+            <combobox id="provinciaSelect" model="@bind(vm.province)" selectedIndex="@bind(vm.selectedProvinciaIndex)" instant="true">
+                <template name="model" var="each">
+                    <comboitem label="@bind(each.nomeCompleto)" value="@bind(each.codice)"/>
+                </template>
+            </combobox>
+        </div>
+
+        <textbox id="citta" value="@bind(vm.citta)"/>
+
+        <button label="DATA" onClick="@command('onClick')"/>
+
+
+
+    </window>
+
+    <script>
+
+        zk.afterMount(function() {
+            var win = zk.Widget.$('$win');
+            if (win) {
+            console.log("Widget trovato");
+            zAu.send(new zk.Event(win, 'test', {}));
+            } else {
+            console.log("Widget non trovato");
+            }
+            });
+
+            function myfunc() {
+            let length = localStorage.length;
+            let values = [];
+
+
+        var statoWidget = zk.Widget.$('$stato');
+        var regioneWidget = zk.Widget.$('$regione');
+        var provinciaWidget = zk.Widget.$('$provincia');
+        var cittaWidget = zk.Widget.$('$citta');
+
+        var stato = localStorage.getItem("countryLongName");
+        var regione = localStorage.getItem("administrativeAreaLevel1LongName");
+        var provincia = localStorage.getItem("administrativeAreaLevel2LongName");
+        var citta = localStorage.getItem("administrativeAreaLevel3LongName");
+
+        statoWidget.setValue(stato);
+        regioneWidget.setValue(regione);
+        provinciaWidget.setValue(provincia);
+        cittaWidget.setValue(citta);
+
+        zAu.send(new zk.Event(statoWidget, "onSelect", {value: stato}, {toServer:true}));
+        zAu.send(new zk.Event(regioneWidget, "onSelect", {value: regione}, {toServer:true}));
+        zAu.send(new zk.Event(provinciaWidget, "onSelect", {value: provincia}, {toServer:true}));
+        zAu.send(new zk.Event(cittaWidget, "onSelect", {value: citta}, {toServer:true}));
+
+
+            console.log( zk.Widget.$('$stato'));
+        }
+
+        window.addEventListener('storage', function(event) {
+        myfunc();
+        });
+
+    </script>
+</zk>

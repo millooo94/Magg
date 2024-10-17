@@ -7,23 +7,21 @@
             position="center,center" closable="true"
             viewModel="@id('vm') @init('com.powerservice.managermag.prova.ProvaViewModel') @bind('window', window)">
 
-        <grid>
-            <columns>
-                <column label="@bind(vm.colonne.get(0).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)"/>
-                <column label="@bind(vm.colonne.get(1).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)"/>
-                <column label="@bind(vm.colonne.get(2).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
-                <column label="@bind(vm.colonne.get(3).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
-                <column label="@bind(vm.colonne.get(4).label)" draggable="true" droppable="true" onDrop="@command('onDrop', dragged=event)" />
-            </columns>
-            <rows>
-                <row>
-                    <label value="@bind(vm.riga.get(0).label)" />
-                    <label value="@bind(vm.riga.get(1).label)" />
-                    <label value="@bind(vm.riga.get(2).label)" />
-                    <label value="@bind(vm.riga.get(3).label)" />
-                    <label value="@bind(vm.riga.get(4).label)" />
-                </row>
-            </rows>
-        </grid>
+        <div class="first">
+            <iframe xmlns:ca="client/attribute" id="test" class="first" src="test.html" width="630px" height="250px"/>
+        </div>
+        <h:button name="CLICK" onClick="cambiaValore('pippo');">CLICK</h:button>
     </window>
+
+
+    <script>
+
+        function cambiaValore(valore) {
+            alert(valore);
+            alert( $('#test').contents().find('#textProva'));
+        };
+
+    </script>
 </zk>
+
+
