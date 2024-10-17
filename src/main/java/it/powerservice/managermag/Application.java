@@ -23,6 +23,7 @@ class Application extends SpringBootServletInitializer {
                 System.err.println("Errore durante la build di Angular. L'applicazione Spring Boot non verrà avviata.");
             }
         } else {
+            System.out.println(isPortValid());
             System.out.println("La porta non è 8084. Avvio dell'applicazione senza build...");
             SpringApplication.run(Application.class, args);
         }
@@ -30,6 +31,7 @@ class Application extends SpringBootServletInitializer {
 
     private static boolean isPortValid() throws IOException {
         String port = PropertiesReader.getPort();
+        System.out.println("PORTAAAAA => " + port);
         return port.equals("8084");
     }
 
@@ -60,7 +62,7 @@ class Application extends SpringBootServletInitializer {
 
             int exitCode = process.waitFor();
             System.out.println("Codice di uscita per " + angularProject + ": " + exitCode);
-            System.out.println("Aggiunto qui");
+            System.out.println("Aggiunto qui di nuovo");
 
             return exitCode == 0;
         } catch (IOException | InterruptedException e) {
