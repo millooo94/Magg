@@ -1,5 +1,6 @@
 package com.powerservice.managermag.anagrafiche;
 
+import com.powerservice.managermag.IndexViewModel;
 import com.powerservice.managermag.anagrafiche.events.IndirizzoSavedEvent;
 import com.powerservice.managermag.anagrafiche.utilities.General;
 import it.powerservice.managermag.*;
@@ -53,6 +54,8 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
 
     private Window window;
     private static AnagraficheIndexViewModel anagraficheIndexViewModel;
+    private static IndexViewModel indexViewModel;
+
     private CodDesc tipoAnagrafica = null;
     private double rating = 2.5;
     private Anagrafiche anagraficaToSave = null;
@@ -85,6 +88,14 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
         return window;
     }
 
+    public static Window apriPopup(IndexViewModel parentModel, Map<String, Object> params) {
+        indexViewModel = parentModel;
+        Window window = (Window) Executions.createComponents(
+                "anagrafiche/anagrafiche.mono.zul", null, params);
+        return window;
+    }
+
+
     @Init
     private void init() throws IOException {
         PropertiesReader.setURI();
@@ -109,13 +120,11 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
             if ("indirizzoSaved".equals(event.getName())) {
                 initIndirizzi();
                 BindUtils.postNotifyChange(null, null, this, "indirizzi");
-                System.out.println("DENTRO L'EVENTO ==> " + indirizzi);
             }
         });
     }
 
     @Command
-    @NotifyChange("tipologiaPapiamentoToSave")
     public void setWindow(@BindingParam("window") Window window) {
         this.window = window;
     }
@@ -399,7 +408,6 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
 
     @Command
     public void onWindowClicked() {
-        System.out.println("CLICCATO");
         Clients.evalJavaScript("localStorage.setItem('windowClicked', 'true');");
     }
 }

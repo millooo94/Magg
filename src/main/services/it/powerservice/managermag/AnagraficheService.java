@@ -25,4 +25,8 @@ public class AnagraficheService {
     public void deleteAnagraficaById(Long id) {
         anagraficheRepository.deleteById(id);
     }
+
+    public List<Anagrafiche> getAnagraficheFromSearch(String searchWord) {
+        return anagraficheRepository.getAnagraficheFromSearch(searchWord);
+    };
 }

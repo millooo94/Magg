@@ -61,6 +61,14 @@
       font-weight: bold;
   }
 
+    .delete-button {
+        padding: 8px 35px;
+        border-radius: 4px;
+        background: red;
+        color: #fff;
+        font-weight: bold;
+    }
+
     .new-button {
         padding: 8px 35px;
         border-radius: 4px;
@@ -163,13 +171,6 @@
     align-self: baseline;
 }
 
-.z-textbox, .z-combobox {
-    height: 30px;
-}
-
-.z-combobox-input, .z-comboitem {
-    font-size: 14px;
-}
 
 .textbox-clob {
     height: 90px;
@@ -249,4 +250,16 @@
     align-items: center;
 
     font-size: 14px;
+}
+
+
+
+
+.IMPOSTAZIONI_INDEX .z-listcell-content {
+    justify-content: flex-start;
+    padding: 5px !important;
+}
+
+.IMPOSTAZIONI_INDEX .z-combobox-readonly>input {
+    background: white;
 }

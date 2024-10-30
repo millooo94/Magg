@@ -35,8 +35,9 @@ public class PropertiesReader {
         String protocol = properties.getProperty("server.protocol");
         String host = properties.getProperty("server.host");
         String port = properties.getProperty("server.port");
+        String context = properties.getProperty("server.context");
 
-        var uri = protocol + "://" + host + ":" + port;
+        var uri = protocol + "://" + host + ":" + port + "/" + context;
 
         Clients.evalJavaScript("localStorage.setItem('uri', '" + uri + "')");
     }

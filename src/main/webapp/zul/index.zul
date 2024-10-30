@@ -25,7 +25,7 @@
     <window closable="false"
             apply="org.zkoss.bind.BindComposer"
             width="100%" height="100%"
-            viewModel="@id('vm') @init('com.powerservice.managermag.IndexViewModel')">
+            viewModel="@id('vm') @init('com.powerservice.managermag.IndexViewModel') @bind('window', window)" onCreate="@command('setWindow', window=self)">
 
         <div class="main-container" zclass="@bind(vm.mainContainerMenuClass)">
             <div class="overlay" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')"/>
@@ -49,45 +49,30 @@
                         </h:span>
                         <div class="search-box">
                             <textbox value="@bind(vm.searchValue)" onChange="@command('onSearch')" instant="true"/>
-                            <div class="search-panel" visible="@bind(vm.searchPanelVisible)">
-                                <div class="sidebar">
-                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.allCategoriesClicked ? 'active-item' : '')" onClick="@command('onSectionClicked', event=event, id='categoryLabel1')">
+                            <div id="search-panel" class="search-panel dddd" visible="@bind(vm.searchPanelVisible)">
+                                <div>
+                                    <div class="menu-icon active-item" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.isAllCategoriesClicked ? 'active-item' : '')">
                                         <div style="display: flex; align-items: center; gap: 1rem">
                                             <h:i class="fa-solid fa-download"/>
-                                            <label id="categoryLabel1">Tutte le categorie</label>
+                                            <div>Tutte le categorie</div>
                                         </div>
                                     </div>
-                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.anagraficheClicked ? 'active-item' : '')" onClick="@command('onSectionClicked', event=event, id='categoryLabel2')">
+                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                                         <div style="display: flex; align-items: center; gap: 1rem">
                                             <h:i class="fa-solid fa-download"/>
-                                            <label id="categoryLabel2">Anagrafiche</label>
+                                            <div>Anagrafiche</div>
                                         </div>
                                     </div>
-                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.prodottiClicked ? 'active-item' : '')" onClick="@command('onSectionClicked', event=event, id='categoryLabel3')">
+                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                                         <div style="display: flex; align-items: center; gap: 1rem">
                                             <h:i class="fa-solid fa-download"/>
-                                            <label id="categoryLabel3">Prodotti</label>
+                                            <div>Prodotti</div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="main">
-                                    <div style="width: 100%;">
+                                    <div>
                                         <label value="@bind(vm.searchMessage)"/>
-                                        <div id="search-item-container" style="display: flex; flex-direction: column; width: 100%;">
-                                            <div class="search-result">
-                                                <h:i class="fa-solid fa-download"/>
-                                                <label>Marco Grasso</label>
-                                            </div>
-                                            <div class="search-result" style="display: flex; align-items: center; gap: 3rem; width: 100%;">
-                                                <h:i class="fa-solid fa-download"/>
-                                                <label>Marco Grasso</label>
-                                            </div>
-                                            <div class="search-result" style="display: flex; align-items: center; gap: 3rem; width: 100%;">
-                                                <h:i class="fa-solid fa-download"/>
-                                                <label>Marco Grasso</label>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -123,51 +108,51 @@
                                     <div class="name">Categorie</div>
                                 </div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='varianti')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Varianti</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='listini')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Listini</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='datiAzienda')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Dati Azienda</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='depositi')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Depositi</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='marketplace')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Marketplace</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='marche')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Marche</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='depositiMarketplace')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Depositi Marketplace</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='tipologiePagamenti')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Tipologie Pagamenti</div>
                                 </h:div>
                             </h:nav>
@@ -362,6 +347,7 @@
                 </div>
             </div>
         </div>
+
     </window>
 </zk>
 

@@ -22,6 +22,11 @@ public interface AnagraficheRepository extends JpaRepository<Anagrafiche, Long> 
             ")")
     List<Anagrafiche> getAnagraficheFromTipo(@Param("tipo") String tipo, @Param("tipoCheck") String tipoCheck);
 
+    @Query("SELECT a FROM Anagrafiche a WHERE a.nome LIKE CONCAT(:searchWord, '%') OR a.cognome LIKE CONCAT(:searchWord, '%') OR a.ragioneSociale LIKE CONCAT(:searchWord, '%')")
+    List<Anagrafiche> getAnagraficheFromSearch(@Param("searchWord") String searchWord);
+
+
+
 
 
 }

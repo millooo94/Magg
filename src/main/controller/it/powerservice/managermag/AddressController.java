@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@org.springframework.web.bind.annotation.RestController
 public class AddressController {
     @Autowired
     NazioniService nazioniService;

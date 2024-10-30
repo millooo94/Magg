@@ -681,7 +681,6 @@
 /* CUSTOM COMBOBOX */
 
 .z-combobox-button {
-    top: 4px;
 
     display: flex;
     justify-content: center;
@@ -713,4 +712,79 @@
     left: 18px;
     font-size: 18px;
     color: #6E6E6E
+}
+
+.search-box {
+    position: relative;
+}
+.search-panel {
+    position: absolute;
+    right: 1px;
+    z-index: 100;
+
+    display: flex;
+
+
+    width: 700px;
+    height: 500px;
+
+    background: white;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.search-panel > .sidebar {
+    display: flex;
+    flex-direction: column;
+
+    width: 250px;
+
+    padding: .5rem;
+
+    background: #ececed;
+}
+
+.search-panel > .main {
+    flex-grow: 1;
+    display: flex;
+
+    width: 100%;
+
+    padding: .5rem 1rem;
+}
+
+.search-panel > .sidebar > * {
+    padding-inline: .5rem;
+    border-radius: 4px;
+
+    cursor: pointer
+}
+.search-panel > .sidebar > *:hover {
+        background: #b2b3b4;
+}
+
+.active-item {
+    background: blue;
+}
+
+.active-item span, .active-item i {
+    color: white;
+}
+
+.sidebar > *.active-item:hover {
+    background-color: blue;
+    color: white;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+    padding: .5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.search-result:hover {
+        background: #b2b3b4;
 }

@@ -71,7 +71,6 @@ public class AnagraficheIndexViewModel {
     @Command
     public void onOpenAnagraficheMono(@BindingParam("type") String actionType) {
         Map<String, Object> params = new HashMap<>();
-        System.out.println("INDEX ===> " + tipiAnagrafiche.get(selectedTipoAnagraficaIndex));
         switch (actionType) {
             case "EDIT":
                 params.put("anagraficaToSave", selectedAnagrafica);
