@@ -2,7 +2,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="ANAGRAFICHE_INDEX" title="Anagrafiche" height="100%"
+    <window class="ANAGRAFICHE_INDEX" title="Anagrafiche" height="100%"
             apply="org.zkoss.bind.BindComposer"
             viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.AnagraficheIndexViewModel')"
     >
@@ -14,12 +14,35 @@
                           <label value="Elenco Anagrafiche"/>
                           <label value="Visualizza l'elenco delle anagrafiche presenti in magazzino"/>
                       </div>
-                      <div hflex="2" height="100%" style="display: flex; align-items: center;">
-                          <radiogroup style="display: flex; gap: .5rem;" model="@bind(vm.tipiAnagrafiche)" selectedIndex="@bind(vm.selectedTipoAnagraficaIndex)" onCheck="@command('onCheckTipoAnagrafica')">
-                              <template name="model" var="each">
-                                  <radio label="@bind(each.descrizione)" value="@bind(each.descrizione)"/>
-                              </template>
-                          </radiogroup>
+                      <div hflex="2" height="100%" style="display: flex; align-items: center; gap: 1rem">
+                          <checkbox style="display: flex; align-items: center"
+                                    checked="@bind(vm.ckClienti)"
+                                    onCheck="@command('onCheckTipoAnagrafica')"
+                                    label="Clienti"
+                                    />
+                          <checkbox style="display: flex; align-items: center"
+                                    checked="@bind(vm.ckFornitori)"
+                                    onCheck="@command('onCheckTipoAnagrafica')"
+                                    label="Fornitori"
+                                    />
+
+                          <checkbox style="display: flex; align-items: center"
+                                    checked="@bind(vm.ckTrasportatori)"
+                                    onCheck="@command('onCheckTipoAnagrafica')"
+                                    label="Trasportatori"
+                          />
+
+                          <checkbox style="display: flex; align-items: center"
+                                    checked="@bind(vm.ckAgenti)"
+                                    onCheck="@command('onCheckTipoAnagrafica')"
+                                    label="Agenti"
+                                    />
+
+                          <checkbox style="display: flex; align-items: center"
+                                    checked="@bind(vm.ckPersonale)"
+                                    onCheck="@command('onCheckTipoAnagrafica')"
+                                    label="Personale"
+                                    />
                       </div>
                         <div hflex="1" height="100%" style="display: flex; align-items: center">
                             <label>Optio labore molestiae voluptas aut explicabo ea facilis est accusantium in ducimus beatae autem assumenda</label>
@@ -32,26 +55,24 @@
                     </hlayout>
                 </vlayout>
             </north>
-            <center>
+            <center >
                 <vlayout vflex="1">
                     <listbox vflex="8" style="border-bottom: 1px solid lightgray" model="@bind(vm.anagrafiche)" >
                         <listhead>
-                            <listheader label="Id"/>
                             <listheader label="Codice"/>
+                            <listheader width="260px" label="Ragione Sociale"/>
                             <listheader label="Nome"/>
                             <listheader label="Cognome"/>
-                            <listheader label="Ragione Sociale"/>
                             <listheader label="Sesso"/>
                             <listheader label="Provincia"/>
                             <listheader label="Comune"/>
                         </listhead>
                         <template name="model" var="each">
                             <listitem visible="@bind(!each.eliminato)" onClick="@command('onClickAnagrafica', anagrafica=each)" onDoubleClick="@command('onOpenAnagraficheMono', type='EDIT')">
-                                <listcell label="@bind(each.id)"/>
                                 <listcell label="@bind(each.codice)"/>
+                                <listcell label="@bind(each.ragioneSociale eq null ? '' : each.ragioneSociale)"/>
                                 <listcell label="@bind(each.nome)"/>
                                 <listcell label="@bind(each.cognome)"/>
-                                <listcell label="@bind(each.ragioneSociale eq null ? '' : each.ragioneSociale)"/>
                                 <listcell label="@bind(each.sesso)"/>
                                 <listcell label="@bind(each.provinciaNascita)"/>
                                 <listcell label="@bind(each.comuneNascita)"/>
@@ -78,5 +99,9 @@
                 </div>
             </south>
         </borderlayout>
+
+        <script>
+
+        </script>
     </window>
 </zk>

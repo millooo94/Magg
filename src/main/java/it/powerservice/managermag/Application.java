@@ -13,17 +13,23 @@ import java.io.InputStreamReader;
 @SpringBootApplication
 class Application extends SpringBootServletInitializer {
 
+    private static final boolean shouldBuild = false;
+
     public static void main(String[] args) throws IOException {
-        if (isPortValid()) {
-            System.out.println("La porta è 8084. Eseguendo i build...");
-            if (executeBuildCommands()) {
-                SpringApplication.run(Application.class, args);
+        if (shouldBuild) {
+            if (isPortValid()) {
+                System.out.println("La porta è 8084. Eseguendo i build...");
+                if (executeBuildCommands()) {
+                    SpringApplication.run(Application.class, args);
+                } else {
+                    System.err.println("Errore durante la build di Angular. L'applicazione Spring Boot non verrà avviata.");
+                }
             } else {
-                System.err.println("Errore durante la build di Angular. L'applicazione Spring Boot non verrà avviata.");
+                System.out.println("La porta non è 8084. Avvio dell'app senza build...");
+                SpringApplication.run(Application.class, args);
             }
         } else {
-            System.out.println(isPortValid());
-            System.out.println("La porta non è 8084. Avvio dell'applicazione senza build...");
+            System.out.println("La variabile shouldBuild è falsa. Avvio dell'app senza build...");
             SpringApplication.run(Application.class, args);
         }
     }
@@ -61,7 +67,6 @@ class Application extends SpringBootServletInitializer {
 
             int exitCode = process.waitFor();
             System.out.println("Codice di uscita per " + angularProject + ": " + exitCode);
-            System.out.println("Aggiunto qui di nuovo");
 
             return exitCode == 0;
         } catch (IOException | InterruptedException e) {
@@ -69,5 +74,4 @@ class Application extends SpringBootServletInitializer {
             return false;
         }
     }
-
 }

@@ -3,6 +3,10 @@ package it.powerservice.managermag;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Comment;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Entity
 @Table(name = "indirizzi")
@@ -25,14 +29,14 @@ public class Indirizzi implements Cloneable {
     String nazione;
     @Column(name = "indirizzo", length = 255, nullable = false, columnDefinition = "VARCHAR(255) NOT NULL")
     String indirizzo;
+    @Column(name = "regione", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
+    String regione;
     @Column(name = "provincia", length = 10, columnDefinition = "VARCHAR(10) NULL DEFAULT NULL")
     String provincia;
     @Column(name = "comune", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
     String comune;
     @Column(name = "frazione", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
     String frazione;
-    @Column(name = "regione", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
-    String regione;
     @Column(name = "cap", length = 20, columnDefinition = "VARCHAR(20) NULL DEFAULT NULL")
     String cap;
     @Column(name = "codsdi", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
@@ -59,6 +63,15 @@ public class Indirizzi implements Cloneable {
     String recapitoReferente;
     @Column(name = "notes", columnDefinition = "MEDIUMTEXT NULL DEFAULT NULL")
     String notes;
+    @Column(name = "piva", length = 100, columnDefinition = "VARCHAR(100) NOT NULL")
+    String pIva;
+    @Column(name = "codicefiscale", length = 100, columnDefinition = "VARCHAR(100) NOT NULL")
+    String codiceFiscale;
+
+    @Column(name = "provadata", columnDefinition = "DATE NOT NULL")
+    Date provaData;
+
+
 
     @Transient
     private Boolean selected = false;
@@ -283,6 +296,30 @@ public class Indirizzi implements Cloneable {
         this.checked = checked;
     }
 
+    public String getpIva() {
+        return pIva;
+    }
+
+    public void setpIva(String pIva) {
+        this.pIva = pIva;
+    }
+
+    public String getCodiceFiscale() {
+        return codiceFiscale;
+    }
+
+    public void setCodiceFiscale(String codiceFiscale) {
+        this.codiceFiscale = codiceFiscale;
+    }
+
+    public Date getProvaData() {
+        return provaData;
+    }
+
+    public void setProvaData(Date provaData) {
+        this.provaData = provaData;
+    }
+
     @Override
     public String toString() {
         return "Indirizzi{" +
@@ -302,6 +339,7 @@ public class Indirizzi implements Cloneable {
                 ", telefono1='" + telefono1 + '\'' +
                 ", telefono2='" + telefono2 + '\'' +
                 ", telefono3='" + telefono3 + '\'' +
+                ", cellulare='" + cellulare + '\'' +
                 ", fax='" + fax + '\'' +
                 ", email='" + email + '\'' +
                 ", pec='" + pec + '\'' +
@@ -309,6 +347,9 @@ public class Indirizzi implements Cloneable {
                 ", referente='" + referente + '\'' +
                 ", recapitoReferente='" + recapitoReferente + '\'' +
                 ", notes='" + notes + '\'' +
+                ", pIva='" + pIva + '\'' +
+                ", codiceFiscale='" + codiceFiscale + '\'' +
+                ", provaData=" + provaData +
                 ", selected=" + selected +
                 ", checked=" + checked +
                 '}';

@@ -24,10 +24,23 @@ public class General {
         secondaryTabs.add(new TabRef("Dati Principali", "datiPrincipali"));
         secondaryTabs.add(new TabRef("Indirizzi/Sedi", "indirizziSedi"));
         secondaryTabs.add(new TabRef("Altri Dati", "altriDati"));
+        /*
         secondaryTabs.add(new TabRef("Agente", "agente"));
         secondaryTabs.add(new TabRef("Personale", "personale"));
         secondaryTabs.add(new TabRef("Trasportatore", "trasportatore"));
+         */
         return secondaryTabs;
+    }
+
+
+    public static ArrayList<CodDesc> getTipiAnagrafica() {
+        ArrayList<CodDesc> tipiAnagrafica = new ArrayList<>();
+        tipiAnagrafica.add(new CodDesc("C", "Clienti"));
+        tipiAnagrafica.add(new CodDesc("F", "Fornitori"));
+        tipiAnagrafica.add(new CodDesc("T", "Trasportatori"));
+        tipiAnagrafica.add(new CodDesc("A", "Agenti"));
+        tipiAnagrafica.add(new CodDesc("P", "Personale"));
+        return tipiAnagrafica;
     }
 
     public static ArrayList<CodDesc> getSoggetti() {

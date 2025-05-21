@@ -22,6 +22,10 @@
     background: #f4f4f4;
 }
 
+.MONO_ANAGRAFICHE .z-checkbox-content {
+    font-size: 14px
+}
+
 
 
 
@@ -344,4 +348,13 @@
     width: 179px !important;
     bottom: 251px;
     left: 276px;
+}
+
+.ANAGRAFICHE_INDEX .z-listcell-content {
+    justify-content: flex-start;
+    padding: 0 10px;
+}
+
+.ANAGRAFICHE_INDEX .z-center-body {
+    padding: 0;
 }

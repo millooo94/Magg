@@ -1,20 +1,17 @@
 package com.powerservice.managermag.anagrafiche;
 
 import com.powerservice.managermag.IndexViewModel;
-import com.powerservice.managermag.anagrafiche.events.IndirizzoSavedEvent;
 import com.powerservice.managermag.anagrafiche.utilities.General;
+import com.powerservice.managermag.datiAzienda.utilities.DatiAziendaListItem;
 import it.powerservice.managermag.*;
 import it.powerservice.managermag.customClass.CodDesc;
 import it.powerservice.managermag.customClass.GridColumn;
 import it.powerservice.managermag.customClass.TabRef;
-import it.powerservice.managermag.geography.*;
 import it.powerservice.managermag.utilities.PropertiesReader;
-import org.springframework.context.event.EventListener;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.*;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventQueues;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.Selectors;
@@ -26,12 +23,10 @@ import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 import org.zkoss.zul.*;
 import org.zkoss.zul.Window;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.sql.SQLException;
+import java.util.*;
 
 @VariableResolver(DelegatingVariableResolver.class)
 public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
@@ -52,6 +47,8 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     @Wire("#secondary-tabs")
     private Tabs secondaryTabs;
 
+    private String monoType;
+
     private Window window;
     private static AnagraficheIndexViewModel anagraficheIndexViewModel;
     private static IndexViewModel indexViewModel;
@@ -59,6 +56,8 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     private CodDesc tipoAnagrafica = null;
     private double rating = 2.5;
     private Anagrafiche anagraficaToSave = null;
+    private Indirizzi sedePrincipaleToSave = new Indirizzi();
+    private Indirizzi destinazioneBaseToSave = new Indirizzi();
     private List<CodDesc> status = new ArrayList<>();
     private int selectedStatusIndex = 0;
 
@@ -81,6 +80,7 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     private int selectedTipoIndirizzoIndex = 0;
 
 
+
     public static Window apriPopup(AnagraficheIndexViewModel parentModel, Map<String, Object> params) {
         anagraficheIndexViewModel = parentModel;
         Window window = (Window) Executions.createComponents(
@@ -96,6 +96,7 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     }
 
 
+
     @Init
     private void init() throws IOException {
         PropertiesReader.setURI();
@@ -103,6 +104,9 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
         Map<?, ?> args = Executions.getCurrent().getArg();
         anagraficaToSave = (Anagrafiche) args.get("anagraficaToSave");
         tipoAnagrafica = new CodDesc((String) args.get("tipoAnagrafica"), General.setTipoAnagrafica((String) args.get("tipoAnagrafica")));
+        monoType = (String) args.get(("monoType"));
+
+        System.out.println();
 
         initMainTabs();
         initSecondaryTabs();
@@ -130,8 +134,8 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     }
     @Command
     @NotifyChange({"anagraficaToSave", "ragioneSocialeDisabled"})
-    public void onSelectSoggetto() {
-        if (soggetti.get(selectedSoggettoIndex).getCodice().equals("P") || soggetti.get(selectedSoggettoIndex).getCodice().equals("EP")) {
+    public void onSelectSoggetto(@BindingParam("selectedItem") CodDesc selectedItem) {
+        if ("P".equals(selectedItem.getCodice()) || "EP".equals(selectedItem.getCodice())) {
             anagraficaToSave.setRagioneSociale("");
             ragioneSocialeDisabled = true;
         } else {
@@ -200,8 +204,20 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
 
     @Command
     public void onCloseModal() {
-        if (window != null) {
-            window.detach();
+        try {
+            if (indexViewModel != null) {
+                indexViewModel.onSearch();
+            } else {
+                System.err.println("indexViewModel è null, impossibile chiamare onSearch()");
+            }
+
+            if (window != null) {
+                window.detach();
+            } else {
+                System.err.println("La finestra non è stata inizializzata.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Errore durante l'esecuzione di onSearch(): " + e.getMessage());
         }
     }
 
@@ -226,6 +242,9 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
 
     /////////////// SECONDARY TABS TABS METHODS ///////////////
     public void initSecondaryTabs() {
+
+        System.out.println("SIAMO QUIII");
+
         initSoggetti();
         initSessi();
         initIndirizzi();
@@ -234,26 +253,42 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     public void initSoggetti() {
         soggetti = General.getSoggetti();
 
-        for (CodDesc s: soggetti) {
-            if (s.getCodice().equals(anagraficaToSave.getSoggetto())) {
-                selectedSoggettoIndex = soggetti.indexOf(s);
-                break;
+        if (monoType.equals("EDIT")) {
+            for (CodDesc s: soggetti) {
+                if (s.getCodice().equals(anagraficaToSave.getSoggetto())) {
+                    selectedSoggettoIndex = soggetti.indexOf(s);
+                    break;
+                }
             }
+        } else {
+            selectedSoggettoIndex = 0;
         }
+
         ragioneSocialeDisabled = anagraficaToSave.getSoggetto().equals("P") || anagraficaToSave.getSoggetto().equals("EP");
+
+        System.out.println("ANA ==> " + anagraficaToSave);
     }
 
     public  void initSessi() {
         sessi = General.getSessi();
-        for (CodDesc s: sessi) {
-            if (anagraficaToSave.getSesso() != null && anagraficaToSave.getSesso().equals(s.getCodice())) {
-                selectedSessoIndex = sessi.indexOf(s);
+
+        if (monoType.equals("EDIT")) {
+            for (CodDesc s: sessi) {
+                if (anagraficaToSave.getSesso() != null && anagraficaToSave.getSesso().equals(s.getCodice())) {
+                    selectedSessoIndex = sessi.indexOf(s);
+                }
             }
+        } else {
+            selectedSessoIndex = 0;
         }
+
     }
 
     public  void initIndirizzi() {
-        indirizzi = indirizziService.getIndirizziFromIdAnagrafica(anagraficaToSave.getId());
+        if (monoType.equals("EDIT"))
+        {
+            indirizzi = indirizziService.getIndirizziFromIdAnagrafica(anagraficaToSave.getId());
+        }
 
         tipiIndirizzo = General.getTipiIndirizzo();
     }
@@ -295,12 +330,14 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     }
 
     public void generateIndirizziColumns() {
+        /*
         List<GridColumn> indirizziColumnRefs = General.getIndirizziColumns();
         for (GridColumn columnRef: indirizziColumnRefs) {
             Column column = new Column(columnRef.getLabel());
             column.setWidth(columnRef.getWidth());
             indirizziColumns.appendChild(column);
         }
+         */
     }
 
     public  void initTipoIndirizzo() {
@@ -311,15 +348,28 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
             }
         }
     }
+    @Command
+    public void onSave() throws NoSuchFieldException, IllegalAccessException {
+        anagraficheService.saveAnagrafica(anagraficaToSave);
+    }
 
 
     public CodDesc getTipoAnagrafica() {
         return tipoAnagrafica;
     }
 
+    public Indirizzi getSedePrincipaleToSave() {
+        return sedePrincipaleToSave;
+    }
+
+    public Indirizzi getDestinazioneBaseToSave() {
+        return destinazioneBaseToSave;
+    }
+
     public Anagrafiche getAnagraficaToSave() {
         return anagraficaToSave;
     }
+
     public List<CodDesc> getStatus() {
         return status;
     }
@@ -393,6 +443,10 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
         return anagraficaToSave.getCognome() + " " + anagraficaToSave.getNome();
     }
 
+    public String getMonoType() {
+        return monoType;
+    }
+
     private Boolean sedePrincipaleOnServer = false;
     private Boolean selectedIndirizzoOnServer = false;
 
@@ -409,6 +463,10 @@ public class AnagraficheMonoViewModel extends SelectorComposer<Window> {
     @Command
     public void onWindowClicked() {
         Clients.evalJavaScript("localStorage.setItem('windowClicked', 'true');");
+    }
+
+    public static void test() {
+        System.out.println("Ciaoooooooooooo");
     }
 }
 

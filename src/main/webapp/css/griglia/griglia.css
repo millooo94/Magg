@@ -1,0 +1,132 @@
+.GRIGLIA_INDEX .grid-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 0.5rem;
+}
+
+.GRIGLIA_INDEX .grid-header button {
+    color: #212529; /* Testo scuro per contrasto */
+    border: none; /* Nessun bordo */
+    border-radius: 8px; /* Angoli arrotondati */
+    padding: 10px 20px; /* Spaziatura interna */
+    font-size: 14px; /* Dimensione del testo */
+    font-weight: bold; /* Testo in grassetto */
+    text-transform: uppercase; /* Tutto maiuscolo */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra per effetto 3D */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Animazioni fluide */
+}
+
+/* Specifici colori di base per i pulsanti */
+.GRIGLIA_INDEX .grid-header .group {
+    background: #4169E1; /* Royal Blue */
+}
+
+.GRIGLIA_INDEX .grid-header .sort {
+    background: #ffc107; /* Giallo brillante */
+}
+
+.GRIGLIA_INDEX .grid-header .select {
+    background: #50C878; /* Verde smeraldo */
+}
+
+/* Hover specifici per ciascun pulsante */
+.GRIGLIA_INDEX .grid-header .group:hover {
+    background-color: #365ac0; /* Blu più scuro */
+}
+
+.GRIGLIA_INDEX .grid-header .sort:hover {
+    background-color: #e0a800; /* Giallo più scuro */
+}
+
+.GRIGLIA_INDEX .grid-header .select:hover {
+    background-color: #45b06f; /* Verde più scuro */
+}
+
+/* Effetti "active" per ciascun pulsante */
+.GRIGLIA_INDEX .grid-header .group:active {
+    background-color: #2e4da0; /* Blu ancora più scuro */
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2); /* Riduce l'ombra */
+    transform: translateY(1px); /* Effetto di pressione */
+}
+
+.GRIGLIA_INDEX .grid-header .sort:active {
+    background-color: #d39e00; /* Giallo ancora più scuro */
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2); /* Riduce l'ombra */
+    transform: translateY(1px); /* Effetto di pressione */
+}
+
+.GRIGLIA_INDEX .grid-header .select:active {
+    background-color: #3f9e63; /* Verde ancora più scuro */
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2); /* Riduce l'ombra */
+    transform: translateY(1px); /* Effetto di pressione */
+}
+
+.GRIGLIA_INDEX .group-dropdown, .sort-dropdown, .select-dropdown {
+    position: absolute; /* Per rendere il menu dropdown flottante */
+    top: 100%; /* Posizionarlo sotto il bottone */
+    left: 0;
+    background: #fff; /* Sfondo bianco */
+    border: 1px solid #ddd; /* Bordo leggero */
+    border-radius: 8px; /* Angoli arrotondati */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    display: block; /* Nascondere il dropdown di default */
+    width: 400px; /* Imposta una larghezza per il dropdown */
+    z-index: 1;
+}
+
+.GRIGLIA_INDEX .sort-dropdown {
+    width: 230px;
+}
+
+.GRIGLIA_INDEX .sort-dropdown > div:nth-child(2)  {
+    padding: 10px;
+}
+
+.GRIGLIA_INDEX .dropdown-option {
+    display: flex; /* Disposizione flessibile per allineare checkbox e label */
+    align-items: center; /* Centrare verticalmente */
+    gap: 10px; /* Spaziatura tra checkbox e label */
+}
+
+.GRIGLIA_INDEX .dropdown-option:last-child {
+    margin-bottom: 0; /* Rimuove il margine per l'ultima opzione */
+}
+
+
+.GRIGLIA_INDEX .dropdown-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: .5rem;
+    border-radius: 8px 8px 0 0;
+    background: #f1f1f1b8
+}
+
+
+.GRIGLIA_INDEX .dropdown-footer {
+    margin-top: 10px; /* Distanza tra l'ultima checkbox e il footer */
+    display: flex;
+    justify-content: flex-end; /* Sposta il bottone a destra */
+    background-color: #f1f1f1; /* Colore grigio chiaro per il footer */
+    padding: 8px 16px; /* Padding per creare spazio attorno */
+    border-top: 1px solid #ddd; /* Bordo superiore per separare dalle checkbox */
+    border-radius: 0 0 8px 8px; /* Angoli arrotondati solo sul fondo */
+}
+
+
+.GRIGLIA_INDEX .dropdown-footer button {
+    background-color: #4169E1; /* Blu per il bottone */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.GRIGLIA_INDEX .dropdown-footer button:hover {
+    background-color: #3659b8; /* Colore più scuro al passaggio del mouse */
+}

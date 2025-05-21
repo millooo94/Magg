@@ -4,6 +4,7 @@ public class CodDesc{
     private String codice;
     private String descrizione;
 
+
     public CodDesc(String codice, String descrizione) {
         this.codice = codice;
         this.descrizione = descrizione;

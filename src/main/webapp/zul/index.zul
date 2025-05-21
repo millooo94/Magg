@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                                         <div style="display: flex; align-items: center; gap: 1rem">
-                                            <h:i class="fa-solid fa-download"/>
+                                            <h:i class="fa-solid fa-user"/>
                                             <div>Anagrafiche</div>
                                         </div>
                                     </div>
@@ -347,6 +347,11 @@
                 </div>
             </div>
         </div>
+
+        <script>
+
+
+        </script>
 
     </window>
 </zk>

@@ -1,4 +1,5 @@
 package com.powerservice.managermag.categorie;
+
 import com.powerservice.managermag.categorie.utilities.CategorieModalCloseListener;
 import com.powerservice.managermag.categorie.utilities.CategorieTreeNode;
 import it.powerservice.managermag.*;
@@ -34,12 +35,13 @@ public class CategorieIndexViewModel {
     @Init
     public void init() throws SQLException {
         categoryRoot = categorieService.getCategoriesRoot();
+        System.out.println("CATEGORY ROOT ===>" + categoryRoot);
     }
 
     @AfterCompose
     public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws SQLException {
         Selectors.wireComponents(view, this, false);
-        loadCategories(11L, treeRootChildren);
+        loadCategories(categoryRoot.getId(), treeRootChildren);
     }
 
     private void loadCategories(Long parentId, Treechildren parentTreeChildren) throws SQLException {
@@ -50,7 +52,7 @@ public class CategorieIndexViewModel {
             Treerow treeRow = new Treerow();
             Treecell treeCell = new Treecell();
             treeCell.setLabel(c.getDescrizione());
-            treeCell.setId(c.getId().toString());
+            treeCell.setAttribute("categoryId", c.getId());
             treeRow.appendChild(treeCell);
             treeItem.appendChild(treeRow);
             parentTreeChildren.appendChild(treeItem);
@@ -59,37 +61,35 @@ public class CategorieIndexViewModel {
             treeItem.setDroppable("true");
 
             treeItem.addEventListener("onDrop", event -> {
-
                 CategorieRif categoriaRif = null;
 
                 Component draggedComponent = ((DropEvent) event).getDragged();
 
                 if (draggedComponent instanceof Treeitem) {
                     Treeitem draggedItem = (Treeitem) draggedComponent;
-
                     Treerow draggedRow = draggedItem.getTreerow();
                     if (draggedRow != null) {
                         Treecell draggedCell = (Treecell) draggedRow.getFirstChild();
-                        String draggedLabel = draggedCell.getLabel();
-                        long draggedId = Long.parseLong(draggedCell.getId());
-                        categoriaRif = categorieRifService.getCategoriaRifFromIdCategoriaArrivo(draggedId);
-                        System.out.println("CATEGORIA RIF " + categoriaRif);
-                        System.out.println("Label of dragged Treecell: " + draggedLabel + " " + draggedId);
+                        Object draggedIdAttr = draggedCell.getAttribute("categoryId");
+                        if (draggedIdAttr instanceof Long) {
+                            long draggedId = (Long) draggedIdAttr;
+                            categoriaRif = categorieRifService.getCategoriaRifFromIdCategoriaArrivo(draggedId);
+                        }
                     }
                 }
+
                 Component targetComponent = event.getTarget();
                 if (targetComponent instanceof Treeitem) {
                     Treeitem targetItem = (Treeitem) targetComponent;
                     Treerow targetRow = targetItem.getTreerow();
-                    if(targetRow != null) {
+                    if (targetRow != null) {
                         Treecell targetCell = (Treecell) targetRow.getFirstChild();
-                        String targetLabel = targetCell.getLabel();
-                        long targetId = Long.parseLong(targetCell.getId());
-                        if (categoriaRif != null) {
+                        Object targetIdAttr = targetCell.getAttribute("categoryId");
+                        if (targetIdAttr instanceof Long && categoriaRif != null) {
+                            long targetId = (Long) targetIdAttr;
                             categoriaRif.setIdCategoriaPartenza(targetId);
                             categorieRifService.updateCategorieRif(categoriaRif);
                         }
-                        System.out.println("Label of target Treecell: " + targetLabel + " " + targetId);
                         refreshTreeModel();
                     }
                 }
@@ -112,22 +112,30 @@ public class CategorieIndexViewModel {
                     }
                 });
             }
+
             treeItem.addEventListener("onClick", event -> {
                 currentCategoryId = c.getId();
                 BindUtils.postNotifyChange(null, null, this, "currentCategoryId");
             });
-
         }
     }
 
     public void onRootCategoryDrop(@BindingParam("event") DropEvent event) throws SQLException {
         CategorieRif categoriaRif = null;
         Component draggedComponent = ((DropEvent) event).getDragged();
-        Treeitem draggedItem = (Treeitem) draggedComponent;
-        Treerow draggedRow = draggedItem.getTreerow();
-        Treecell draggedCell = (Treecell) draggedRow.getFirstChild();
-        long draggedId = Long.parseLong(draggedCell.getId());
-        categoriaRif = categorieRifService.getCategoriaRifFromIdCategoriaArrivo(draggedId);
+
+        if (draggedComponent instanceof Treeitem) {
+            Treeitem draggedItem = (Treeitem) draggedComponent;
+            Treerow draggedRow = draggedItem.getTreerow();
+            if (draggedRow != null) {
+                Treecell draggedCell = (Treecell) draggedRow.getFirstChild();
+                Object draggedIdAttr = draggedCell.getAttribute("categoryId");
+                if (draggedIdAttr instanceof Long) {
+                    long draggedId = (Long) draggedIdAttr;
+                    categoriaRif = categorieRifService.getCategoriaRifFromIdCategoriaArrivo(draggedId);
+                }
+            }
+        }
 
         if (categoriaRif != null) {
             categoriaRif.setIdCategoriaPartenza(categoryRoot.getId());
@@ -135,14 +143,11 @@ public class CategorieIndexViewModel {
             refreshTreeModel();
         }
     }
-    public void onRootCategoryClicked()  {
+
+    public void onRootCategoryClicked() {
         currentCategoryId = categoryRoot.getId();
         BindUtils.postNotifyChange(null, null, this, "currentCategoryId");
     }
-
-
-
-
 
     @Command
     public void onCreateOrUpdateCategory(@BindingParam("action") String action) {
@@ -152,11 +157,13 @@ public class CategorieIndexViewModel {
         } catch (IllegalArgumentException e) {
             actionType = null;
         }
+
         Map<String, Object> params = new HashMap<>();
         params.put("parentCategoryId", currentCategoryId);
         params.put("action", actionType);
 
-        CategorieShowViewModel.apriPopup(this, params, action, currentCategoryId).addEventListener(Events.ON_CLOSE, new CategorieModalCloseListener(this));
+        CategorieShowViewModel.apriPopup(this, params, action, currentCategoryId)
+                .addEventListener(Events.ON_CLOSE, new CategorieModalCloseListener(this));
     }
 
     public void deleteCategory() {
@@ -164,16 +171,17 @@ public class CategorieIndexViewModel {
         refreshTreeModel();
     }
 
-
     public void refreshTreeModel() {
         treeRootChildren.getChildren().clear();
         try {
-            loadCategories(11L, treeRootChildren);
+            loadCategories(categoryRoot.getId(), treeRootChildren);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        BindUtils.postNotifyChange(null, null, this, "treeRootChildren"); // Notifica il binding
+        BindUtils.postNotifyChange(null, null, this, "treeRootChildren");
     }
+
+
     @Command
     public void onDeleteCategory() {
         refreshTreeModel();
@@ -187,6 +195,3 @@ public class CategorieIndexViewModel {
         return currentCategoryId;
     }
 }
-
-
-

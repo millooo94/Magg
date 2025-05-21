@@ -18,16 +18,16 @@
                             </treerow>
                             <treechildren id="treeRootChildren"/>
                         </treeitem>
-                            </treechildren>
-                        </tree>
-                    </h:main>
-                    <h:footer  class="modal-footer">
-                        <button class="delete-button" onClick="@command('deleteCategory')" visible="@load(vm.currentCategoryId)">Elimina</button>
-                        <div style="display: flex; gap: 1rem;">
-                            <button onClick="@command('onCreateOrUpdateCategory', action='CREATE')" visible="@load(vm.currentCategoryId)" class="save-button">Nuova</button>
-                            <button onClick="@command('onCreateOrUpdateCategory', action='UPDATE')" visible="@load(vm.currentCategoryId)" class="edit-button">Modifica</button>
-                        </div>
-                    </h:footer>
+                    </treechildren>
+                </tree>
+            </h:main>
+            <h:footer  class="modal-footer">
+                <button class="delete-button" onClick="@command('deleteCategory')" visible="@load(vm.currentCategoryId)">Elimina</button>
+                <div style="display: flex; gap: 1rem;">
+                    <button onClick="@command('onCreateOrUpdateCategory', action='CREATE')" visible="@load(vm.currentCategoryId)" class="save-button">Nuova</button>
+                    <button onClick="@command('onCreateOrUpdateCategory', action='UPDATE')" visible="@load(vm.currentCategoryId)" class="edit-button">Modifica</button>
+                </div>
+            </h:footer>
                 </div>
             </window>
         </zk>

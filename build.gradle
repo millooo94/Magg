@@ -47,7 +47,7 @@ dependencies {
     /*  per fare a prova devi togliere i commenti qui sotto, sia all'exclure che all'implementation
     *   poi fare il refresh di gradle ed in bootrun ti darà l'iltimo errore  a cui revamo arrivati
     *   cioè di class not found e vedi di lavorare per aggiungerla manualmente nella versione che
-    *   invece c'era prima 
+    *   invece c'era prima
     *  */
 
     implementation 'org.springframework.boot:spring-boot-starter-web:3.3.0'
@@ -104,3 +104,61 @@ configurations {
     all*.exclude group: "org.slf4j", module: "log4j-over-slf4j"
     all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

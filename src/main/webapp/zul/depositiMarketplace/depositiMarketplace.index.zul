@@ -2,7 +2,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="DEPOSITI_MARKETPLACE_INDEX" mode="popup" title="Depositi Marketplace"  width="1200px"
+    <window id="DEPOSITI_MARKETPLACE_INDEX" mode="popup" title="Depositi Marketplace"  width="1200px" height="900px"
             apply="org.zkoss.bind.BindComposer"
             position="top,center" closable="true"
             viewModel="@id('vm') @init('com.powerservice.managermag.depositiMarketplace.DepositiMarketplaceIndexViewModel')">

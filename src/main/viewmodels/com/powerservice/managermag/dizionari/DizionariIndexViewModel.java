@@ -91,4 +91,6 @@ public class DizionariIndexViewModel {
     public void setSaveButtonDisabled(Boolean saveButtonDisabled) {
         this.saveButtonDisabled = saveButtonDisabled;
     }
+
+
 }

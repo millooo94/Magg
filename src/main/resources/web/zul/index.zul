@@ -1,21 +1,19 @@
 <?link rel="stylesheet" type="text/css" href="/css/index.css" ?>
-<?link  rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous"
+<?link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous"
         referrerpolicy="no-referrer" ?>
 <?link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" ?>
 <?link rel="preconnect" href="https://fonts.googleapis.com" ?>
 <?link rel="preconnect" href="https://fonts.gstatic.com" crossorigin ?>
 <?link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap"
         rel="stylesheet" ?>
-
 <?link rel="stylesheet" href="css/pq/pqgrid.dev.css" ?>
 <?link rel="stylesheet" href="css/pq/pqgrid.min.css" ?>
 <?link rel="stylesheet" href="css/pq/pqgrid.ui.min.css" ?>
 
 
-<?script src="js/index.js"?>
 
 
 <zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
@@ -35,58 +33,65 @@
                         <h:i class="menu-icon  fa-solid fa-bars"/>
                     </div>
                     <div class="controls">
-                        <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
+                        <h:div class="globe menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-globe"/>
-                        </h:span>
+                        </h:div>
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-magnifying-glass"/>
                         </h:span>
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
-                            <h:i class="fa-solid fa-comment"/>
+                            <h:i class="fa-solid fa-comment" onclick="@command('openModal')"/>
                         </h:span>
                         <h:span class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;">
                             <h:i class="fa-solid fa-download"/>
                         </h:span>
                         <div class="search-box">
-                            <textbox value="@bind(vm.searchValue)" onChange="@command('onSearch')" instant="true"/>
-                            <div class="search-panel" visible="@bind(vm.searchPanelVisible)">
-                                <div class="sidebar">
+                            <textbox id="searchBar" value="@bind(vm.searchValue)" onChange="@command('onSearch')" instant="true"/>
+                            <div id="searchPanel" class="search-panel" visible="@bind(vm.searchPanelVisible)">
+                            <div class="sidebar">
                                     <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.allCategoriesClicked ? 'active-item' : '')" onClick="@command('onSectionClicked', event=event, id='categoryLabel1')">
                                         <div style="display: flex; align-items: center; gap: 1rem">
-                                            <h:i class="fa-solid fa-download"/>
+                                            <h:i class="fa-solid fa-globe"/>
                                             <label id="categoryLabel1">Tutte le categorie</label>
                                         </div>
                                     </div>
-                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.anagraficheClicked ? 'active-item' : '')" onClick="@command('onSectionClicked', event=event, id='categoryLabel2')">
+                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.anagraficheClicked ? 'active-item' : '')" visible="@bind(vm.anagraficheCount > 0)" onClick="@command('onSectionClicked', event=event, id='categoryLabel2')">
                                         <div style="display: flex; align-items: center; gap: 1rem">
-                                            <h:i class="fa-solid fa-download"/>
-                                            <label id="categoryLabel2">Anagrafiche</label>
+                                            <h:i class="fa-solid fa-user"/>
+                                            <div style="display: flex; align-items: center; gap: .3rem">
+                                                <label id="categoryLabel2" value="Anagrafiche"/>
+                                                <div style="display: flex; align-items: center;">
+                                                    <label>(</label>
+                                                    <label value="@bind(vm.anagraficheCount)"/>
+                                                    <label>)</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.prodottiClicked ? 'active-item' : '')" onClick="@command('onSectionClicked', event=event, id='categoryLabel3')">
-                                        <div style="display: flex; align-items: center; gap: 1rem">
-                                            <h:i class="fa-solid fa-download"/>
-                                            <label id="categoryLabel3">Prodotti</label>
+                                <div class="menu-icon" style="color:rgb(30, 41, 59); font-size: 20px;" sclass="@bind(vm.listiniClicked ? 'active-item' : '')" visible="@bind(vm.listiniCount > 0)" onClick="@command('onSectionClicked', event=event, id='categoryLabel4')">
+                                    <div style="display: flex; align-items: center; gap: 1rem">
+                                        <h:i class="fa-solid fa-list"/>
+                                        <div style="display: flex; align-items: center; gap: .3rem">
+                                            <label id="categoryLabel4" value="Listini"/>
+                                            <div style="display: flex; align-items: center;">
+                                                <label>(</label>
+                                                <label value="@bind(vm.listiniCount)"/>
+                                                <label>)</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                </div>
                                 <div class="main">
-                                    <div style="width: 100%;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center">
                                         <label value="@bind(vm.searchMessage)"/>
-                                        <div id="search-item-container" style="display: flex; flex-direction: column; width: 100%;">
-                                            <div class="search-result">
-                                                <h:i class="fa-solid fa-download"/>
-                                                <label>Marco Grasso</label>
-                                            </div>
-                                            <div class="search-result" style="display: flex; align-items: center; gap: 3rem; width: 100%;">
-                                                <h:i class="fa-solid fa-download"/>
-                                                <label>Marco Grasso</label>
-                                            </div>
-                                            <div class="search-result" style="display: flex; align-items: center; gap: 3rem; width: 100%;">
-                                                <h:i class="fa-solid fa-download"/>
-                                                <label>Marco Grasso</label>
+                                        <div style="padding: .8rem;">
+                                            <div style="display: flex; justify-content: center; align-items: center; width: 30px; height: 30px; border-radius: 50%; border: 1px solid red; cursor: pointer;" onClick="@command('onCloseSearchPanel')">
+                                                <h:i style="font-size: 18px; color: red" class="fa-solid fa-xmark"/>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div id="search-item-container" style="height: 100%; overflow-y: scroll; overflow-x: hidden">
 
                                     </div>
                                 </div>
@@ -123,51 +128,51 @@
                                     <div class="name">Categorie</div>
                                 </div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='varianti')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Varianti</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='listini')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Listini</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='datiAzienda')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Dati Azienda</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='depositi')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Depositi</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='marketplace')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Marketplace</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='marche')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Marche</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='depositiMarketplace')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Depositi Marketplace</div>
                                 </h:div>
                                 <h:div class="nav-item" onClick="@command('onOpenModal', modal='tipologiePagamenti')">
-                                    <span style="color: #ddd">
+                                    <h:span style="color: #ddd">
                                         <h:i class="fa-solid fa-city"></h:i>
-                                    </span>
+                                    </h:span>
                                     <div class="name">Tipologie Pagamenti</div>
                                 </h:div>
                             </h:nav>
@@ -241,7 +246,7 @@
             </div>
             <div class="content">
                 <div class="container">
-                    <include src="/zul/anagrafiche/anagrafiche.index.zul" />
+                    <include src="@bind(vm.mainPath)"/>
                 </div>
             </div>
             <div class="right-sidebar" zclass="@bind(vm.isRightSidebarOpen ? 'right-sidebar-collapsed' : '')">
@@ -347,7 +352,7 @@
                                 </div>
                                 <div class="nav-item">
                                     <h:span style="color: #ddd">
-                                        <h:i class="fa-solid fa-city"></h:i>
+                                        <h:i class="fa-solid fa-city"/>
                                     </h:span>
                                     <div class="name">Opzione 4</div>
                                 </div>
@@ -357,12 +362,19 @@
                 </div>
             </div>
             <div class="footer">
-                <div class="container">
+                <div  class="container">
                     ManagerMag Plus V.1.0.0
                 </div>
             </div>
         </div>
+
+
+
+
+
     </window>
+
 </zk>
+
 
 

@@ -17,4 +17,8 @@ public class ListiniService {
         listiniRepository.save(listino);
     }
 
+    public List<Listini> getListiniFromSearch(String searchWord) {
+        return listiniRepository.getListiniFromSearch(searchWord);
+    }
+
 }

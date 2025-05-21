@@ -15,3 +15,5 @@ public class CorsConfig implements WebMvcConfigurer {
                 .allowCredentials(true); // Se usi cookie o autenticazione
     }
 }
+
+

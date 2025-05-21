@@ -1,6 +1,7 @@
 package com.powerservice.managermag.anagrafiche;
 
 import com.powerservice.managermag.anagrafiche.utilities.AnagraficheMonoCloseListener;
+import com.powerservice.managermag.anagrafiche.utilities.General;
 import it.powerservice.managermag.Anagrafiche;
 import it.powerservice.managermag.AnagraficheService;
 import it.powerservice.managermag.customClass.CodDesc;
@@ -29,7 +30,7 @@ public class AnagraficheIndexViewModel {
 
     @WireVariable
     AnagraficheService anagraficheService;
-    private List<CodDesc> tipiAnagrafiche = new ArrayList<>();
+    private List<CodDesc> tipiAnagrafica = new ArrayList<>();
     private List<Anagrafiche> anagrafiche = new ArrayList<>();
     private Anagrafiche selectedAnagrafica = null;
     private Integer selectedTipoAnagraficaIndex = 0;
@@ -37,17 +38,22 @@ public class AnagraficheIndexViewModel {
     private Boolean editButtonDisabled = true;
     private Boolean removeButtonDisabled = true;
 
+    private boolean ckClienti = false;
+    private boolean ckFornitori = false;
+    private boolean ckTrasportatori = true;
+    private boolean ckAgenti = false;
+    private boolean ckPersonale = false;
 
     @Init
     public void init() {
-        initTipiAnagrafiche();
-        initAnagrafiche(selectedTipoAnagraficaIndex);
+        tipiAnagrafica = General.getTipiAnagrafica();
+        initAnagrafiche(ckClienti, ckFornitori, ckTrasportatori, ckAgenti, ckPersonale);
     }
 
     @Command
     @NotifyChange({"anagrafiche"})
     public void onCheckTipoAnagrafica() {
-        initAnagrafiche(selectedTipoAnagraficaIndex);
+        initAnagrafiche(ckClienti, ckFornitori, ckTrasportatori, ckAgenti, ckPersonale);
     }
     @Command
     @NotifyChange({"selectedAnagrafica", "editButtonDisabled", "removeButtonDisabled"})
@@ -55,17 +61,15 @@ public class AnagraficheIndexViewModel {
         selectedAnagrafica = anagrafica;
         editButtonDisabled = false;
         removeButtonDisabled = false;
-
-        String script = "localStorage.setItem('idAnagrafica', '" + anagrafica.getId() + "');";
-        Clients.evalJavaScript(script);
     }
+
     @Command
     @NotifyChange({"anagrafiche", "removeButtonDisabled"})
     public void onDeleteAnagrafica() {
         selectedAnagrafica.setEliminato(true);
         anagraficheService.saveAnagrafica(selectedAnagrafica);
         removeButtonDisabled = true;
-        initAnagrafiche(selectedTipoAnagraficaIndex);
+        initAnagrafiche(ckClienti, ckFornitori, ckTrasportatori, ckPersonale, ckAgenti);
     }
 
     @Command
@@ -75,32 +79,28 @@ public class AnagraficheIndexViewModel {
             case "EDIT":
                 params.put("anagraficaToSave", selectedAnagrafica);
                 params.put("monoType", "EDIT");
+                /*
                 params.put("tipoAnagrafica", selectedAnagrafica.getTipo());
+                */
                 break;
             case "CREATE":
                 params.put("anagraficaToSave", new Anagrafiche());
                 params.put("monoType", "CREATE");
-                params.put("tipoAnagrafica", tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getCodice());
+                params.put("tipoAnagrafica", tipiAnagrafica.get(selectedTipoAnagraficaIndex).getCodice());
                 break;
         }
+        String script = "localStorage.removeItem('idAnagrafica');";
+        Clients.evalJavaScript(script);
         AnagraficheMonoViewModel.apriPopup(this, params).addEventListener(Events.ON_CLOSE, new AnagraficheMonoCloseListener(this));
     }
 
-    public void initTipiAnagrafiche() {
-        tipiAnagrafiche.add(new CodDesc("C", "Clienti"));
-        tipiAnagrafiche.add(new CodDesc("F", "Fornitori"));
-        tipiAnagrafiche.add(new CodDesc("T", "Trasportatori"));
-        tipiAnagrafiche.add(new CodDesc("A", "Agenti"));
-        tipiAnagrafiche.add(new CodDesc("P", "Personale"));
-    }
-
-    public void initAnagrafiche(Integer selectedTipoAnagraficaIndex) {
-        anagrafiche = anagraficheService.getAnagraficheFromTipo(tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getCodice(), tipiAnagrafiche.get(selectedTipoAnagraficaIndex).getDescrizione());
+    public void initAnagrafiche(boolean ckClienti, boolean ckFornitori, boolean ckTrasportatori, boolean ckAgenti, boolean ckPersonale) {
+        anagrafiche = anagraficheService.getAnagraficheFromTipo(ckClienti, ckFornitori, ckTrasportatori, ckAgenti, ckPersonale);
         BindUtils.postNotifyChange(null, null, this, "anagrafiche");
     }
 
-    public List<CodDesc> getTipiAnagrafiche() {
-        return tipiAnagrafiche;
+    public List<CodDesc> getTipiAnagrafica() {
+        return tipiAnagrafica;
     }
 
     public void setSelectedAnagrafica(Anagrafiche selectedAnagrafica) {
@@ -142,4 +142,44 @@ public class AnagraficheIndexViewModel {
         BindUtils.postNotifyChange(null, null, this, "removeButtonDisabled");
     }
 
+
+    public boolean isCkClienti() {
+        return ckClienti;
+    }
+
+    public boolean isCkFornitori() {
+        return ckFornitori;
+    }
+
+    public boolean isCkTrasportatori() {
+        return ckTrasportatori;
+    }
+
+    public boolean isCkAgenti() {
+        return ckAgenti;
+    }
+
+    public boolean isCkPersonale() {
+        return ckPersonale;
+    }
+
+    public void setCkClienti(boolean ckClienti) {
+        this.ckClienti = ckClienti;
+    }
+
+    public void setCkFornitori(boolean ckFornitori) {
+        this.ckFornitori = ckFornitori;
+    }
+
+    public void setCkTrasportatori(boolean ckTrasportatori) {
+        this.ckTrasportatori = ckTrasportatori;
+    }
+
+    public void setCkAgenti(boolean ckAgenti) {
+        this.ckAgenti = ckAgenti;
+    }
+
+    public void setCkPersonale(boolean ckPersonale) {
+        this.ckPersonale = ckPersonale;
+    }
 }

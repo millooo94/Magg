@@ -2,7 +2,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="DEPOSITI_INDEX" mode="popup" title="Depositi" border="normal" width="800px" height="600px"
+    <window id="DEPOSITI_INDEX" mode="popup" title="Depositi" border="normal" width="800px" height="700px"
             apply="org.zkoss.bind.BindComposer"
             position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.depositi.DepositiIndexViewModel')"
     >
@@ -17,7 +17,7 @@
                         <column label="Indisponibile" sort="auto" />
                     </columns>
                 </grid>
-                <div style="flex-grow: 1; overflow-y: auto">
+                <div style="flex-grow: 1; overflow-y: scroll">
                     <grid model="@bind(vm.depositi)">
                         <rows>
                             <template name="model" var="each">
