@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class Marche {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "id", precision = 11, nullable = false, columnDefinition = "BIGINT NOT NULL")
+   @Column(name = "id", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL")
    private Long id;
     @Column(name = "marca", nullable = false, columnDefinition = "VARCHAR(100) NOT NULL")
     private String marca;

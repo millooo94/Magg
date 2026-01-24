@@ -22,4 +22,28 @@ public class CategorieRif {
     @Id
     @Column(name = "idcategoriaarrivo", nullable = false, precision = 11, columnDefinition = "INT(11) NOT NULL")
     Long idCategoriaArrivo;
+
+    public Long getIdCategoriaPartenza() {
+        return idCategoriaPartenza;
+    }
+
+    public void setIdCategoriaPartenza(Long idCategoriaPartenza) {
+        this.idCategoriaPartenza = idCategoriaPartenza;
+    }
+
+    public Long getIdCategoriaArrivo() {
+        return idCategoriaArrivo;
+    }
+
+    public void setIdCategoriaArrivo(Long idCategoriaArrivo) {
+        this.idCategoriaArrivo = idCategoriaArrivo;
+    }
+
+    @Override
+    public String toString() {
+        return "CategorieRif{" +
+                "idCategoriaPartenza=" + idCategoriaPartenza +
+                ", idCategoriaArrivo=" + idCategoriaArrivo +
+                '}';
+    }
 }

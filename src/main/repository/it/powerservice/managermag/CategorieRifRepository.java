@@ -11,4 +11,5 @@ import java.util.List;
 public interface CategorieRifRepository extends JpaRepository<CategorieRif, CategorieRifPKId> {
     @Query("SELECT cr FROM CategorieRif cr")
     List<CategorieRif> getCategorieRif();
+
 }

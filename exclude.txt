@@ -1,0 +1,2 @@
+C:\Users\CamilloZK\Desktop\Magg\.git\
+C:\Users\CamilloZK\Desktop\Magg\src\main\resources\application.properties

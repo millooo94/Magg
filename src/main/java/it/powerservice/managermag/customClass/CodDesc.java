@@ -4,6 +4,7 @@ public class CodDesc{
     private String codice;
     private String descrizione;
 
+
     public CodDesc(String codice, String descrizione) {
         this.codice = codice;
         this.descrizione = descrizione;
@@ -27,7 +28,7 @@ public class CodDesc{
 
     @Override
     public String toString() {
-        return "PagFattPa{" +
+        return "CodDesc{" +
                 "codice='" + codice + '\'' +
                 ", descrizione='" + descrizione + '\'' +
                 '}';

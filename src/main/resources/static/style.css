@@ -1,0 +1,31 @@
+.sede-principale {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+input,
+select {
+  width: 150px;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+label {
+  width: 80px;
+}
+
+#indirizzo {
+  width: 250px;
+}
+
+#regione-input,
+#provincia-input,
+#comune-input,
+#cap-input {
+  display: none;
+}

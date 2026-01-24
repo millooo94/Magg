@@ -1,5 +1,6 @@
 package com.powerservice.managermag.categorie;
 
+import com.powerservice.managermag.anagrafiche.AnagraficheIndexViewModel;
 import it.powerservice.managermag.Categorie;
 import it.powerservice.managermag.CategorieService;
 import it.powerservice.managermag.enums.ActionType;
@@ -16,12 +17,16 @@ import java.util.Map;
 @VariableResolver(DelegatingVariableResolver.class)
 public class CategorieShowViewModel {
 
+    private static CategorieIndexViewModel categorieIndexViewModel;
+
     @WireVariable
     CategorieService categorieService;
     private Long parentCategoryId;
     private String codice;
     private String descrizione;
     ActionType action = ActionType.CREATE;
+    private Window window;
+
 
     @Init
     void init() throws SQLException {
@@ -44,15 +49,25 @@ public class CategorieShowViewModel {
         } else {
             categorieService.createCategory(codice, descrizione, parentCategoryId);
         }
+        if (window != null) {
+            categorieIndexViewModel.refreshTreeModel();
+            window.detach();
+        }
     }
 
-    static Window apriPopup( Map<String, Object> params, String action, Long currentCategoryContextMenu) {
+    static Window apriPopup(CategorieIndexViewModel parentModel, Map<String, Object> params, String action, Long currentCategoryContextMenu) {
+        categorieIndexViewModel = parentModel;
         Window window = (Window) Executions.createComponents(
-                "/categorie.new.zul", null, params);
+                "categorie/categorie.show.zul", null, params);
         window.setAttribute("action", action);
         window.setAttribute("parentCategoryId", currentCategoryContextMenu);
 
         return window;
+    }
+
+    @Command
+    public void setWindow(@BindingParam("window") Window window) {
+        this.window = window;
     }
 
 

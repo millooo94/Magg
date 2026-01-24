@@ -8,7 +8,7 @@
         <listbox id="box" model="@bind(vm.marketplaces)">
             <listhead id="listhead" sizable="true" >
                 <listheader label="Tipo" width="60px"/>
-                <listheader label="Descrizione" width="100px"/>
+                <listheader label="Descrizione" width="250px"/>
                 <listheader label="Listino" width="170px"/>
                 <listheader label="Listino Inglese" width="170px"/>
                 <listheader label="Non Esportare Giac. Maga" width="200px"/>

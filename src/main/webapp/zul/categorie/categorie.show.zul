@@ -4,7 +4,8 @@
 
     <window id="CATEGORIE_SHOW" mode="popup" title="Categories" border="normal" width="370px" height="220px"
             apply="org.zkoss.bind.BindComposer"
-            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.CategoryContextMenuModalViewModel')"
+            position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.categorie.CategorieShowViewModel') @bind('window', window)"
+            onCreate="@command('setWindow', window=self)"
     >
         <div class="category-context-menu-modal container">
             <div class="main">

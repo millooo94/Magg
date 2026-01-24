@@ -2,7 +2,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
     xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
 
-    <window id="modalDialog" mode="popup" title="Impostazioni" border="normal" width="1300px" height="850px"
+    <window mode="popup" title="Impostazioni" border="normal" width="1300px" height="850px" class="IMPOSTAZIONI_INDEX"
             apply="org.zkoss.bind.BindComposer"
             position="center,center" closable="true" viewModel="@id('vm') @init('com.powerservice.managermag.impostazioni.ImpostazioniIndexViewModel')"
     >
@@ -47,7 +47,7 @@
                                            <tabpanel>
                                                <listbox model="@bind(vm.impostazioni)" class="rows">
                                                    <template name="model" var="each">
-                                                       <listitem visible="@load(each.isSenzaNomeCategory)">
+                                                       <listitem>
                                                            <listcell class="cell-container">
                                                                <html style="font-size: 14px" content="@load(each.highlightedEtichettaCampo)"/>
                                                                <textbox visible="@load(each.isStringBoxVisible)" value="@bind(each.valoreStringa)"/>
@@ -57,11 +57,13 @@
                                                                          checked="@load(each.isCheckboxChecked)"
                                                                          onCheck="@command('onCheck', row=each, checked=event.checked)"
                                                                />
-                                                              <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
-                                                                   <template name="model" var="item">
-                                                                       <comboitem label="@load(item)" value="@load(item)"/>
-                                                                   </template>
-                                                              </combobox>
+                                                               <div class="custom-combobox" visible="@load(each.isStringSelectBoxVisible)">
+                                                                   <combobox readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                       <template name="model" var="item">
+                                                                           <comboitem label="@load(item)" value="@load(item)"/>
+                                                                       </template>
+                                                                   </combobox>
+                                                               </div>
                                                            </listcell>
                                                        </listitem>
                                                    </template>
@@ -80,11 +82,13 @@
                                                                          checked="@load(each.isCheckboxChecked)"
                                                                          onCheck="@command('onCheck', row=each, checked=event.checked)"
                                                                />
-                                                               <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
-                                                                   <template name="model" var="item">
-                                                                       <comboitem label="@load(item)" value="@load(item)"/>
-                                                                   </template>
-                                                               </combobox>
+                                                               <div class="custom-combobox" visible="@load(each.isStringSelectBoxVisible)">
+                                                                   <combobox readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                       <template name="model" var="item">
+                                                                           <comboitem label="@load(item)" value="@load(item)"/>
+                                                                       </template>
+                                                                   </combobox>
+                                                               </div>
                                                            </listcell>
                                                        </listitem>
                                                    </template>
@@ -104,11 +108,13 @@
                                                                              checked="@load(each.isCheckboxChecked)"
                                                                              onCheck="@command('onCheck', row=each, checked=event.checked)"
                                                                    />
-                                                                   <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
-                                                                       <template name="model" var="item">
-                                                                           <comboitem label="@load(item)" value="@load(item)"/>
-                                                                       </template>
-                                                                   </combobox>
+                                                                   <div class="custom-combobox" visible="@load(each.isStringSelectBoxVisible)">
+                                                                       <combobox readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                           <template name="model" var="item">
+                                                                               <comboitem label="@load(item)" value="@load(item)"/>
+                                                                           </template>
+                                                                       </combobox>
+                                                                   </div>
                                                                </listcell>
                                                            </listitem>
                                                        </template>
@@ -125,11 +131,13 @@
                                                                              checked="@load(each.isCheckboxChecked)"
                                                                              onCheck="@command('onCheck', row=each, checked=event.checked)"
                                                                    />
-                                                                   <combobox visible="@load(each.isStringSelectBoxVisible)" readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
-                                                                       <template name="model" var="item">
-                                                                           <comboitem label="@load(item)" value="@load(item)"/>
-                                                                       </template>
-                                                                   </combobox>
+                                                                   <div class="custom-combobox" visible="@load(each.isStringSelectBoxVisible)">
+                                                                       <combobox readonly="true" model="@bind(vm.getFilteredImpostazioniValori(each))" selectedItem="@bind(each.valoreStringa)">
+                                                                           <template name="model" var="item">
+                                                                               <comboitem label="@load(item)" value="@load(item)"/>
+                                                                           </template>
+                                                                       </combobox>
+                                                                   </div>
                                                                </listcell>
                                                            </listitem>
                                                        </template>

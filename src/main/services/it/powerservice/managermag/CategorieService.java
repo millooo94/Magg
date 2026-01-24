@@ -175,4 +175,8 @@ public class CategorieService {
             DataSourceUtils.releaseConnection(conn, dataSource);
         }
     }
+
+    public void deleteCategory(Long id) {
+        categorieRepository.deleteById(id);
+    }
 }

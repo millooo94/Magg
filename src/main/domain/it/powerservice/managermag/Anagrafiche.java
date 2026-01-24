@@ -18,35 +18,41 @@ public class Anagrafiche {
     @Column(name = "idtrasportatore", precision = 11, columnDefinition = "INT(11) NULL DEFAULT NULL")
     Long idTrasportatore;
     @Column(name = "idlistino", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL DEFAULT '0'")
-    Long idListino;
+    Long idListino = 1L;
     @Column(name = "idtipologiapagamento", precision = 11, columnDefinition = "INT(11) NULL DEFAULT NULL")
     Long idTipologiaPagamento;
     @Column(name = "codice", length = 20, nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
     String codice;
+    /*
     @Column(name = "tipo", length = 20, nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
     @Comment("Un anag. può essere C Cliente / F fornitore / T Trasportatore / A Agente / P Personale")
     String tipo;
+     */
     @Column(name = "ckcliente", columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean ckCliente;
+    Boolean ckCliente = false;
     @Column(name = "ckfornitore", columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean ckFornitore;
+    Boolean ckFornitore = false;
     @Column(name = "cktrasportatore", columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean ckTrasportatore;
+    Boolean ckTrasportatore = false;
     @Column(name = "ckagente", columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean ckAgente;
+    Boolean ckAgente = false;
     @Column(name = "ckpersonale", columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean ckPersonale;
+    Boolean ckPersonale = false;
+    @Column(name = "soggetto", columnDefinition = "VARCHAR(20) NOT NULL")
+    private String soggetto = "P";
     @Column(name = "subcategoria", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     @Comment("Collegata con tabella DIZIONARI con categoriaDizionario=SUBCAT_ANAG , restituisce il campo descrizione del dizionario")
     String subCategoria;
-    @Column(name = "cognomergs", length = 150, nullable = false, columnDefinition = "VARCHAR(150) NOT NULL")
-    String cognomeRgs;
-    @Column(name = "nome", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
+    @Column(name = "cognome", length = 150, nullable = false, columnDefinition = "VARCHAR(150) NOT NULL")
+    String cognome;
+    @Column(name = "nome", length = 150, columnDefinition = "VARCHAR(150) NOT NULL")
     String nome;
+    @Column(name = "ragionesociale", length = 150, columnDefinition = "VARCHAR(150) NULL DEFAULT NULL")
+    String ragioneSociale = "";
     @Column(name = "codsdi", length = 100, columnDefinition = "VARCHAR(100) NULL DEFAULT NULL")
     String codSDI;
     @Column(name = "sesso", length = 1, columnDefinition = "VARCHAR(1) NULL DEFAULT NULL")
-    String sesso;
+    String sesso = "M";
     @Column(name = "prodottieservizi", length = 150, columnDefinition = "VARCHAR(150) NULL DEFAULT NULL")
     String prodottiEServizi;
     @Column(name = "codiva", length = 20, columnDefinition = "VARCHAR(20) NULL DEFAULT NULL")
@@ -71,14 +77,13 @@ public class Anagrafiche {
     @Column(name = "noterapide", columnDefinition = "MEDIUMTEXT NULL DEFAULT NULL")
     String noteRapide;
     @Column(name = "lingua", length = 1, nullable = false, columnDefinition = "VARCHAR(1) NOT NULL DEFAULT 'I'")
-    @Comment("Ex campo LuguaWeb")
-    String lingua;
+    String lingua = "I";
     @Column(name = "fasciaappartenenza", length = 10, columnDefinition = "VARCHAR(10) NULL DEFAULT NULL")
     String fasciaAppartenenza;
     @Column(name = "certificazionealimentare", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean certificazioneAlimentare;
+    Boolean certificazioneAlimentare = false;
     @Column(name = "assicurazione", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean assicurazione;
+    Boolean assicurazione = false;
     @Column(name = "dataassicurazione", columnDefinition = "DATE NULL DEFAULT NULL")
     LocalDate dataAssicurazione;
     @Column(name = "ggchiusura", length = 50, columnDefinition = "VARCHAR(50) NULL DEFUALT NULL")
@@ -87,7 +92,7 @@ public class Anagrafiche {
     String hhChiusura;
     @Column(name = "status", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     @Comment("Collegata con tabella DIZIONARI con categoriaDizionario=STATUS_ANAG , restituisce il campo codice del dizionario")
-    String status;
+    String status = "D";
     @Column(name = "datanoninuso", columnDefinition = "DATE NULL DEFAULT NULL")
     LocalDate dataNonInUso;
     @Column(name = "cciiaa", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
@@ -95,16 +100,16 @@ public class Anagrafiche {
     @Column(name = "enasarco", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     String enasarco;
     @Column(name = "newsletter", precision = 1, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean newsLetter;
+    Boolean newsLetter = false;
     @Column(name = "testoinviomail", columnDefinition = "MEDIUMTEXT NULL DEFAULT NULL")
     String testoInvioMail;
     @Column(name = "revcharge", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean revCharge;
+    Boolean revCharge = false;
     @Column(name = "splitpayment", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAUlT '0'")
-    Boolean splitPayment;
+    Boolean splitPayment = false;
     @Column(name = "ceeextracee", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAUlT '0'")
     @Comment("0=cee 1=extraCee")
-    Boolean ceeExtraCee;
+    Boolean ceeExtraCee = false;
     @Column(name = "colore", length = 50, columnDefinition = "VARCHAR(50) NULL DEFAULT NULL")
     String colore;
     @Column(name = "tipodocumentoidentita", length = 10, columnDefinition = "VARCHAR(10) NULL DEFAULT NULL")
@@ -127,8 +132,88 @@ public class Anagrafiche {
     LocalDateTime dataIns;
     @Column(name = "dataupd", columnDefinition = "DATETIME NULL DEFAULT NULL")
     LocalDateTime dataUpd;
+
+    @PrePersist
+    public void prePersist() {
+        if (dataIns == null) {
+            dataIns = LocalDateTime.now();
+        }
+    }
     @Column(name = "eliminato", precision = 1, nullable = false, columnDefinition = "TINYINT(1) NOT NULL DEFAULT '0'")
-    Boolean eliminato;
+    Boolean eliminato = false;
+
+    public Anagrafiche() {
+    }
+
+    public Anagrafiche(Long id, Long idTrasportatore, Long idListino, Long idTipologiaPagamento, String codice, Boolean ckCliente, Boolean ckFornitore, Boolean ckTrasportatore, Boolean ckAgente, Boolean ckPersonale, String soggetto, String subCategoria, String cognome, String nome, String ragioneSociale, String codSDI, String sesso, String prodottiEServizi, String codIVA, BigDecimal iva, String descrizioneIva, BigDecimal fido, BigDecimal sconto1, BigDecimal sconto2, BigDecimal sconto3, String notes, String noteFisseDocumento, String noteRapide, String lingua, String fasciaAppartenenza, Boolean certificazioneAlimentare, Boolean assicurazione, LocalDate dataAssicurazione, String ggChiusura, String hhChiusura, String status, LocalDate dataNonInUso, String cciiaa, String enasarco, Boolean newsLetter, String testoInvioMail, Boolean revCharge, Boolean splitPayment, Boolean ceeExtraCee, String colore, String tipoDocumentoidentita, String numeroDocumentoidentita, String emessoDaDocumentoidentita, LocalDate dataEmissioneDocumentoIdentita, String provinciaNascita, String comuneNascita, String codiceFidelity, LocalDateTime dataIns, LocalDateTime dataUpd, Boolean eliminato) {
+        Id = id;
+        this.idTrasportatore = idTrasportatore;
+        this.idListino = idListino;
+        this.idTipologiaPagamento = idTipologiaPagamento;
+        this.codice = codice;
+        /*
+        this.tipo = tipo;
+         */
+        this.ckCliente = ckCliente;
+        this.ckFornitore = ckFornitore;
+        this.ckTrasportatore = ckTrasportatore;
+        this.ckAgente = ckAgente;
+        this.ckPersonale = ckPersonale;
+        this.soggetto = soggetto;
+        this.subCategoria = subCategoria;
+        this.cognome = cognome;
+        this.nome = nome;
+        this.ragioneSociale = ragioneSociale;
+        this.codSDI = codSDI;
+        this.sesso = sesso;
+        this.prodottiEServizi = prodottiEServizi;
+        this.codIVA = codIVA;
+        this.iva = iva;
+        this.descrizioneIva = descrizioneIva;
+        this.fido = fido;
+        this.sconto1 = sconto1;
+        this.sconto2 = sconto2;
+        this.sconto3 = sconto3;
+        this.notes = notes;
+        this.noteFisseDocumento = noteFisseDocumento;
+        this.noteRapide = noteRapide;
+        this.lingua = lingua;
+        this.fasciaAppartenenza = fasciaAppartenenza;
+        this.certificazioneAlimentare = certificazioneAlimentare;
+        this.assicurazione = assicurazione;
+        this.dataAssicurazione = dataAssicurazione;
+        this.ggChiusura = ggChiusura;
+        this.hhChiusura = hhChiusura;
+        this.status = status;
+        this.dataNonInUso = dataNonInUso;
+        this.cciiaa = cciiaa;
+        this.enasarco = enasarco;
+        this.newsLetter = newsLetter;
+        this.testoInvioMail = testoInvioMail;
+        this.revCharge = revCharge;
+        this.splitPayment = splitPayment;
+        this.ceeExtraCee = ceeExtraCee;
+        this.colore = colore;
+        this.tipoDocumentoidentita = tipoDocumentoidentita;
+        this.numeroDocumentoidentita = numeroDocumentoidentita;
+        this.emessoDaDocumentoidentita = emessoDaDocumentoidentita;
+        this.dataEmissioneDocumentoIdentita = dataEmissioneDocumentoIdentita;
+        this.provinciaNascita = provinciaNascita;
+        this.comuneNascita = comuneNascita;
+        this.codiceFidelity = codiceFidelity;
+        this.dataIns = dataIns;
+        this.dataUpd = dataUpd;
+        this.eliminato = eliminato;
+    }
+
+    public Anagrafiche(Long id, String codice, String cognome, String nome, String ragioneSociale, String sesso) {
+        this.Id = id;
+        this.codice = codice;
+        this.cognome = cognome;
+        this.nome = nome;
+        this.ragioneSociale = ragioneSociale;
+        this.sesso = sesso;
+    }
 
     public Long getId() {
         return Id;
@@ -170,6 +255,7 @@ public class Anagrafiche {
         this.codice = codice;
     }
 
+    /*
     public String getTipo() {
         return tipo;
     }
@@ -181,17 +267,10 @@ public class Anagrafiche {
     public String getSubCategoria() {
         return subCategoria;
     }
+     */
 
     public void setSubCategoria(String subCategoria) {
         this.subCategoria = subCategoria;
-    }
-
-    public String getCognomeRgs() {
-        return cognomeRgs;
-    }
-
-    public void setCognomeRgs(String cognomeRgs) {
-        this.cognomeRgs = cognomeRgs;
     }
 
     public String getNome() {
@@ -200,6 +279,22 @@ public class Anagrafiche {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCognome() {
+        return cognome;
+    }
+
+    public void setCognome(String cognome) {
+        this.cognome = cognome;
+    }
+
+    public String getRagioneSociale() {
+        return ragioneSociale;
+    }
+
+    public void setRagioneSociale(String ragioneSociale) {
+        this.ragioneSociale = ragioneSociale;
     }
 
     public String getCodSDI() {
@@ -554,6 +649,14 @@ public class Anagrafiche {
         this.ckPersonale = ckPersonale;
     }
 
+    public String getSoggetto() {
+        return soggetto;
+    }
+
+    public void setSoggetto(String soggetto) {
+        this.soggetto = soggetto;
+    }
+
     public String getCodiceFidelity() {
         return codiceFidelity;
     }
@@ -570,15 +673,19 @@ public class Anagrafiche {
                 ", idListino=" + idListino +
                 ", idTipologiaPagamento=" + idTipologiaPagamento +
                 ", codice='" + codice + '\'' +
+                /*
                 ", tipo='" + tipo + '\'' +
+                 */
                 ", ckCliente=" + ckCliente +
                 ", ckFornitore=" + ckFornitore +
                 ", ckTrasportatore=" + ckTrasportatore +
                 ", ckAgente=" + ckAgente +
                 ", ckPersonale=" + ckPersonale +
+                ", soggetto='" + soggetto + '\'' +
                 ", subCategoria='" + subCategoria + '\'' +
-                ", cognomeRgs='" + cognomeRgs + '\'' +
+                ", cognome='" + cognome + '\'' +
                 ", nome='" + nome + '\'' +
+                ", ragioneSociale='" + ragioneSociale + '\'' +
                 ", codSDI='" + codSDI + '\'' +
                 ", sesso='" + sesso + '\'' +
                 ", prodottiEServizi='" + prodottiEServizi + '\'' +
@@ -615,6 +722,7 @@ public class Anagrafiche {
                 ", dataEmissioneDocumentoIdentita=" + dataEmissioneDocumentoIdentita +
                 ", provinciaNascita='" + provinciaNascita + '\'' +
                 ", comuneNascita='" + comuneNascita + '\'' +
+                ", codiceFidelity='" + codiceFidelity + '\'' +
                 ", dataIns=" + dataIns +
                 ", dataUpd=" + dataUpd +
                 ", eliminato=" + eliminato +

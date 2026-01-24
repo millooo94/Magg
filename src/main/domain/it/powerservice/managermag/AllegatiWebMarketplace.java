@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "allegatiwebmarketplace")
 @IdClass(AllegatiWebMarketplacePKId.class)
-public class AllegatiWebMarketplace {
+public class  AllegatiWebMarketplace {
     @Id
     @Column(name = "idallegato", precision = 11, nullable = false, columnDefinition = "INT(11) NOT NULL")
     Long idAllegato;

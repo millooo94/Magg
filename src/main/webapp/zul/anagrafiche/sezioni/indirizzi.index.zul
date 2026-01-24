@@ -1,0 +1,51 @@
+<zk xmlns="http://www.zkoss.org/2005/zul" xmlns:h="http://www.w3.org/1999/xhtml"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:w="http://www.zkoss.org/2005/zk/client"
+    xsi:schemaLocation="http://www.zkoss.org/2005/zul http://www.zkoss.org/2005/zul/zul.xsd">
+
+    <window id="INDIRIZZI_INDEX" height="100%"
+            apply="org.zkoss.bind.BindComposer"
+            viewModel="@id('vm') @init('com.powerservice.managermag.anagrafiche.sezioni.IndirizziIndexViewModel')"
+    >
+
+        <grid model="@bind(vm.indirizzi)">
+            <columns id="indirizzi-columns">
+                <column width="40px">
+                    <checkbox checked="@bind(vm.allIndirizziChecked)" onCheck="@command('onAllIndirizziChecked')"/>
+                </column>
+            </columns>
+            <rows>
+                <template name="model">
+                    <row onClick="@command('onIndirizzoSelected', indirizzo=each)">
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <checkbox value="false" checked="@bind(each.checked)" onCheck="@command('onIndirizzoChecked')"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.referente)"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.nazione)"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.regione)"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.provincia)"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.comune)"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.telefono1)"/>
+                        </cell>
+                        <cell sclass="@bind(each.selected ? 'selected' : '')">
+                            <label value="@load(each.email)"/>
+                        </cell>
+                    </row>
+                </template>
+            </rows>
+        </grid>
+
+
+
+    </window>
+</zk>

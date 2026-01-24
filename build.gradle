@@ -7,6 +7,11 @@ buildscript {
     }
 }
 
+tasks.withType(JavaCompile).configureEach {
+    exclude 'C:/Users/CamilloZK/Desktop/Magg/src/main/resources/static/address'
+}
+
+
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'org.springframework.boot'
@@ -39,8 +44,24 @@ ext {
 
 dependencies {
 
+    /*  per fare a prova devi togliere i commenti qui sotto, sia all'exclure che all'implementation
+    *   poi fare il refresh di gradle ed in bootrun ti darà l'iltimo errore  a cui revamo arrivati
+    *   cioè di class not found e vedi di lavorare per aggiungerla manualmente nella versione che
+    *   invece c'era prima
+    *  */
+
     implementation 'org.springframework.boot:spring-boot-starter-web:3.3.0'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.3.0'
+    implementation ('org.springframework.boot:spring-boot-starter-data-jpa:3.3.0') {
+        /*exclude group: 'jakarta.xml.bind', module: 'jakarta.xml.bind-api'
+        exclude group: 'org.glassfish.jaxb', module: 'jaxb-runtime'*/
+    }
+
+    //aggiunta dopo cn l'exlude sopra
+   /* implementation group: 'jakarta.xml.bind', name: 'jakarta.xml.bind-api', version: '2.3.3'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.3'*/
+
+    //aggiunta dopo - FINE
+
     implementation 'com.mysql:mysql-connector-j:8.4.0'
 
     implementation ("org.zkoss.zkspringboot:zkspringboot-starter:${zkspringbootVersion}")
@@ -62,6 +83,11 @@ dependencies {
 
     implementation 'org.zkoss.zk:zuti:8.0.5-Eval'
 
+    implementation 'org.springframework.boot:spring-boot-starter-tomcat'
+
+
+
+
 
     runtimeOnly "org.slf4j:slf4j-jdk14:1.7.28"
 }
@@ -78,3 +104,61 @@ configurations {
     all*.exclude group: "org.slf4j", module: "log4j-over-slf4j"
     all*.exclude group: "org.slf4j", module: "slf4j-jdk14"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

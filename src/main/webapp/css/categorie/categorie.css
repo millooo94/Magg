@@ -1,6 +1,3 @@
-.z-treecell-content {
-    padding: 0;
-}
 
 .z-menuitem-text {
     font-size: 16px;
@@ -31,3 +28,23 @@
     padding: 7px;
     align-self: end;
 }
+
+.CATEGORIE_INDEX  .z-icon-caret-down:before {
+    position: static;
+}
+
+.CATEGORIE_INDEX .z-treecell-content {
+    padding: 0;
+}
+
+.CATEGORIE_INDEX .modal-footer {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+
+     background-color: #eee;
+     color: white;
+     text-align: center;
+     padding: 10px;
+     border-top: 1px solid #ddd;
+ }

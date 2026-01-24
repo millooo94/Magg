@@ -44,11 +44,11 @@
                                 <listitem context="editPopup" onClick="@command('onClickVariant', variant=each)" onRightClick="@command('onRightClick', variant=each)">
                                     <listcell>
                                         <html visible="@bind(!each.isUpdating)" content="@bind(each.highlightedDescrizione)"/>
-                                        <textbox visible="@bind(each.isUpdating)" value="@bind(each.descrizione)"/>
+                                        <textbox width="110px" visible="@bind(each.isUpdating)" value="@bind(each.descrizione)"/>
                                     </listcell>
                                     <listcell visible="@bind(!each.isUpdating)" label="@bind(each.descrizioneEng)"/>
                                     <listcell visible="@bind(each.isUpdating)">
-                                        <textbox value="@bind(each.descrizioneEng)"/>
+                                        <textbox width="110px" value="@bind(each.descrizioneEng)"/>
                                     </listcell>
                                     <listcell>
                                         <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.obbligatorio)"/>
@@ -106,11 +106,11 @@
                             <listitem context="editPopup" onClick="@command('onClickVariant', variant=each)" onRightClick="@command('onRightClick', variant=each)">
                                 <listcell>
                                     <html visible="@bind(!each.isUpdating)" content="@bind(each.highlightedDescrizione)"/>
-                                    <textbox visible="@bind(each.isUpdating)" value="@bind(each.descrizione)"/>
+                                    <textbox width="110px" visible="@bind(each.isUpdating)" value="@bind(each.descrizione)" onChange="@command('test')"/>
                                 </listcell>
                                 <listcell visible="@bind(!each.isUpdating)" label="@bind(each.descrizioneEng)"/>
                                 <listcell visible="@bind(each.isUpdating)">
-                                    <textbox value="@bind(each.descrizioneEng)"/>
+                                    <textbox width="110px" value="@bind(each.descrizioneEng)"/>
                                 </listcell>
                                 <listcell>
                                     <checkbox disabled="@bind(!each.isUpdating)" checked="@bind(each.obbligatorio)"/>

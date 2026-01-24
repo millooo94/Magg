@@ -56,5 +56,10 @@
         <menupopup id="restorePopup">
             <menuitem  iconSclass="z-icon-trash" label="Ripristina Listino" onClick="@command('onDeleteRestoreListino', action='restore')"/>
         </menupopup>
+
+
+        <script>
+
+        </script>
     </window>
 </zk>

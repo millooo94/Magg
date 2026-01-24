@@ -38,6 +38,9 @@ public class DepositiIndexViewModel {
     @Init
     public void init() {
         depositi = depositiService.getDepositi();
+        for (Depositi d: depositi) {
+            System.out.println(d);
+        }
     }
 
     @Command
@@ -57,15 +60,15 @@ public class DepositiIndexViewModel {
     @NotifyChange({"depositi", "saveButtonDisabled"})
     public void onSaveDepositi() {
         for(Depositi deposito: depositi) {
+            System.out.println(deposito);
             validate(deposito);
             if (deposito.getIsUpdating() && validator.get("codice") && validator.get("nome")) {
                 deposito.setIsUpdating(false);
                 depositiService.saveDeposito(deposito);
-            } else {
-                return;
+                saveButtonDisabled = true;
+                init();
+                Notification.show("Salvati");
             }
-            saveButtonDisabled = true;
-            Notification.show("Salvati");
         }
     }
 
@@ -90,7 +93,7 @@ public class DepositiIndexViewModel {
         BindUtils.postNotifyChange(null, null, this, "depositi");
     }
 
-    public  void refresh() {
+    public void refresh() {
         depositi = depositiService.getDepositi();
         newButtonDisabled = false;
         BindUtils.postNotifyChange(null, null, this, "depositi");
